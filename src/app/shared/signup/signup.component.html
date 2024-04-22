@@ -1,0 +1,184 @@
+<div class="body">
+    <header id="header" class="d-flex align-items-center">
+      <div class="container d-flex align-items-center">
+    
+        <div class="logo me-auto">
+          <h1><a href="">Amenet</a></h1>
+        </div>
+      </div>
+    </header>
+    <div class="vh-100 parent">
+        <div class="d-flex justify-content-center align-items-center p-5">
+            <div class="center-div">
+                <div class="screen">
+                  <div class="screen__content">
+                <form class="row g-3 signup" #form="ngForm" (ngSubmit)="signup()">
+                    <div class="input-group mb-3 signup__field">
+                      <span class="input-group-text" id="basic-addon1">
+                        <i class="bi bi-envelope-at-fill"></i>
+                      </span>
+                      <input name="email" type="text" placeholder="Enter your email address (ie : winner@trador.com)" class="form-control signup__input" [ngClass]="{'is-valid' : email.touched && !email.invalid  , 'is-invalid': email.touched && email.invalid }" id="inputEmail4" aria-label="email" aria-describedby="basic-addon1" [(ngModel)]="user.email"  #email="ngModel" required pattern="^[\w-]+(\.[\w-]+)*@[a-zA-Z\d-]+(\.[a-zA-Z\d-]+)*\.[a-zA-Z]{2,}$">
+                      <div *ngIf="email.invalid && email.touched" class="alert alert-danger invalid-feedback">
+                          Please provide a valid email.
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-6">
+                        <div class="input-group col-md-6 signup__field">
+                          <span class="input-group-text" id="basic-addon1">
+                            <a class="eye" (click)="show()"><i class="bi bi-eye-slash-fill" [ngClass]="{'bi bi-eye-fill': showPassword, 'bi bi-eye-slash-fill': !showPassword}" ></i></a>
+                          </span>
+                          <input id="exampleInputPassword1" placeholder="Enter your password" type="{{ showPassword ? 'text' : 'password' }}" class="form-control signup__input" [ngClass]="{'is-valid' : mdp.touched && !mdp.invalid , 'is-invalid': mdp.touched && mdp.invalid }" aria-label="password" aria-describedby="basic-addon2" (input)="checkPassword()" [(ngModel)]="user.password" #mdp="ngModel" required autocomplete="off" name="password" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,24}$">
+                          <div class="form-label col-12" *ngIf="mdp.touched && mdp.invalid">
+                            <div>
+                              <i [ngClass]="{'bi bi-check-circle-fill green' : isPasswordLengthValid(user.password), 'bi bi-x-circle-fill red' : !isPasswordLengthValid(user.password)}"></i> 
+                              {{ isPasswordLengthValid(user.password) ? 'Password length is valid' : 'Password must be between 8 and 24 characters' }}
+                            </div>
+                            <div>
+                              <i [ngClass]="{'bi bi-check-circle-fill green' : hasUpperCase(user.password), 'bi bi-x-circle-fill red' : !hasUpperCase(user.password)}"></i> 
+                              {{ hasUpperCase(user.password) ? 'You have an uppercase letter' : 'No uppercase letter found' }}
+                            </div>
+                            
+                            <div>
+                              <i [ngClass]="{'bi bi-check-circle-fill green' : hasLowerCase(user.password), 'bi bi-x-circle-fill red' : !hasLowerCase(user.password)}"></i> 
+                              {{ hasLowerCase(user.password) ? 'You have a lowercase letter' : 'No lowercase letter found' }}
+                            </div>
+                            
+                            <div>
+                              <i [ngClass]="{'bi bi-check-circle-fill green' : hasDigit(user.password), 'bi bi-x-circle-fill red' : !hasDigit(user.password)}"></i> 
+                              {{ hasDigit(user.password) ? 'You have a digit' : 'No digit found' }}
+                            </div>
+                            
+                            <div>
+                              <i [ngClass]="{'bi bi-check-circle-fill green' : hasSpecialCharacters(user.password), 'bi bi-x-circle-fill red' : !hasSpecialCharacters(user.password)}"></i> 
+                              {{ hasSpecialCharacters(user.password) ? 'You have a special character' : 'No special character found' }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <div class="input-group col-md-6 signup__field">
+                          <span class="input-group-text" id="basic-addon3">
+                            <i class="bi bi-repeat"></i>
+                            </span>
+                            <input id="exampleInputPassword2" placeholder="Repeat your password" type="password" aria-label="verifPassword" aria-describedby="basic-addon3" class="form-control signup__input" [ngClass]="{'is-valid' : mdp2.touched && checkPassword()  , 'is-invalid': mdp2.touched && !checkPassword()  }" aria-label="Amount (to the nearest dollar)" [(ngModel)]="repeatPassword" #mdp2="ngModel" required autocomplete="off" name="repeatpassword" required>
+                            <div class="alert alert-danger invalid-feedback" *ngIf="mdp2.invalid && mdp2.touched && mdp != mdp2">
+                              No match
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-6">
+                        <div class="input-group col-md-6 signup__field">
+                          <span class="input-group-text" id="basic-addon4">
+                            <i class="bi bi-person-vcard-fill"></i>
+                            </span>
+                          <input name="name" type="text" placeholder="Enter your name" class="form-control signup__input" aria-label="name" aria-describedby="basic-addon4" [ngClass]="{'is-valid' : name.touched && !name.invalid  , 'is-invalid': name.touched && name.invalid }" id="name" [(ngModel)]="user.name" #name="ngModel" required>
+                          <div class="alert alert-danger invalid-feedback" *ngIf="name.invalid && name.touched">
+                            Please enter your name
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <div class="input-group col-md-6 signup__field">
+                          <span class="input-group-text" id="basic-addon5">
+                            <i class="bi bi-person-vcard-fill"></i>
+                            </span>
+                          <input name="familyName" placeholder="Enter your family name" type="text" aria-label="familyName" aria-describedby="basic-addon5" class="form-control signup__input" id="familyName" [(ngModel)]="user.familyName" #family="ngModel" [ngClass]="{'is-valid' : family.touched && !family.invalid  , 'is-invalid': family.touched && family.invalid }" required>
+                          <div class="alert alert-danger invalid-feedback" *ngIf="name.invalid && name.touched">
+                            Please enter your family name
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-6">
+                        <div class="input-group col-md-6 signup__field">
+                          <span class="input-group-text" id="basic-addon6">
+                            <i class="bi bi-cake2-fill"></i>
+                            </span>
+                          <input name="birthDate" type="date" class="form-control signup__input" id="birthday" [(ngModel)]="user.birthDate" #date="ngModel" aria-label="birth" aria-describedby="basic-addon6" required>
+                          <div class="alert alert-danger invalid-feedback" *ngIf="date.invalid && date.touched">
+                            Please enter your birth date
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <div class="input-group col-md-6 signup__field">
+                          <span class="input-group-text" id="basic-addon6">
+                            <i class="bi bi-phone-fill"></i>
+                            </span>
+                          <input name="phone" placeholder="Enter your phone number" type="number" class="form-control signup__input" id="phone" [(ngModel)]="user.phoneNumber" #phone="ngModel" [ngClass]="{'is-valid' : phone.touched && !phone.invalid  , 'is-invalid': phone.touched && phone.invalid }" required>
+                          <div class="alert alert-danger invalid-feedback" *ngIf="phone.invalid && phone.touched">
+                            Please enter your phone number
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="input-group mb-3 signup__field">
+                      <span class="input-group-text" id="basic-addon1">
+                        <i class="bi bi-credit-card"></i>
+                      </span>
+                      <input name="cin" placeholder="Enter your cin or passport number" type="number" class="form-control signup__input" id="cin" [(ngModel)]="user.cin" #cin="ngModel" [ngClass]="{'is-valid' : cin.touched && !cin.invalid  , 'is-invalid': cin.touched && cin.invalid }" required>
+                      <div class="alert alert-danger invalid-feedback" *ngIf="cin.invalid && cin.touched">
+                        Please enter your CIN or passport number
+                      </div>
+                    </div>
+                    <div class="input-group mb-3 signup__field">
+                      <span class="input-group-text" id="basic-addon1">
+                        <i class="bi bi-house"></i>
+                      </span>
+                      <input name="address" type="text" placeholder="Enter your address" class="form-control signup__input" id="inputAddress" placeholder="1234 Main St" [(ngModel)]="address" #addres="ngModel" [ngClass]="{'is-valid' : addres.touched && !addres.invalid  , 'is-invalid': addres.touched && addres.invalid }" required>
+                      <div class="alert alert-danger invalid-feedback" *ngIf="addres.invalid && addres.touched">
+                        Please enter your address
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-4 signup__field">
+                          <input name="city" type="text" placeholder="Enter your city" class="form-control signup__input" id="inputCity" [(ngModel)]="city" #cit="ngModel" [ngClass]="{'is-valid' : cit.touched && !cit.invalid  , 'is-invalid': cit.touched && cit.invalid }" required>
+                          <div class="alert alert-danger invalid-feedback" *ngIf="cit.invalid && cit.touched">
+                            Please enter your city
+                          </div>
+                      </div>
+                      <div class="col-4 signup__field">
+                        <select name="state" id="inputState" class="form-select signup__input select-background" [(ngModel)]="state" #stat="ngModel" required>
+                          <option value="Choose ..." selected="true" disabled>Choose your state</option>
+                          <option *ngFor="let one of states" [value]="one">{{ one }}</option>
+                        </select>
+                          <div class="alert alert-danger invalid-feedback" *ngIf="stat.invalid && stat.touched">
+                            Please enter your state
+                          </div>
+                      </div>
+                      <div class="col-4 signup__field">
+                          <input name="zip" type="number" placeholder="Enter your zip code" class="form-control signup__input" id="inputZip" [(ngModel)]="zip" #zipCode="ngModel" [ngClass]="{'is-valid' : zipCode.touched && !zipCode.invalid  , 'is-invalid': zipCode.touched && zipCode.invalid }" required>
+                          <div class="alert alert-danger invalid-feedback" *ngIf="zipCode.invalid && zipCode.touched">
+                            Please enter your ZIP code
+                          </div>
+                      </div>
+                    </div>
+                    <div class="d-flex justify-content-around">
+                      <a routerLink="/login" class="button signup__submit_right">
+                        <i class="button__icon_right bi bi-chevron-left"></i>
+                        <span class="button__text">Go back to login</span>
+                        </a>
+                      <button type="submit" class="button signup__submit" [disabled]="form.invalid">
+                        <span class="button__text">Sign up</span>
+                        <i class="button__icon bi bi-chevron-right"></i>
+                        </button>
+                    </div>
+                  </form>
+                  </div>
+                  <div class="screen__background">
+                    <span class="screen__background__shape screen__background__shape4"></span>
+                    <span class="screen__background__shape screen__background__shape3"></span>		
+                    <span class="screen__background__shape screen__background__shape2"></span>
+                    <span class="screen__background__shape screen__background__shape1"></span>
+                  </div>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+  </div>
+  <simple-notifications></simple-notifications>

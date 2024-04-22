@@ -1,16 +1,41 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
+import { LoginComponent } from './shared/login/login.component';
+import { HeaderComponent } from './shared/header/header.component';
+import { SignupComponent } from './shared/signup/signup.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
+import { userReducer } from './store/reducers/user.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { UserEffects } from './store/effects/user.effects';
+import { SimpleNotificationsModule } from 'angular2-notifications';
+import { AppRoutingModule, Approutes } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent,
+    HeaderComponent,
+    SignupComponent,
+    HeaderComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    FormsModule,
+    HttpClientModule,
+    RouterModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+  
+    StoreModule.forRoot({ user: userReducer }),
+    EffectsModule.forRoot([UserEffects]),
+    SimpleNotificationsModule.forRoot(),
+    AppRoutingModule, // Import AppRoutingModule instead of RouterModule.forRoot(Approutes)
   ],
   providers: [],
   bootstrap: [AppComponent]
