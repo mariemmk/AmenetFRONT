@@ -15,7 +15,8 @@ import { ConfigProfileComponent } from './config-profile/config-profile.componen
   ],
   imports: [
     CommonModule,
-    ClientRoutingModule
+    ClientRoutingModule,
+    NgModule
   ]
 })
 export class ClientModule { }
