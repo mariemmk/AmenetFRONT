@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './shared/login/login.component';
-import { HeaderComponent } from './shared/header/header.component';
 import { SignupComponent } from './shared/signup/signup.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -14,14 +13,26 @@ import { UserEffects } from './store/effects/user.effects';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { AppRoutingModule, Approutes } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LandingComponent } from './shared/landing/landing.component';
+import { AdminComponent } from './admin/admin.component';
+
+import { ClientComponent } from './client/client.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HeaderComponent,
+  
     SignupComponent,
-    HeaderComponent,
-    LoginComponent
+  
+    LoginComponent,
+    LandingComponent,
+    AdminComponent,
+   
+    ClientComponent,
+   
+
   ],
   imports: [
     BrowserModule,

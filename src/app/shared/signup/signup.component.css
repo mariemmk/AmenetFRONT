@@ -1,0 +1,269 @@
+.parent {
+    padding: 0;
+    overflow: auto;
+	overflow-x: hidden;
+}
+
+.center-div {
+  padding: 3rem 2rem;
+  border-radius: 10px;
+  width: 100%;
+  border-radius: 25px;
+}
+
+.form-label {
+  color: white;
+  font-weight:  bold;
+}
+
+.form-check-label{
+  color: white;
+}
+
+.eye{
+  cursor: pointer;
+  color: #D4D3E8;
+}
+
+.green{
+  color: green;
+}
+
+.red{
+  color: red;
+}
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+
+* {
+	font-family: Raleway, sans-serif;
+}
+
+.body{
+	background: linear-gradient(90deg, #66b788, #407456);
+}
+
+.screen {		
+	background: linear-gradient(90deg, #357442, #66b788);		
+	position: relative;	
+	box-shadow: 0px 0px 24px #89ad93;
+}
+
+.screen__content {
+	z-index: 1;
+	position: relative;	
+	height: 100%;
+}
+
+.screen__background {		
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 0;
+	-webkit-clip-path: inset(0 0 0 0);
+	clip-path: inset(0 0 0 0);	
+}
+
+.screen__background__shape {
+	transform: rotate(45deg);
+	position: absolute;
+}
+
+.screen__background__shape1 {
+	height: 520px;
+	width: 104px;
+	background: #FFF;	
+	top: -200px;
+	right: -120px;	
+	border-radius: 0 72px 0 0;
+}
+
+.screen__background__shape2 {
+	height: 220px;
+	width: 44px;
+	background: #096506;	
+	top: -322px;
+	right: -240;	
+	border-radius: 32px;
+}
+
+.screen__background__shape3 {
+	height: 540px;
+	width: 38px;
+	background: linear-gradient(270deg, #389659, #badec6);
+	top: -174px;
+	right: -240;	
+	border-radius: 32px;
+}
+
+.screen__background__shape4 {
+	height: 400px;
+	width: 40px;
+	background: #096506;	
+	top: 270px;
+	right: -190px;	
+	border-radius: 60px;
+}
+
+.signup {
+	padding: 30px;
+}
+
+.signup__field {
+	padding: 20px 0px;	
+	position: relative;	
+}
+
+.signup__icon {
+	position: absolute;
+	top: 30px;
+	color: #096506;
+}
+
+.signup__icon__right {
+	position: absolute;
+	top: 20px;
+  right: 3rem;
+	color: #fff;
+  z-index: 999;
+}
+
+.signup__input {
+	border: none;
+	border-bottom: 2px solid #D1D1D4;
+	background: none;
+	padding: 10px;
+	padding-left: 24px;
+	font-weight: 700;
+	width: 75%;
+	transition: .2s;
+	color : white;
+	border-radius: 5px;
+	padding: 0.5rem;
+}
+
+.signup__input::placeholder {
+  color: white;
+}
+
+.signup__input:active,
+.signup__input:focus,
+.signup__input:hover {
+	outline: none;
+	border-bottom-color: #096506;
+}
+
+.signup__submit_right {
+	background: #096506;
+	font-size: 14px;
+	margin-top: 30px;
+	padding: 16px 20px;
+	border-radius: 26px;
+	border: 1px solid #096506;
+	text-transform: uppercase;
+	font-weight: 700;
+	display: flex;
+	align-items: center;
+	width: 40%;
+	color: #fff;
+	box-shadow: 0px 2px 2px #D4D3E8;
+	cursor: pointer;
+	transition: .2s;
+}
+
+.signup__submit_right:active,
+.signup__submit_right:focus,
+.signup__submit_right:hover {
+	border-color: #fff;
+	outline: none;
+}
+
+.signup__submit {
+	background: #fff;
+	font-size: 14px;
+	margin-top: 30px;
+	padding: 16px 20px;
+	border-radius: 26px;
+	border: 1px solid #D4D3E8;
+	text-transform: uppercase;
+	font-weight: 700;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+
+	width: 40%;
+	color: #096506;
+	box-shadow: 0px 2px 2px #096506;
+	cursor: pointer;
+	transition: .2s;
+}
+
+.signup__submit:active,
+.signup__submit:focus,
+.signup__submit:hover{
+	border-color: #096506;
+	outline: none;
+}
+
+.button__icon {
+	font-size: 24px;
+	margin-left: auto;
+	color: #096506;
+}
+
+.button__icon_right {
+	font-size: 24px;
+	margin-right: auto;
+	color: #096506;
+}
+
+.button__text{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.button__icon_right {
+	font-size: 24px;
+	margin-right: auto;
+	color: #096506;
+}
+
+#header {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#header .logo h1 {
+  font-size: 28px;
+  margin: 1rem 0  0 4rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-family: "Open Sans", sans-serif;
+}
+
+
+#header .logo  {
+  font-size: 28px;
+  margin: 1rem 0  0 4rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-family: "Open Sans", sans-serif;
+}
+
+#header .logo h1 a,
+#header .logo h1 a:hover {
+  color: #096506;
+  text-decoration: none;
+}
+
+.input-group-text{
+	background-color: transparent;
+	color: white;
+	border: 0;
+	border-bottom:  2px solid #D1D1D4;
+}
+
+.select-background {
+	background-color: #096506; /* Replace with your desired color */
+  }
