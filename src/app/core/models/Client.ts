@@ -1,10 +1,22 @@
+import { FormControl, Validators } from "@angular/forms";
+
 export class Client {
     idUser!: number;
-    userApplicationId!: string;
-    name!: string;
+   
+    firstName!: string;
     photo!: string;
     familyName!: string;
+    otherName!:string;
     phoneNumber!: string;
+    alternativePhoneNumber!:number;
+    stateOfOrigin!:string;
+    gender!: string;
+
+    accountNumber!:String;
+    RIB!:string;
+    accountBalance!:number;
+    accountType!:String;
+
     cin!: number;
     password!: string;
     email!: string;
@@ -20,7 +32,7 @@ export class Client {
     type ?: string;
     codeVerif!: string;
     static fromObject(obj : Client){
-        const { name,...myUser} = obj
+        const { firstName,...myUser} = obj
         return myUser;
     }
 }

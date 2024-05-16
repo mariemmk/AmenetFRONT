@@ -46,7 +46,7 @@ export class UserService {
 
   public signup(user : Client) : Observable<Client>{
     console.log(user);
-    return this.http.post<Client>('http://localhost:8089/amanet/user/add',user)
+    return this.http.post<Client>('http://localhost:8089/amanet/user/creationAccount',user)
   }
 
   public sendEmail(email  : string) {

@@ -32,15 +32,14 @@ export class UserEffects{
       this.router.navigateByUrl("/profile");
       return of({ type: 'NO_ACTION' });
     })
-  )
-);
+  ));
 
 
       logout$ = createEffect(() => this.actions$.pipe(
         ofType(LOGOUT),
         exhaustMap(() => {
             localStorage.removeItem("accessToken");
-            this.router.navigateByUrl("login");
+            this.router.navigateByUrl("/login");
             return of({type : 'NO_ACTION'});
         })
       ))
