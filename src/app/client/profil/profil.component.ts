@@ -16,18 +16,6 @@ export class ProfilComponent  {
 
 
 
-  toTransaction(){
-    this.router.navigateByUrl("transaction")
-  }
-
-  logout(){
-    this.store.dispatch(logout());
-    this.notifier.error('Deconnexion', 'vous avez deconnecté  ',{
-      timeOut: 5000,
-      animate: 'fromRight',
-      position: ['centered-notification']
-    });
-  }
-
+  
 
 }
