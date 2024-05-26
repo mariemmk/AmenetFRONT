@@ -1,10 +1,5 @@
 
 
-  
-
-  
-  
-
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center">
@@ -68,81 +63,49 @@
 
   <main id="main">
 
- 
 
-    <!-- ======= Services Section ======= -->
-    <section id="services" class="services section-bg">
-      <div class="container">
     
-        <div class="section-title" data-aos="fade-up">
-          <h2> SIMULATEUR AMEN BANK</h2>
-          <p>Parce que vos projets urgents n'attendent pas!</p>
+    <div class="container my-5 d-flex justify-content-center">
+        <div class="card p-4 shadow-lg" style="width: 100%; max-width: 500px;">
+          <form (ngSubmit)="simulateCredimWatani()">
+            <h3 class="text-center mb-4">Simulation de Prêt</h3>
+            
+            <div class="mb-3">
+              <label for="amount" class="form-label">Montant :</label>
+              <input type="number" id="amount" [(ngModel)]="amount" name="amount" class="form-control" placeholder="Entrez le montant">
+            </div>
+            <div class="mb-3">
+                <label for="loanType" class="form-label">Type de prêt :</label>
+                <select id="loanType" name="loanType" class="form-select" [(ngModel)]="loanType" required>
+                  <option value="" disabled selected>Choisissez...</option>
+                  <option *ngFor="let one of typeCredim" [value]="one">{{ one }}</option>
+                </select>
+              </div>
+              
+            
+            <div class="mb-3">
+              <label for="duration" class="form-label">Durée :</label>
+              <input type="number" id="duration" [(ngModel)]="duration" name="duration" class="form-control" placeholder="Entrez la durée en années">
+            </div>
+            
+            <button type="submit" class="btn btn-primary w-100">Simuler</button>
+          </form>
+      
+          <!-- Display the result if it exists -->
+          <div *ngIf="result" class="mt-4">
+            <h4 class="text-center mb-4">Résultats de la simulation</h4>
+            <ul class="list-group">
+              <li class="list-group-item"><strong>Type de prêt :</strong> {{ result.loanType }}</li>
+              <li class="list-group-item"><strong>Montant :</strong> {{ result.amount }} TND</li>
+              <li class="list-group-item"><strong>Durée :</strong> {{ result.durationYears }} ans</li>
+              <li class="list-group-item"><strong>Fréquence de remboursement :</strong> {{ result.repaymentFrequency }}</li>
+              <li class="list-group-item"><strong>Nombre d'échéances :</strong> {{ result.numberOfInstallments }}</li>
+              <li class="list-group-item"><strong>Taux d'intérêt :</strong> {{ result.interestRate }} %</li>
+              <li class="list-group-item"><strong>Montant de l'échéance :</strong> {{ result.installmentAmount }} TND</li>
+            </ul>
+          </div>
         </div>
-    
-        <div class="row">
-          <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="zoom-in">
-            <div class="icon-box icon-box-pink">
-              <div class="icon"><i class="bi bi-car-front"></i></div>
-
-              <h4 class="title"><a href="/Auto">AUTO INVEST</a></h4>
-              <p class="description">Le prêt qui tient la route</p>
-            </div>
-          </div>
-    
-          <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="zoom-in" data-aos-delay="100">
-            <div class="icon-box icon-box-cyan">
-              <div class="icon"><i class="fa fa-handshake-o"></i></div>
-              <h4 class="title"><a href="/Preslaire">Présalaire / Aménagement</a></h4>
-              <p class="description">Parce que vos projets urgents n'attendent pas!</p>
-            </div>
-          </div>
-    
-          <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="zoom-in" data-aos-delay="200">
-            <div class="icon-box icon-box-green">
-              <div class="icon"><i class="bi bi-key-fill"></i></div>
-              <h4 class="title"><a href="/Credim">CREDIM/CREDIM WATANI</a></h4>
-              <p class="description">Financez tous vos projets immobiliers!</p>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="zoom-in" data-aos-delay="400">
-            <div class="icon-box icon-box-purple">
-              <div class="icon"><i class="fa fa-handshake-o"></i></div>
-              <h4 class="title"><a href="/Placement">PLACEMENT</a></h4>
-              <p class="description">Gérer de manière optimale vos excédents de trésorerie!</p>
-            </div>
-          </div>
-    
-        </div>
-    
       </div>
-    </section><!-- End Services Section -->
-    
-
-
 
 
    
-
-
-    
-
-  </main><!-- End #main -->
-
-
-
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
- 
-
-   
-  
-    
-
-
-
-
-   
-
-
-
- 
-

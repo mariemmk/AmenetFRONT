@@ -1,12 +1,15 @@
-import { Component, Renderer2 } from '@angular/core';
+import { Component, Renderer2, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { SimulateurService } from 'src/app/Services/simulateur.service';
+import { typeCredim } from './typeCredim';
+import { NgModel } from '@angular/forms';
 
 @Component({
-  selector: 'app-simulator',
-  templateUrl: './simulator.component.html',
-  styleUrls: ['./simulator.component.css']
+  selector: 'app-credim-watani',
+  templateUrl: './credim-watani.component.html',
+  styleUrls: ['./credim-watani.component.css']
 })
-export class SimulatorComponent {
+export class CredimWataniComponent {
   readonly styles: string[] =[
     "assets/landing/css/style.css",
     "assets/landing/vendor/swiper/swiper-bundle.min.css",
@@ -30,7 +33,7 @@ export class SimulatorComponent {
   private styleElements: HTMLLinkElement[] = [];
   private scriptElements: HTMLScriptElement[] = [];
 
-  constructor(private renderer : Renderer2, private router : Router) {}
+  constructor(private renderer : Renderer2, private router : Router , private simulator:SimulateurService) {}
   ngOnInit(): void {
     this.styles.forEach(element => {
       const linkElement = this.renderer.createElement('link');
@@ -66,4 +69,24 @@ export class SimulatorComponent {
     });
   }
 
+
+  amount!: number;
+  loanType!: string;
+  duration!: number;
+  result: any = null; 
+  simulateCredimWatani() {
+    this.simulator.simulateCredimWatani(this.amount, this.duration , this.loanType,).subscribe(response => {
+    this.result=response;
+      console.log(response);
+      // Traitez la réponse ici, par exemple en mettant à jour les variables du composant
+    }, error => {
+      console.error('Erreur lors de la simulation :', error);
+    });
+  }
+
+@ViewChild('typeCredim') genderModel!: NgModel; // Add this line
+
+typeCredim = typeCredim
+
+ 
 }

@@ -1,0 +1,161 @@
+
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center">
+
+      <div class="logo me-auto">
+        <h1><a href="">@mennet</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html"><img src="assets/landing/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
+
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link scrollto" href="#hero">Home</a></li>
+          <li class="dropdown"><a href="#"><span>About</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a class="nav-link scrollto" href="#about">About Us</a></li>
+              <li><a class="nav-link scrollto" href="#team">Team</a></li>
+            </ul>
+          </li>
+          <li><a class="nav-link scrollto" href="#services">Services</a></li>
+          <li><a class="nav-link scrollto" href="#pricing">Pricing</a></li>
+          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+          <!--<li><a class="nav-link scrollto" (click)="destroy('/login')">Login</a></li>-->
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+      
+      <!-- .navbar -->
+
+      <div class="header-social-links d-flex align-items-center">
+        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+      </div>
+
+    </div>
+  </header><!-- End Header -->
+
+
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="fade-up">
+          <div>
+            <h2> Le Partenaire de votre Succès</h2>
+          
+            <a class="btn-get-started scrollto" style="background-color: green; color: white;">Get Started</a>
+          </div>
+        </div>
+        <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="fade-left">
+          <img src="assets/img/amen-bank.png" class="img-fluid" alt="">
+        </div>
+      </div>
+    </div>
+
+  </section><!-- End Hero -->
+
+  <main id="main">
+
+
+     
+    <div class="container my-5 d-flex justify-content-center">
+        <div class="card p-4 shadow-lg" style="width: 100%; max-width: 500px;">
+          <form (ngSubmit)="simulatePlacement()">
+            <h3 class="text-center mb-4">Simulation de Prêt</h3>
+            
+            <div class="mb-3">
+              <label for="amount" class="form-label">Montant :</label>
+              <input type="number" id="amount" [(ngModel)]="amount" name="amount" class="form-control" placeholder="Entrez le montant">
+            </div>
+            
+              
+            
+            <div class="mb-3">
+              <label for="issueDate" class="form-label">Issue Date:</label>
+              <input type="date" id="issueDate" [(ngModel)]="issueDate" name="issueDate" class="form-control" required>
+            </div>
+     
+            <div class="mb-3">
+                <label for="maturityDate" class="form-label">Maturity Date:</label>
+                <input type="date" id="maturityDate" [(ngModel)]="maturityDate" name="maturityDate" class="form-control" required>
+              </div>
+            
+            
+            
+            <button type="submit" class="btn btn-primary w-100">Simuler</button>
+          </form>
+      
+
+
+          
+          <div *ngIf="result" class="mt-4">
+            <h4 class="text-center mb-4">Résultats de la simulation</h4>
+        
+            <div class="container mt-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h2 class="card-title">Advance</h2>
+                                <p class="card-text">Gross Return Advance: {{ result.grossReturnAdvance }}</p>
+                                <p class="card-text">Net Return Advance: {{ result.netReturnAdvance }}</p>
+                                <p class="card-text">Source Tax Advance: {{ result.sourceTaxAdvance }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h2 class="card-title">A Terme</h2>
+                                <p class="card-text">Gross Return Term: {{ result.grossReturnTerm}}</p>
+                                <p class="card-text">Net Return Term: {{ result.netReturnTerm }}</p>
+                                <p class="card-text">Source Tax Term: {{ result.sourceTaxTerm }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h2 class="card-title">Common</h2>
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td>Montant</td>
+                                            <td>{{ result.initialAmount }} TND</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Taux(%)</td>
+                                            <td>{{ result.interestRate }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Emission</td>
+                                            <td>{{ formatDate(result.issueDate) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Echéances</td>
+                                            <td>{{ formatDate(result.maturityDate) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Période</td>
+                                            <td>{{ result.periodDays }} Jours</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+        
+      </div>

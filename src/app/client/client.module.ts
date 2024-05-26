@@ -9,11 +9,13 @@ import { TransactionComponent } from './transaction/transaction.component';
 import { ConfigProfileComponent } from './config-profile/config-profile.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { AppComponent } from '../app.component';
+import { CreditRequestComponent } from './credit-request/credit-request.component';
 
 @NgModule({
   declarations: [
     
     ConfigProfileComponent,
+    CreditRequestComponent,
 
   
   ],   

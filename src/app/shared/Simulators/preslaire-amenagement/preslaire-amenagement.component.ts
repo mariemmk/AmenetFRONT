@@ -1,12 +1,15 @@
-import { Component, Renderer2 } from '@angular/core';
+import { Component, Renderer2, ViewChild } from '@angular/core';
+import { NgModel } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SimulateurService } from 'src/app/Services/simulateur.service';
+import { typeLoans } from './typeLoans';
 
 @Component({
-  selector: 'app-simulator',
-  templateUrl: './simulator.component.html',
-  styleUrls: ['./simulator.component.css']
+  selector: 'app-preslaire-amenagement',
+  templateUrl: './preslaire-amenagement.component.html',
+  styleUrls: ['./preslaire-amenagement.component.css']
 })
-export class SimulatorComponent {
+export class PreslaireAmenagementComponent {
   readonly styles: string[] =[
     "assets/landing/css/style.css",
     "assets/landing/vendor/swiper/swiper-bundle.min.css",
@@ -30,7 +33,7 @@ export class SimulatorComponent {
   private styleElements: HTMLLinkElement[] = [];
   private scriptElements: HTMLScriptElement[] = [];
 
-  constructor(private renderer : Renderer2, private router : Router) {}
+  constructor(private renderer : Renderer2, private router : Router , private simulator:SimulateurService) {}
   ngOnInit(): void {
     this.styles.forEach(element => {
       const linkElement = this.renderer.createElement('link');
@@ -65,5 +68,23 @@ export class SimulatorComponent {
       this.renderer.removeChild(document.head, element);
     });
   }
+
+  amount!: number;
+  loanType!: string;
+  duration!: number;
+  result: any = null; 
+  simulatePreslaireAmenagement() {
+    this.simulator.simulatePreslaireAmenagement(this.amount, this.loanType, this.duration).subscribe(response => {
+    this.result=response;
+      console.log(response);
+      // Traitez la réponse ici, par exemple en mettant à jour les variables du composant
+    }, error => {
+      console.error('Erreur lors de la simulation :', error);
+    });
+  }
+
+@ViewChild('loanType') genderModel!: NgModel; // Add this line
+
+typeLoans= typeLoans;
 
 }

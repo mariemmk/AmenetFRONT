@@ -1,12 +1,14 @@
+import { formatDate } from '@angular/common';
 import { Component, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
+import { SimulateurService } from 'src/app/Services/simulateur.service';
 
 @Component({
-  selector: 'app-simulator',
-  templateUrl: './simulator.component.html',
-  styleUrls: ['./simulator.component.css']
+  selector: 'app-placement',
+  templateUrl: './placement.component.html',
+  styleUrls: ['./placement.component.css']
 })
-export class SimulatorComponent {
+export class PlacementComponent {
   readonly styles: string[] =[
     "assets/landing/css/style.css",
     "assets/landing/vendor/swiper/swiper-bundle.min.css",
@@ -30,7 +32,7 @@ export class SimulatorComponent {
   private styleElements: HTMLLinkElement[] = [];
   private scriptElements: HTMLScriptElement[] = [];
 
-  constructor(private renderer : Renderer2, private router : Router) {}
+  constructor(private renderer : Renderer2, private router : Router , private simulator:SimulateurService) {}
   ngOnInit(): void {
     this.styles.forEach(element => {
       const linkElement = this.renderer.createElement('link');
@@ -66,4 +68,26 @@ export class SimulatorComponent {
     });
   }
 
+
+  amount!: number;
+  issueDate!:Date;
+  maturityDate!:Date;
+  result: any = null; 
+ 
+  
+  formatDate(date: any): string {
+    // Implémentez votre logique de formatage de date ici
+    return formatDate(date, 'yyyy-MM-dd', 'en-US'); // Exemple de format de date
+  }
+  
+  simulatePlacement() {
+    this.simulator.simulateInvestment(this.amount, this.issueDate , this.maturityDate,).subscribe(response => {
+    this.result=response;
+      console.log(response);
+      // Traitez la réponse ici, par exemple en mettant à jour les variables du composant
+    }, error => {
+      console.error('Erreur lors de la simulation :', error);
+    });
+
+}
 }
