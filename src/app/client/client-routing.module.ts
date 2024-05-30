@@ -4,16 +4,19 @@ import { ClientComponent } from './client.component';
 import { DataUserGuard } from '../shared/guard/Data-User.guard';
 import { ProfilComponent } from './profil/profil.component';
 import { TransactionComponent } from './transaction/transaction.component';
+import { CreditRequestComponent } from './credit-request/credit-request.component';
 
 
 
 const routes: Routes = [
   {
-    path: 'client', // Define the parent route here
-    component: ClientComponent,
+    path: 'client', component: ClientComponent,
     children: [
-      { path: 'profile', component: ProfilComponent },
-      { path: 'transaction', component: TransactionComponent },
+      { path:'transaction', component: TransactionComponent },
+      {path:'profile', component:ProfilComponent},
+      {path:'credit',component:CreditRequestComponent}
+
+     
     ]
   },
 ];

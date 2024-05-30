@@ -17,13 +17,15 @@ import { LandingComponent } from './shared/landing/landing.component';
 import { AdminComponent } from './admin/admin.component';
 
 import { ClientComponent } from './client/client.component';
-import { ProfilComponent } from './client/profil/profil.component';
+
 import { TransactionComponent } from './client/transaction/transaction.component';
 import { SimulatorComponent } from './shared/simulator/simulator.component';
 import { AutoInvestComponent } from './shared/Simulators/auto-invest/auto-invest.component';
 import { PreslaireAmenagementComponent } from './shared/Simulators/preslaire-amenagement/preslaire-amenagement.component';
 import { CredimWataniComponent } from './shared/Simulators/credim-watani/credim-watani.component';
 import { PlacementComponent } from './shared/Simulators/placement/placement.component';
+import { ProfilComponent } from './client/profil/profil.component';
+import { CreditRequestComponent } from './client/credit-request/credit-request.component';
 
 
 @NgModule({
@@ -40,7 +42,13 @@ import { PlacementComponent } from './shared/Simulators/placement/placement.comp
         AutoInvestComponent,
         PreslaireAmenagementComponent,
         CredimWataniComponent,
-        PlacementComponent
+        PlacementComponent,
+        ProfilComponent,
+        CreditRequestComponent
+
+
+       
+       
        
     ],
     providers: [],
@@ -56,7 +64,9 @@ import { PlacementComponent } from './shared/Simulators/placement/placement.comp
         StoreModule.forRoot({ user: userReducer }),
         EffectsModule.forRoot([UserEffects]),
         SimpleNotificationsModule.forRoot(),
-        AppRoutingModule,
+        AppRoutingModule,     
+   
+    
   
         
     ]

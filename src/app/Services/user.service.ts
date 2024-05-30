@@ -4,7 +4,7 @@ import { Client } from '../core/models/Client';
 //import { Reclamation } from '../models/Reclamation';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Store } from '@ngrx/store';
-import { currentUser } from 'src/app/store/actions/user.action';
+import { User, currentUser } from 'src/app/store/actions/user.action';
 
 @Injectable({
   providedIn: 'root'
@@ -118,4 +118,9 @@ export class UserService {
   public updateimage(userId: number, formData:any){ 
     return this.http.post<any>(`http://localhost:8089/trador/user/uploadImage/${userId}`, formData)}
 
+
+   
+  afficheIdentiteBancaire(idUser: number): Observable<string> {
+    return this.http.get(`http://localhost:8089/amanet/user/identiteBancaire/${idUser}`, { responseType: 'text' });
+  }
 }
