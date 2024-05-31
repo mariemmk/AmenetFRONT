@@ -13,8 +13,9 @@ export class Client {
     gender!: string;
 
     accountNumber!:String;
-    RIB!:string;
+    rib!:string;
     accountBalance!:number;
+    
     accountType!:String;
 
     cin!: number;

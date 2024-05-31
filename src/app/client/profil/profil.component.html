@@ -1,5 +1,32 @@
-<div class="center-content">
-         <h1>profile</h1>
-   {{user$}}
-  </div>
+
+    <div class="container mt-5" *ngIf="currentUser$ | async as currentUser">
+        <div class="card mx-auto" style="max-width: 800px;" id="bankDetails">
+          <div class="card-header">
+            <h5 class="card-title">Identité Bancaire</h5>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <p><strong>Nom:</strong> {{ currentUser.firstName }} {{ currentUser.familyName }}</p>
+                <p><strong>Solde du compte:</strong> {{ currentUser.accountBalance }}</p>
+                <p><strong>Date de naissance:</strong> {{ currentUser.birthDate | date }}</p>
+                <p><strong>Téléphone:</strong> {{ currentUser.phoneNumber }}</p>
+                <p><strong>Adresse:</strong> {{ currentUser.address }}</p>
+              </div>
+              <div class="col-md-6">
+                <p><strong>Type de compte:</strong> {{ currentUser.accountType }}</p>
+                <p><strong>Numéro de compte:</strong> {{ currentUser.accountNumber }}</p>
+                <p><strong>RIB:</strong> {{ currentUser.rib }}</p>
+                <p><strong>BIC:</strong> CFCTTNTT</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center mt-3">
+          <button class="btn btn-primary" (click)="downloadPDF()">
+            <i class="fa fa-download"></i> Télécharger Identité Bancaire
+          </button>
+        </div>
+      </div>
+
   

@@ -23,4 +23,6 @@ export class  Credit{
      repaymentType!:string;
      propertyOrConstructionAmount!:number;
      status!:string; 
+     user?: any;
+
 }

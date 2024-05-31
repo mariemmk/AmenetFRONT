@@ -118,9 +118,13 @@ export class UserService {
   public updateimage(userId: number, formData:any){ 
     return this.http.post<any>(`http://localhost:8089/trador/user/uploadImage/${userId}`, formData)}
 
-
+    
    
-  afficheIdentiteBancaire(idUser: number): Observable<string> {
-    return this.http.get(`http://localhost:8089/amanet/user/identiteBancaire/${idUser}`, { responseType: 'text' });
-  }
+  public afficheIdentiteBancaire(): Observable<string> {
+      const idUser = this.user$.value?.idUser;
+      if (idUser) {
+        return this.http.get<string>(`http://localhost:8089/amanet/user/identiteBancaire/${idUser}`, { responseType: 'text' as 'json' });
+      }
+      return new Observable<string>();
+    }
 }

@@ -1,7 +1,4 @@
-.center-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Assure que le conteneur prend toute la hauteur de la fenêtre */
-    text-align: center; /* Centre le texte à l'intérieur de l'élément <pre> */
+.card {
+    margin-top: 100px; /* Ajoute une marge en haut de la carte */
   }
+  
