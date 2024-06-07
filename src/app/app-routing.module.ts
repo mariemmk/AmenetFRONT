@@ -13,6 +13,12 @@ import { CredimWataniComponent } from './shared/Simulators/credim-watani/credim-
 import { PreslaireAmenagementComponent } from './shared/Simulators/preslaire-amenagement/preslaire-amenagement.component';
 import { ProfilComponent } from './client/profil/profil.component';
 import { CreditRequestComponent } from './client/credit-request/credit-request.component';
+import { ReclamationComponent } from './client/reclamation/reclamation.component';
+import { AdminComponent } from './admin/admin.component';
+import { EditUserComponent } from './admin/edit-user/edit-user.component';
+import { ListUsersComponent } from './admin/list-users/list-users.component';
+import { ChangeComponent } from './client/change/change.component';
+import { BourseComponent } from './client/bourse/bourse.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -23,6 +29,13 @@ const routes: Routes = [
   {path:'Placement', component:PlacementComponent},
   {path:'Credim', component:CredimWataniComponent},
   {path:'Preslaire', component:PreslaireAmenagementComponent},
+  {path:'editUser',component:EditUserComponent},
+  {path:'ListUser', component:ListUsersComponent},
+  {path:'admin', component:AdminComponent ,  children:[
+   
+  ]}, 
+
+
 
 
  
@@ -30,7 +43,11 @@ const routes: Routes = [
 children:[
           {path:'transaction',component:TransactionComponent},
           {path:'profile', component:ProfilComponent},
-          {path:'credit',component:CreditRequestComponent}
+          {path:'credit',component:CreditRequestComponent},
+          {path:'reclamation',component:ReclamationComponent},
+          {path:'currency',component:ChangeComponent},
+          {path:'Bourse',component:BourseComponent},
+
          ]
         },
 

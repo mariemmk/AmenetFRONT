@@ -28,17 +28,20 @@ export class UserEffects{
     ofType(LOGIN_SUCCESS),
     exhaustMap((payload: { payload: { accessToken: string, user: Client } }) => {
       localStorage.setItem("accessToken", payload.payload.accessToken);
-      localStorage.setItem("id", payload.payload.user.idUser.toString());
+      localStorage.setItem("user", JSON.stringify(payload.payload.user));
       this.router.navigateByUrl("/client");
       return of({ type: 'NO_ACTION' });
     })
   ));
+
+  
 
 
       logout$ = createEffect(() => this.actions$.pipe(
         ofType(LOGOUT),
         exhaustMap(() => {
             localStorage.removeItem("accessToken");
+            localStorage.removeItem("user");
             this.router.navigateByUrl("/login");
             return of({type : 'NO_ACTION'});
         })

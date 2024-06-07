@@ -88,7 +88,7 @@ export class UserService {
   
 
   getAllUsers(): Observable<Client[]> {
-    return this.http.get<Client[]>('http://localhost:8089/trador/user/show');
+    return this.http.get<Client[]>('http://localhost:8089/amanet/user/show');
   }
 
   public updateClient( client:Client ):Observable<Client>{    
@@ -126,5 +126,19 @@ export class UserService {
         return this.http.get<string>(`http://localhost:8089/amanet/user/identiteBancaire/${idUser}`, { responseType: 'text' as 'json' });
       }
       return new Observable<string>();
+    }
+
+
+
+    private flaskApiUrl = 'http://127.0.0.1:85/'; // hedha lien serveur taa python teek badlou kima aandek 
+    eventsf(): Observable<any[]> {
+      const url = `${this.flaskApiUrl}/currency`; //hne thot esm methode kima f app route eli f script python akahaw 
+      return this.http.get<any[]>(url); // ken methode teek post hot post ken get hot get ....
+    }
+
+    
+    Bourse(): Observable<any[]> {
+      const url = `${this.flaskApiUrl}/Bourse`; //hne thot esm methode kima f app route eli f script python akahaw 
+      return this.http.get<any[]>(url); // ken methode teek post hot post ken get hot get ....
     }
 }

@@ -26,6 +26,11 @@ import { CredimWataniComponent } from './shared/Simulators/credim-watani/credim-
 import { PlacementComponent } from './shared/Simulators/placement/placement.component';
 import { ProfilComponent } from './client/profil/profil.component';
 import { CreditRequestComponent } from './client/credit-request/credit-request.component';
+import { ReclamationComponent } from './client/reclamation/reclamation.component';
+import { EditUserComponent } from './admin/edit-user/edit-user.component';
+import { ListUsersComponent } from './admin/list-users/list-users.component';
+import { ChangeComponent } from './client/change/change.component';
+import { BourseComponent } from './client/bourse/bourse.component';
 
 
 @NgModule({
@@ -44,7 +49,12 @@ import { CreditRequestComponent } from './client/credit-request/credit-request.c
         CredimWataniComponent,
         PlacementComponent,
         ProfilComponent,
-        CreditRequestComponent
+        CreditRequestComponent,
+        ReclamationComponent,
+        EditUserComponent,
+        ListUsersComponent,
+        ChangeComponent,
+        BourseComponent
 
 
        

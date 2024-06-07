@@ -1,0 +1,38 @@
+<div class="container table-container mt-5">
+    <div class="table-wrapper">
+      <table class="table table-bordered text-center mx-auto mt-5 ml-5">
+        <thead>
+          <tr class="first-row"> <!-- Ajoute la classe first-row à la première ligne -->
+      
+            <th scope="col">Nom</th>
+            <th scope="col">Ouverture</th>
+            <th scope="col">+ Haut</th>
+            <th scope="col">+ Bas</th>
+            <th scope="col">Volume (titres)</th>
+            <th scope="col">Volume (DT)</th>
+            <th scope="col">Dernier</th>
+            <th scope="col">Variation</th>
+          </tr>
+        </thead>
+       
+        <tbody>
+          <tr *ngFor="let currency of bourseList">
+          
+            <td>{{ currency.Nom}}</td>
+            <td>{{ currency.Ouverture }}</td>
+            <td>{{ currency.Haut }}</td>
+            <td>{{ currency.Bas }}</td>
+            <td>{{ currency.VolumeTitres }}</td>
+            <td>{{ currency.VolumeDT }}</td>
+            <td>{{ currency.Dernier }}</td>
+            <td>{{ currency.Variation }}</td>
+          </tr>
+          <!-- Gérer le cas où currencyList est vide -->
+          <tr *ngIf="bourseList.length === 0">
+            <td colspan="6">Aucune donnée disponible</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

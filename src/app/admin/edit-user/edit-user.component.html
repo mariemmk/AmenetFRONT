@@ -1,1 +1,60 @@
-<p>edit-user works!</p>
+<div class="modal fade" id="userEditModal" tabindex="-1" role="dialog" aria-labelledby="userEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="userDetailsModalLabel">User Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+        </button>
+        </div>
+        <div class="alert alert-danger" *ngIf="!user">
+          An error has occured
+      </div>
+      <div class="modal-body" *ngIf="user">
+          <form class="row g-3">
+      
+              <div class="col-md-6">
+                  <label class="form-label" for="name">Name:</label>
+                  <input class="form-control" type="text" id="name" name="name" >
+              </div>
+      
+              <div class="col-md-6">
+                  <label class="form-label" for="familyName">Family Name:</label>
+                  <input class="form-control" type="text" id="familyName" name="familyName" >
+              </div>
+      
+              <div class="col-md-6">
+                  <label class="form-label" for="phoneNumber">Phone Number:</label>
+                  <input class="form-control" type="text" id="phoneNumber" name="phoneNumber" >
+              </div>
+      
+              <div class="col-md-6">
+                  <label class="form-label" for="cin">CIN:</label>
+                  <input class="form-control" type="text" id="cin" name="cin"  >
+              </div>
+      <!--
+              <label class="form-label" for="password">Password:</label>
+              <input class="form-control" type="password" id="password" name="password" [(ngModel)]="user.password" #ngModel="ngModel">  -->
+      
+              <div class="col-12">
+                  <label class="form-label" for="email">Email:</label>
+                  <input class="form-control" type="email" id="email" name="email" >
+              </div>
+      
+              <div class="col-12">
+                  <label class="form-label" for="birthDate">Birth Date:</label>
+                  <input class="form-control" type="date" id="birthDate" name="birthDate" >
+              </div>
+      
+              
+             
+          </form>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="saveChanges()" data-bs-dismiss="modal">Save Changes</button>
+      </div>
+      
+      </div>
+    </div>
+  </div>
+  

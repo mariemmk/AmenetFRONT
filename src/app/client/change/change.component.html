@@ -1,0 +1,32 @@
+<div class="container table-container mt-5">
+    <div class="table-wrapper">
+      <table class="table table-bordered text-center mx-auto mt-5 ml-5">
+        <thead>
+          <tr class="first-row"> <!-- Ajoute la classe first-row à la première ligne -->
+            <th scope="col">Drapeau</th>
+            <th scope="col">Libellé</th>
+            <th scope="col">Devise</th>
+            <th scope="col">Unité</th>
+            <th scope="col">Achat</th>
+            <th scope="col">Vente</th>
+          </tr>
+        </thead>
+       
+        <tbody>
+          <tr *ngFor="let currency of curencyList">
+            <td><img src="\AmenetFRONT\src\assets\drapeau\{{ currency.Devise }}.jpg" alt="{{ currency.Devise }}" width="30"></td>
+            <td>{{ currency.Libelle}}</td>
+            <td>{{ currency.Devise }}</td>
+            <td>{{ currency.Unite }}</td>
+            <td>{{ currency.Achat }}</td>
+            <td>{{ currency.Vente }}</td>
+          </tr>
+          <!-- Gérer le cas où currencyList est vide -->
+          <tr *ngIf="curencyList.length === 0">
+            <td colspan="6">Aucune donnée disponible</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

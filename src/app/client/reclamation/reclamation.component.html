@@ -1,0 +1,43 @@
+<!-- formulaire -->
+<div class="d-flex justify-content-center">
+    <div class="row border g-0 rounded shadow-sm card" style="max-width: 800px; background-color: rgb(253, 252, 253);    margin-top: 50px; /* Adjust the margin-top to move the form down */
+    padding-top: 50px; /* Additional padding for better spacing */" >
+      <div class="col p-4">
+        <h3>Reclamation</h3>
+        <p class="fw-medium"></p>
+        <form class="row g-3" #form="ngForm" (submit)="submitReclamation()">
+          <div class="col-md-6">
+            <label for="nom" class="form-label">Nom</label>
+            <input type="text" class="form-control" id="nom">
+          </div>
+          <div class="col-md-6">
+            <label for="prenom" class="form-label">Prenom</label>
+            <input type="text" class="form-control" id="prenom">
+          </div>
+          <div class="col-md-6">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email">
+          </div>
+          <div class="col-md-6">
+            <label for="date" class="form-label">Date de Reclamation</label>
+            <input name="birthDate" type="date" class="form-control signup__input" id="date" required [(ngModel)]="reclamation.date">
+            <div class="alert alert-danger invalid-feedback">
+              Please enter 
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="typeReclamation" class="form-label">Type de Reclamation</label>
+            <input type="text" class="form-control" id="TypeReclamation" [(ngModel)]="reclamation.TypeReclamation">
+          </div>
+          <div class="col-md-6">
+            <label for="contenu" class="form-label">Detail de la reclamation</label>
+            <textarea class="form-control" id="contenu" rows="3" [(ngModel)]="reclamation.Contenu"></textarea>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary" (click)="submitReclamation()">Soumettre</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  

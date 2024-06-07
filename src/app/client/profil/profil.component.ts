@@ -28,12 +28,24 @@ export class ProfilComponent  implements OnInit{
   }
 
   ngOnInit(): void {
-    this.userService.getCurrentUser().subscribe(() => {
-      this.userService.afficheIdentiteBancaire().subscribe(details => {
-        console.log(details)
-        this.bankDetails = details;
-      });
+   
+    this.store.dispatch({ type: CURRENT_USER }); // Dispatch the action to load current user
+    this.currentUser$.subscribe(user => {
+      if (user) {
+        console.log('Current User:', user);
+        localStorage.setItem("user", JSON.stringify(user));
+        this.userService.afficheIdentiteBancaire().subscribe(response => {
+          console.log('Bank Details Response:', response);
+          this.bankDetails = response;
+        }, error => {
+          console.error('Error fetching bank details:', error);
+        });
+      } else {
+        console.error('No current user found');
+      }
     });
+     
+    
   }
 
   downloadPDF(): void {

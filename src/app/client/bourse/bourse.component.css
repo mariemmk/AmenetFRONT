@@ -1,0 +1,15 @@
+.table-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Ajuste la hauteur selon tes besoins */
+  }
+  
+  .table-wrapper {
+    max-width: 800px; /* Ajuste la largeur maximum selon tes besoins */
+  }
+  .first-row {
+    background-color: #28a745; /* Couleur verte */
+    color: #fff; /* Couleur du texte en blanc */
+  }
+  

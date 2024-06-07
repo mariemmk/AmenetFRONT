@@ -5,6 +5,7 @@ import { CreditRequestService } from 'src/app/Services/credit-request.service';
 import { UserService } from 'src/app/Services/user.service';
 import { Client } from 'src/app/core/models/Client';
 import { Credit } from 'src/app/core/models/CreditRequest';
+
 import { selectCurrentUser } from 'src/app/core/models/user.selectors';
 
 @Component({
@@ -14,13 +15,10 @@ import { selectCurrentUser } from 'src/app/core/models/user.selectors';
 })
 export class CreditRequestComponent implements OnInit {
   currentUser$: Observable<Client>;
-
   creditRequest: Credit = {
-    agence: '',
     accountNumber: '',
     clientName: '',
     clientCIN: '',
-    clientIdNumber: '',
     clientJobStatus: '',
     clientNetSalary: 0,
     clientOtherIncomeSources: '',
@@ -33,33 +31,45 @@ export class CreditRequestComponent implements OnInit {
     conventionName: '',
     repaymentType: '',
     propertyOrConstructionAmount: 0,
-    id:0,
-    date:  new Date(),
-    status: 'PENDING'
+    id: 0,
+    agence: '',
+    date: new Date(),
+    clientIdNumber: '',
+    status: ''
   };
-  constructor(private creditRequestServise:CreditRequestService ,private store:Store<any> , private userService:UserService){
+
+  constructor(
+    private store: Store<any>,
+    private userService: UserService,
+    private creditService: CreditRequestService
+  ) {
     this.currentUser$ = this.store.pipe(select(selectCurrentUser));
   }
+
   ngOnInit(): void {
     this.userService.getCurrentUser().subscribe(user => {
-      this.creditRequest.user = user;
-     
+      this.creditService.user$.next(user);
+      const userData = localStorage.getItem("user");
+      if (userData) {
+        console.log(JSON.parse(userData));
+      }
     });
   }
 
-  
-   
-  
-  createCreditRequest():void{
-    this.creditRequestServise.createCreditRequest(this.creditRequest).subscribe(
-      Response =>{
-        console.log('Demande de crédit créée avec succès', Response)
-      },
-      error => {
-        console.error('Erreur lors de la création de la demande de crédit', error);
+  submitCreditRequest(): void {
+    this.currentUser$.subscribe(user => {
+      if (user) {
+        this.creditService.createCreditRequest(this.creditRequest).subscribe(
+          response => {
+            console.log('Credit request successful', response);
+          },
+          error => {
+            console.error('Credit request failed', error);
+          }
+        );
+      } else {
+        console.error('No user found');
       }
-    )
-
+    });
   }
-
 }

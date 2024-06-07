@@ -1,102 +1,100 @@
 <article class="main table-wrap col-md-6 mx-auto my-5">
-    <h4 style="color: #03943F; font-weight: bold" class="mb-4">Demande De Credit</h4>
-    <form class="form-horizontal"  (ngSubmit)="createCreditRequest()">
-      <div class="form-group">
-        <label class="control-label col-sm-12" for="accountNumber">Numero De Compte:</label>
-        <div class="col-sm-12">
-          <input
-            type="text"class="form-control" id="accountNumber" name="accountNumber"placeholder="Numero de Compte" [(ngModel)]="creditRequest.accountNumber" required>
-        </div>
+  <h4 style="color: #03943F; font-weight: bold" class="mb-4">Demande De Credit</h4>
+  <form class="form-horizontal" #creditRequestForm="ngForm" (ngSubmit)="submitCreditRequest()">
+    <div class="form-group">
+      <label class="control-label col-sm-12" for="accountNumber">Numero De Compte:</label>
+      <div class="col-sm-12">
+        <input type="text" class="form-control" id="accountNumber" name="accountNumber" placeholder="Numero de Compte" [(ngModel)]="creditRequest.accountNumber">
       </div>
-      <div class="form-group">
-        <label class="control-label col-sm-12" for="clientName">Client Name:</label>
-        <div class="col-sm-12">
-          <input type="text" class="form-control" id="clientName"name="clientName" placeholder="client Name" [(ngModel)]="creditRequest.clientName" required>
-        </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-12" for="clientName">Client Name:</label>
+      <div class="col-sm-12">
+        <input type="text" class="form-control" id="clientName" name="clientName" placeholder="Client Name" required [(ngModel)]="creditRequest.clientName">
       </div>
-      <div class="form-group">
-        <label class="control-label col-sm-12" for="clientCIN">CIN:</label>
-        <div class="col-sm-12">
-          <input type="text" class="form-control"id="clientCIN" name="clientCIN" placeholder="clientCIN" [(ngModel)]="creditRequest.clientCIN" required>
-        </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-12" for="clientCIN">CIN:</label>
+      <div class="col-sm-12">
+        <input type="text" class="form-control" id="clientCIN" name="clientCIN" placeholder="Client CIN" required [(ngModel)]="creditRequest.clientCIN">
       </div>
-      <div class="form-group">
-        <label class="control-label col-sm-12" for="clientJobStatus">client Job Status:</label>
-        <div class="col-sm-12">
-          <input type="text" class="form-control"id="clientJobStatus" name="clientJobStatus" placeholder="clientJobStatus"[(ngModel)]="creditRequest.clientJobStatus" required>
-        </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-12" for="clientJobStatus">Client Job Status:</label>
+      <div class="col-sm-12">
+        <input type="text" class="form-control" id="clientJobStatus" name="clientJobStatus" placeholder="Client Job Status" required [(ngModel)]="creditRequest.clientJobStatus">
       </div>
-      <div class="form-group">
-        <label class="control-label col-sm-12" for="clientNetSalary">Net Salary:</label>
-        <div class="col-sm-12">
-          <input type="number"class="form-control"id="clientNetSalary"  name="clientNetSalary" placeholder="clientNetSalary"  [(ngModel)]="creditRequest.clientNetSalary" required>
-        </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-12" for="clientNetSalary">Net Salary:</label>
+      <div class="col-sm-12">
+        <input type="number" class="form-control" id="clientNetSalary" name="clientNetSalary" placeholder="Net Salary" required [(ngModel)]="creditRequest.clientNetSalary">
       </div>
-      <div class="form-group">
-        <label class="control-label col-sm-12" for="clientOtherIncomeSources">Other Income Sources:</label>
-        <div class="col-sm-12">
-          <input type="text" class="form-control"id="clientOtherIncomeSources" name="clientOtherIncomeSources" placeholder="client Other Income Sources"[(ngModel)]="creditRequest.clientOtherIncomeSources" required>
-        </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-12" for="clientOtherIncomeSources">Other Income Sources:</label>
+      <div class="col-sm-12">
+        <input type="text" class="form-control" id="clientOtherIncomeSources" name="clientOtherIncomeSources" placeholder="Other Income Sources" required [(ngModel)]="creditRequest.clientOtherIncomeSources">
       </div>
-      <div class="form-group">
-        <label class="control-label col-sm-12" for="clientOtherIncomeAmount">Other Income Amount:</label>
-        <div class="col-sm-12">
-          <input type="number"class="form-control"id="clientOtherIncomeAmount"  name="client Other Income Amount" placeholder="clientOtherIncomeAmount"  [(ngModel)]="creditRequest.clientOtherIncomeAmount" required>
-        </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-12" for="clientOtherIncomeAmount">Other Income Amount:</label>
+      <div class="col-sm-12">
+        <input type="number" class="form-control" id="clientOtherIncomeAmount" name="clientOtherIncomeAmount" placeholder="Other Income Amount" required [(ngModel)]="creditRequest.clientOtherIncomeAmount">
       </div>
-      <div class="form-group">
-        <label class="control-label col-sm-12" for="creditAmount">credit Amount:</label>
-        <div class="col-sm-12">
-          <input type="number"class="form-control"id="creditAmount"  name="creditAmount" placeholder="credit Amount" [(ngModel)]="creditRequest.creditAmount"  required>
-        </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-12" for="creditAmount">Credit Amount:</label>
+      <div class="col-sm-12">
+        <input type="number" class="form-control" id="creditAmount" name="creditAmount" placeholder="Credit Amount" required [(ngModel)]="creditRequest.creditAmount">
       </div>
-      <div class="form-group">
-        <label class="control-label col-sm-12" for="creditPurpose">credit Purpose:</label>
-        <div class="col-sm-12">
-          <input type="text" class="form-control"id="creditPurpose" name="creditPurpose" placeholder="credit Purpose" [(ngModel)]="creditRequest.creditPurpose" required>
-        </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-12" for="creditPurpose">Credit Purpose:</label>
+      <div class="col-sm-12">
+        <input type="text" class="form-control" id="creditPurpose" name="creditPurpose" placeholder="Credit Purpose" required [(ngModel)]="creditRequest.creditPurpose">
       </div>
-      <div class="form-group">
-        <label class="control-label col-sm-12" for="repaymentFrequency">repayment Frequency:</label>
-        <div class="col-sm-12">
-          <input type="text" class="form-control"id="repaymentFrequency" name="repaymentFrequency" placeholder="repaymentFrequency"[(ngModel)]="creditRequest.repaymentFrequency" required>
-        </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-12" for="repaymentFrequency">Repayment Frequency:</label>
+      <div class="col-sm-12">
+        <input type="text" class="form-control" id="repaymentFrequency" name="repaymentFrequency" placeholder="Repayment Frequency" required [(ngModel)]="creditRequest.repaymentFrequency">
       </div>
-      <div class="form-group">
-        <label class="control-label col-sm-12" for="durationYears">durationYears:</label>
-        <div class="col-sm-12">
-          <input type="number"class="form-control"id="durationYears"  name="durationYears" placeholder="durationYears"[(ngModel)]="creditRequest.durationYears"   required>
-        </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-12" for="durationYears">Duration Years:</label>
+      <div class="col-sm-12">
+        <input type="number" class="form-control" id="durationYears" name="durationYears" placeholder="Duration Years" required [(ngModel)]="creditRequest.durationYears">
       </div>
-      <div class="form-group">
-        <label class="control-label col-sm-12" for="convention">convention:</label>
-        <div class="col-sm-12">
-          <input type="text" class="form-control"id="convention" name="convention" placeholder="convention" [(ngModel)]="creditRequest.convention" required>
-        </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-12" for="convention">Convention:</label>
+      <div class="col-sm-12">
+        <input type="text" class="form-control" id="convention" name="convention" placeholder="Convention" required [(ngModel)]="creditRequest.convention">
       </div>
-      <div class="form-group">
-        <label class="control-label col-sm-12" for="conventionName">convention Name:</label>
-        <div class="col-sm-12">
-          <input type="text" class="form-control"id="conventionName" name="conventionName" placeholder="conventionName" [(ngModel)]="creditRequest.conventionName" required>
-        </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-12" for="conventionName">Convention Name:</label>
+      <div class="col-sm-12">
+        <input type="text" class="form-control" id="conventionName" name="conventionName" placeholder="Convention Name" required [(ngModel)]="creditRequest.conventionName">
       </div>
-      <div class="form-group">
-        <label class="control-label col-sm-12" for="repaymentType">repayment Type:</label>
-        <div class="col-sm-12">
-          <input type="text" class="form-control"id="repaymentType" name="repaymentType" placeholder="repaymentType" [(ngModel)]="creditRequest.repaymentType" required>
-        </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-12" for="repaymentType">Repayment Type:</label>
+      <div class="col-sm-12">
+        <input type="text" class="form-control" id="repaymentType" name="repaymentType" placeholder="Repayment Type" required [(ngModel)]="creditRequest.repaymentType">
       </div>
-      <div class="form-group">
-        <label class="control-label col-sm-12" for="propertyOrConstructionAmount">property Or Construction Amount:</label>
-        <div class="col-sm-12">
-          <input type="number"class="form-control"id="propertyOrConstructionAmount"  name="propertyOrConstructionAmount" placeholder="propertyOrConstructionAmount"  [(ngModel)]="creditRequest.propertyOrConstructionAmount"  required>
-        </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-12" for="propertyOrConstructionAmount">Property Or Construction Amount:</label>
+      <div class="col-sm-12">
+        <input type="number" class="form-control" id="propertyOrConstructionAmount" name="propertyOrConstructionAmount" placeholder="Property Or Construction Amount" required [(ngModel)]="creditRequest.propertyOrConstructionAmount">
       </div>
-      <div class="form-group">
-        <div class="col-sm-12 text-center">
-          <button type="submit" class="btn btn-primary">Continuer</button>
-        </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-12 text-center">
+        <button type="submit" class="btn btn-primary">Continuer</button>
       </div>
-    </form>
-  </article>
-  
+    </div>
+  </form>
+</article>
