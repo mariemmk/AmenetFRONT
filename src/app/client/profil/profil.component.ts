@@ -1,39 +1,38 @@
-import {  Component, OnInit } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { Observable } from 'rxjs';
 import { UserService } from 'src/app/Services/user.service';
 import { Client } from 'src/app/core/models/Client';
-
-
 import { selectCurrentUser } from 'src/app/core/models/user.selectors';
-import { CURRENT_USER } from 'src/app/store/actions/user.action';
+import { currentUser } from 'src/app/store/actions/user.action';
 
 @Component({
   selector: 'app-profil',
-
- 
   templateUrl: './profil.component.html',
   styleUrls: ['./profil.component.css']
 })
-export class ProfilComponent  implements OnInit{
- 
+export class ProfilComponent implements OnInit {
+
   currentUser$: Observable<Client>;
-  bankDetails: string ='';
+  bankDetails: string = '';
 
   constructor(private store: Store<any>, private userService: UserService) {
     this.currentUser$ = this.store.pipe(select(selectCurrentUser));
   }
 
   ngOnInit(): void {
-   
-    this.store.dispatch({ type: CURRENT_USER }); // Dispatch the action to load current user
+    const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
+    const accessToken = localStorage.getItem('accessToken') || '';
+
+    if (storedUser && storedUser.idUser && accessToken) {
+      this.store.dispatch(currentUser({ user: storedUser, accessToken }));
+    }
+
     this.currentUser$.subscribe(user => {
       if (user) {
         console.log('Current User:', user);
-        localStorage.setItem("user", JSON.stringify(user));
         this.userService.afficheIdentiteBancaire().subscribe(response => {
           console.log('Bank Details Response:', response);
           this.bankDetails = response;
@@ -44,8 +43,6 @@ export class ProfilComponent  implements OnInit{
         console.error('No current user found');
       }
     });
-     
-    
   }
 
   downloadPDF(): void {
@@ -66,7 +63,3 @@ export class ProfilComponent  implements OnInit{
     }
   }
 }
-
-
-
-

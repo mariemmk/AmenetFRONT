@@ -9,9 +9,9 @@
           class="form-control"
           id="CompteADebite"
           name="CompteADebite"
-          [(ngModel)]="transaction.sourceAccountNumber"
+          [(ngModel)]="transfer.sourceAccountNumber"
           placeholder="Compte à débiter"
-          required
+          disabled
         >
       </div>
     </div>
@@ -23,7 +23,7 @@
           class="form-control"
           id="devise"
           name="devise"
-          [(ngModel)]="transaction.devise"
+          [(ngModel)]="transfer.devise"
           placeholder="Devise"
           required
         >
@@ -37,7 +37,7 @@
           class="form-control"
           id="CompteACredite"
           name="CompteACredite"
-          [(ngModel)]="transaction.destinationAccountNumber"
+          [(ngModel)]="transfer.destinationAccountNumber"
           placeholder="Numéro de compte"
           required
         >
@@ -51,7 +51,7 @@
           class="form-control"
           id="Montant"
           name="Montant"
-          [(ngModel)]="transaction.amount"
+          [(ngModel)]="transfer.amount"
           placeholder="Montant"
           required
         >

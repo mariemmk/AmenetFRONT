@@ -31,6 +31,11 @@ import { EditUserComponent } from './admin/edit-user/edit-user.component';
 import { ListUsersComponent } from './admin/list-users/list-users.component';
 import { ChangeComponent } from './client/change/change.component';
 import { BourseComponent } from './client/bourse/bourse.component';
+import { DatePipe } from '@angular/common';
+import { ChatbotComponent } from './shared/chatbot/chatbot.component';
+import { DashbordAdminComponent } from './admin/dashbord-admin/dashbord-admin.component';
+import { ListCreditsComponent } from './admin/list-credits/list-credits.component';
+import { ListTransactionsComponent } from './admin/list-transactions/list-transactions.component';
 
 
 @NgModule({
@@ -54,14 +59,20 @@ import { BourseComponent } from './client/bourse/bourse.component';
         EditUserComponent,
         ListUsersComponent,
         ChangeComponent,
-        BourseComponent
+        BourseComponent,
+        ChatbotComponent,
+        DashbordAdminComponent,
+        ListCreditsComponent,
+        ListTransactionsComponent
 
 
        
        
        
     ],
-    providers: [],
+    providers: [
+        DatePipe  // Add DatePipe to providers
+    ],
     bootstrap: [AppComponent],
     imports: [
         BrowserModule,

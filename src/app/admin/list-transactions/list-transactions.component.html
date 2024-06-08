@@ -1,0 +1,34 @@
+<div *ngIf="loading">Loading...</div>
+<div *ngIf="error">{{ error }}</div>
+<div *ngIf="!loading && !error && transaction.length === 0">No credits found.</div>
+
+<table *ngIf="!loading && !error && transaction.length > 0" class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Account Number</th>
+      <th>Type Transaction</th>
+      <th>Devise</th>
+      <th>Amount</th>
+      <th>Status</th>
+      <th>createdAt</th>
+      <th>modifiedAt</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let credit of transaction">
+      <td>{{ credit.id }}</td>
+      <td>{{ credit.accountNumber }}</td>
+      <td>{{ credit.typeTransaction }}</td>
+      <td>{{ credit.devise }}</td>
+      <td>{{ credit.amount }}</td>
+      <td>{{ credit.status }}</td>
+      <td>{{ credit.createdAt |date }}</td>
+      <td>{{ credit.modifiedAt |date}}</td>
+      <td>
+        
+        <button class="btn btn-danger">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

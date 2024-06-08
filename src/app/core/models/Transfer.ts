@@ -1,5 +1,5 @@
-export class transactionModel{
-    sourceAccountNumber!: string ;
+export class transfer{
+    sourceAccountNumber!: String ;
     destinationAccountNumber!: string ;
     devise!: string ;
     amount!: number ;

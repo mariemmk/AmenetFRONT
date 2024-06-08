@@ -18,15 +18,34 @@ import { User } from 'src/app/store/actions/user.action';
 export class ReclamationComponent implements OnInit {
 
   reclamation:Reclamation = new Reclamation();
- 
+  currentUser$: Observable<Client>;
 
-  constructor(private service:ReclamationService, private store: Store<any>,private userService: UserService){}
-  ngOnInit(): void {
+  constructor(private reclamationService:ReclamationService, private store: Store<any>,private userService: UserService){
+    this.currentUser$ = this.store.pipe(select(selectCurrentUser));
+  }
+  ngOnInit(): void {this.userService.getCurrentUser().subscribe(user => {
+    this.reclamationService.user$.next(user);
+    
+  });
     
   }
   
   submitReclamation():void{
+    this.currentUser$.subscribe(user => {
+      if (user) {
+        this.reclamationService.addreclamation(this.reclamation).subscribe(
+          response => {
+            console.log('Reclamation successful', response);
+          },
+          error => {
+            console.error('Reclamation failed', error);
+          }
+        );
+      } else {
+        console.error('No user found');
+      }
+    });
+  }
    
     
   }
-}

@@ -12,17 +12,23 @@ import { UserService } from 'src/app/Services/user.service';
 export class ListUsersComponent implements OnInit {
   @ViewChild(EditUserComponent)
   modal!: EditUserComponent;
-  users!: Client[] ;
+  users: Client[] = [];  // Initialize the users array
   selectedUser!: Client;
   modalOpen = false;
 
-  constructor(private userService: UserService , private datePipe : DatePipe) { }
+  constructor(private userService: UserService, private datePipe: DatePipe) { }
+
   ngOnInit(): void {
     this.userService.getAllUsers().subscribe((data: Client[]) => {
-      this.users = data.sort((a,b) => a.idUser - b.idUser );
-      this.selectedUser = data[0];
+      this.users = data.sort((a, b) => a.idUser - b.idUser);
+      if (this.users.length > 0) {
+        this.selectedUser = this.users[0];
+      }
+    }, error => {
+      console.error('Error fetching users:', error);
     });
   }
+
   consulterUtilisateur(user: Client) {
     this.selectedUser = user;
     this.modalOpen = true;
@@ -32,29 +38,21 @@ export class ListUsersComponent implements OnInit {
     this.selectedUser = user;
     this.modal.showModal = true;
   }
-  
-  confirmerSuppression() {
-    let index = this.users.indexOf(this.selectedUser);
-    this.users.splice(index,1);
-    this.userService.deleteUser(this.selectedUser.idUser).subscribe(() => {
-    })
-  }
 
-  supprimerUtilisateur(user : Client) {
+  supprimerUtilisateur(user: Client) {
     this.selectedUser = user;
   }
 
-  getFormattedDate(date ?: Date ){
-    if(date){
-      return this.datePipe.transform(date, 'dd-MM-yyyy')
+  getFormattedDate(date?: Date) {
+    if (date) {
+      return this.datePipe.transform(date, 'dd-MM-yyyy');
     }
-    return '--'
+    return '--';
   }
 
-  bloquerUtilisateur(idUser : Number):any{
-    return this.userService.bloquerUtilisateur(idUser).subscribe((response) => {
+  bloquerUtilisateur(idUser: number): any {
+    return this.userService.bloquerUtilisateur(idUser).subscribe(response => {
       console.log(response);
     });
   }
-
 }

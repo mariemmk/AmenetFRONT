@@ -3,10 +3,10 @@ export class  Credit{
 
      agence!:string;
     date!:Date;
-    accountNumber!:string;
+    accountNumber!:String;
 
     clientName!:string;
-     clientCIN!:string;
+     clientCIN!:number;
      clientIdNumber!:string;
      clientJobStatus!:string;
      clientNetSalary!:number;

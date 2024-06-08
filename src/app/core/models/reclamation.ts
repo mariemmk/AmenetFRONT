@@ -1,6 +1,11 @@
 export class Reclamation{
     reclamationId!:number;
     date!:Date;
-    Contenu!:string;
-    TypeReclamation!:string
+    contenu!:string;
+    typeReclamation!:string
+
+    constructor() {
+        this.date = new Date(); // Automatically set the current date
+      }
 }
+

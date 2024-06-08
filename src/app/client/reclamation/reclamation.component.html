@@ -18,20 +18,14 @@
             <label for="email" class="form-label">Email</label>
             <input type="email" class="form-control" id="email">
           </div>
-          <div class="col-md-6">
-            <label for="date" class="form-label">Date de Reclamation</label>
-            <input name="birthDate" type="date" class="form-control signup__input" id="date" required [(ngModel)]="reclamation.date">
-            <div class="alert alert-danger invalid-feedback">
-              Please enter 
-            </div>
-          </div>
+          
           <div class="col-md-6">
             <label for="typeReclamation" class="form-label">Type de Reclamation</label>
-            <input type="text" class="form-control" id="TypeReclamation" [(ngModel)]="reclamation.TypeReclamation">
+            <input type="text" class="form-control" id="TypeReclamation"  name="typeReclamation" [(ngModel)]="reclamation.typeReclamation">
           </div>
           <div class="col-md-6">
             <label for="contenu" class="form-label">Detail de la reclamation</label>
-            <textarea class="form-control" id="contenu" rows="3" [(ngModel)]="reclamation.Contenu"></textarea>
+            <textarea class="form-control" id="contenu" rows="3" name="contenu" [(ngModel)]="reclamation.contenu"></textarea>
           </div>
           <div class="col-12">
             <button type="submit" class="btn btn-primary" (click)="submitReclamation()">Soumettre</button>

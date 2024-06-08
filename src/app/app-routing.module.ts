@@ -19,6 +19,9 @@ import { EditUserComponent } from './admin/edit-user/edit-user.component';
 import { ListUsersComponent } from './admin/list-users/list-users.component';
 import { ChangeComponent } from './client/change/change.component';
 import { BourseComponent } from './client/bourse/bourse.component';
+import { DashbordAdminComponent } from './admin/dashbord-admin/dashbord-admin.component';
+import { ListCreditsComponent } from './admin/list-credits/list-credits.component';
+import { ListTransactionsComponent } from './admin/list-transactions/list-transactions.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -29,9 +32,13 @@ const routes: Routes = [
   {path:'Placement', component:PlacementComponent},
   {path:'Credim', component:CredimWataniComponent},
   {path:'Preslaire', component:PreslaireAmenagementComponent},
-  {path:'editUser',component:EditUserComponent},
-  {path:'ListUser', component:ListUsersComponent},
+
   {path:'admin', component:AdminComponent ,  children:[
+  
+    {path:'ListUser', component:ListUsersComponent},
+    {path:'dashbord',component:DashbordAdminComponent},
+    {path:'ListCredits',component:ListCreditsComponent},
+    {path:'ListTrans',component:ListTransactionsComponent}
    
   ]}, 
 

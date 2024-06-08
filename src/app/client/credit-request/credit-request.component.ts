@@ -5,7 +5,6 @@ import { CreditRequestService } from 'src/app/Services/credit-request.service';
 import { UserService } from 'src/app/Services/user.service';
 import { Client } from 'src/app/core/models/Client';
 import { Credit } from 'src/app/core/models/CreditRequest';
-
 import { selectCurrentUser } from 'src/app/core/models/user.selectors';
 
 @Component({
@@ -18,7 +17,7 @@ export class CreditRequestComponent implements OnInit {
   creditRequest: Credit = {
     accountNumber: '',
     clientName: '',
-    clientCIN: '',
+    clientCIN: 0,
     clientJobStatus: '',
     clientNetSalary: 0,
     clientOtherIncomeSources: '',
@@ -49,9 +48,10 @@ export class CreditRequestComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getCurrentUser().subscribe(user => {
       this.creditService.user$.next(user);
-      const userData = localStorage.getItem("user");
-      if (userData) {
-        console.log(JSON.parse(userData));
+      if (user) {
+        this.creditRequest.clientName = user.firstName;  // Assume user.name is the property for the client's name
+        this.creditRequest.accountNumber = user.accountNumber;  // Assume user.accountNumber is the property for the account number
+        this.creditRequest.clientCIN=user.cin;
       }
     });
   }

@@ -13,10 +13,10 @@
                             <caption>List of users</caption>
                                     <thead>
                                             <tr>
-                                                 <th scope="col">#</th>
-                                                 <th scope="col">User Application Id</th>
+                                                 <th scope="col">#id</th>
+                                    
+                                                 <th scope="col">First Name</th>
                                                  <th scope="col">Family Name</th>
-                                                 <th scope="col">Name</th>
                                                  <th scope="col">Phone Number</th>
                                                  <th scope="col">CIN</th>
                                                  <th scope="col">Email</th>
@@ -122,8 +122,12 @@
 </div>
 
 
+
 <!-- Modal de modification  -->
-<app-edit-user ></app-edit-user>
+
+        <app-edit-user [user]="selectedUser"></app-edit-user>
+
+
 
 
 
@@ -141,7 +145,7 @@
       </div>
       <div class="modal-footer text-end">
         <button type="button" class="btn btn-info" data-bs-dismiss="modal" data-bs-dismiss="modal" aria-label="Fermer">Close</button>
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="confirmerSuppression()">Confirm</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >Confirm</button>
       </div>
     </div>
   </div>
