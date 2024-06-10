@@ -13,6 +13,7 @@ import { ChangeComponent } from './change/change.component';
 import { BourseComponent } from './bourse/bourse.component';
 import { LoanComponent } from './loan/loan.component';
 import { DebitComponent } from './debit/debit.component';
+import { GestionBudgetComponent } from './gestion-budget/gestion-budget.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { DebitComponent } from './debit/debit.component';
     
   
     LoanComponent,
-                              DebitComponent
+                              DebitComponent,
+                          
   ],   
   providers: [],
   bootstrap: [AppComponent],

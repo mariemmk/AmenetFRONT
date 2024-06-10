@@ -22,6 +22,7 @@ import { BourseComponent } from './client/bourse/bourse.component';
 import { DashbordAdminComponent } from './admin/dashbord-admin/dashbord-admin.component';
 import { ListCreditsComponent } from './admin/list-credits/list-credits.component';
 import { ListTransactionsComponent } from './admin/list-transactions/list-transactions.component';
+import { GestionBudgetComponent } from './client/gestion-budget/gestion-budget.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -54,6 +55,7 @@ children:[
           {path:'reclamation',component:ReclamationComponent},
           {path:'currency',component:ChangeComponent},
           {path:'Bourse',component:BourseComponent},
+          {path:'gestionBudget',component:GestionBudgetComponent},
 
          ]
         },
