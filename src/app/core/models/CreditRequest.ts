@@ -1,28 +1,17 @@
-export class  Credit{
-     id!:number;
+import { Client } from "./Client";
 
-     agence!:string;
-    date!:Date;
-    accountNumber!:String;
-
-    clientName!:string;
-     clientCIN!:number;
-     clientIdNumber!:string;
-     clientJobStatus!:string;
-     clientNetSalary!:number;
-     clientOtherIncomeSources!:string;
-    clientOtherIncomeAmount!:number;
-
-    creditAmount!:number;
-    creditPurpose!:string;
-    repaymentFrequency!:string;
-    durationYears!:number;
-    convention!:string;
-     conventionName!:string;
-
-     repaymentType!:string;
-     propertyOrConstructionAmount!:number;
-     status!:string; 
-     user?: any;
-
-}
+export interface Credit {
+     status: string;
+     id: number;
+     loanType: string;
+     amount: number;
+     duration: number;
+     interestRate: number;
+     monthlyPayment: number;
+     requestDate: string;
+     user: Client | null;
+     amortizationSchedule: any[];
+     carPrise?:number;
+     horsePower?:number;
+   }
+   

@@ -37,6 +37,9 @@ import { DashbordAdminComponent } from './admin/dashbord-admin/dashbord-admin.co
 import { ListCreditsComponent } from './admin/list-credits/list-credits.component';
 import { ListTransactionsComponent } from './admin/list-transactions/list-transactions.component';
 import { GestionBudgetComponent } from './client/gestion-budget/gestion-budget.component';
+import { NgChartsModule } from 'ng2-charts';
+import { ExpenseComponent } from './client/expense/expense.component';
+import { IncomeComponent } from './client/income/income.component';
 
 
 @NgModule({
@@ -65,7 +68,9 @@ import { GestionBudgetComponent } from './client/gestion-budget/gestion-budget.c
         DashbordAdminComponent,
         ListCreditsComponent,
         ListTransactionsComponent,
-        GestionBudgetComponent
+        GestionBudgetComponent,
+        ExpenseComponent,
+        IncomeComponent
 
 
        
@@ -77,7 +82,6 @@ import { GestionBudgetComponent } from './client/gestion-budget/gestion-budget.c
     ],
     bootstrap: [AppComponent],
     imports: [
-        BrowserModule,
         FormsModule,
         HttpClientModule,
         RouterModule,
@@ -87,7 +91,10 @@ import { GestionBudgetComponent } from './client/gestion-budget/gestion-budget.c
         StoreModule.forRoot({ user: userReducer }),
         EffectsModule.forRoot([UserEffects]),
         SimpleNotificationsModule.forRoot(),
-        AppRoutingModule,     
+        AppRoutingModule,  
+        NgChartsModule
+        
+          
    
     
   

@@ -1,40 +1,24 @@
-<!-- formulaire -->
-<div class="d-flex justify-content-center">
-    <div class="row border g-0 rounded shadow-sm card" style="max-width: 800px; background-color: rgb(253, 252, 253);    margin-top: 50px; /* Adjust the margin-top to move the form down */
-    padding-top: 50px; /* Additional padding for better spacing */" >
-      <div class="col p-4">
-        <h3>Expense</h3>
-        <p class="fw-medium"></p>
-        <form class="row g-3" #form="ngForm" (submit)="submitExpense()">
-
-          <div class="col-md-6">
-            <label for="amount" class="form-label">Amount</label>
-            <input type="text" class="form-control" id="amount"[(ngModel)]="expenses.amount">
+<div class="container mt-5">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card text-center">
+          <div class="card-header">
+            Income
           </div>
-
-          <div class="col-md-6">
-            <label for="Description" class="form-label">Description</label>
-            <input type="text" class="form-control" id="Description"[(ngModel)]="expenses.Description">
+          <div class="card-body">
+            <button class="btn btn-primary" (click)="openIncomeModal()">Add Income</button>
           </div>
-          
-
-          <div class="col-md-6">
-            <label for="Category" class="form-label">Category :</label>
-            <select id="Category" name="Category" class="form-select" [(ngModel)]="expenses.category" required>
-              <option value="" disabled selected>Choisissez...</option>
-              <option *ngFor="let one of categorys" [value]="one">{{ one }}</option>
-            </select>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card text-center">
+          <div class="card-header">
+            Expenses
           </div>
-          
-          <div class="col-md-6">
-            <label for="date" class="form-label">Date</label>
-            <input type="date" class="form-control" id="date"  name="date" [(ngModel)]="expenses.date">
+          <div class="card-body">
+            <button class="btn btn-danger" (click)="openExpenseModal()">Add Expense</button>
           </div>
-          
-          <div class="col-12">
-            <button type="submit" class="btn btn-primary" (click)="submitExpense()">Soumettre</button>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
   </div>

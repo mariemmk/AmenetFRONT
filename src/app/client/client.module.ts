@@ -14,21 +14,12 @@ import { BourseComponent } from './bourse/bourse.component';
 import { LoanComponent } from './loan/loan.component';
 import { DebitComponent } from './debit/debit.component';
 import { GestionBudgetComponent } from './gestion-budget/gestion-budget.component';
+import { IncomeComponent } from './income/income.component';
+import { ExpenseComponent } from './expense/expense.component';
 
 
 @NgModule({
   declarations: [
-
-  
-  
-  
-    
-  
-    
-  
-    LoanComponent,
-                              DebitComponent,
-                          
   ],   
   providers: [],
   bootstrap: [AppComponent],

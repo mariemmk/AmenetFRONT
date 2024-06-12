@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Credit } from '../core/models/CreditRequest';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -29,13 +29,27 @@ export class CreditRequestService {
 
   public createCreditRequest(creditRequest: Credit): Observable<Credit> {
     const idUser = this.user$.value?.idUser;
+  
     if (idUser) {
-      return this.http.post<Credit>(`${this.host}/amanet/credit/request/${idUser}`, creditRequest);
+      let params = new HttpParams()
+        .set('loanType', creditRequest.loanType)
+        .set('amount', creditRequest.amount.toString())
+        .set('duration', creditRequest.duration.toString());
+  
+      // Ajouter les paramètres facultatifs s'ils sont définis
+      if (creditRequest.carPrise) {
+        params = params.set('carPrice', creditRequest.carPrise.toString());
+      }
+      if (creditRequest.horsePower) {
+        params = params.set('horsepower', creditRequest.horsePower.toString());
+      }
+  
+      return this.http.post<Credit>(`${this.host}/amanet/credit/create/${idUser}`, null, { params });
     }
+  
     throw new Error('No user found');
   }
-
-
+  
   getAllCreditRequests(): Observable<Credit[]> {
     return this.http.get<Credit[]>('http://localhost:8089/amanet/credit/requests');
   }

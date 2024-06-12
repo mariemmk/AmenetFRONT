@@ -32,6 +32,8 @@ export class Client {
     role: string = "USER";
     type ?: string;
     codeVerif!: string;
+
+    income!:number;
     static fromObject(obj : Client){
         const { firstName,...myUser} = obj
         return myUser;

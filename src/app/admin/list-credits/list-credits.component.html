@@ -4,29 +4,34 @@
 
 <table *ngIf="!loading && !error && credits.length > 0" class="table table-striped">
   <thead>
+  
     <tr>
       <th>ID</th>
-      <th>Agence</th>
-      <th>Date</th>
-      <th>Account Number</th>
-      <th>Client Name</th>
-      <th>Client CIN</th>
-      <th>Credit Amount</th>
-      <th>Credit Purpose</th>
-      <th>Status</th>
-      <th>Actions</th>
+      <th>loan Type</th>
+      <th>Amount</th>
+      <th>Duration</th>
+      <th>Interest Rate</th>
+      <th>Request Date</th>
+      <th>Monthly Payment</th>
+      <th>Car Prise</th>
+      <th>Horse Power</th>
+      <th>user</th>
+      <th>status</th>
     </tr>
+
   </thead>
   <tbody>
     <tr *ngFor="let credit of credits">
       <td>{{ credit.id }}</td>
-      <td>{{ credit.agence }}</td>
-      <td>{{ credit.date | date }}</td>
-      <td>{{ credit.accountNumber }}</td>
-      <td>{{ credit.clientName }}</td>
-      <td>{{ credit.clientCIN }}</td>
-      <td>{{ credit.creditAmount }}</td>
-      <td>{{ credit.creditPurpose }}</td>
+      <td>{{ credit.loanType }}</td>
+      <td>{{ credit.amount }}</td>
+      <td>{{ credit.duration}}</td>
+      <td>{{ credit.interestRate }}</td>
+      <td>{{ credit.requestDate }}</td>
+      <td>{{ credit.monthlyPayment }}</td>
+      <td>{{ credit.carPrise }}</td>
+      <td>{{ credit.horsePower }}</td>
+      <td>{{ credit.user}}</td>
       <td>{{ credit.status }}</td>
       <td>
         <button class="btn btn-primary" (click)="approveCredit(credit.id)">Approve</button>

@@ -1,0 +1,29 @@
+<ng-template #incomeModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Add Income</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <label for="income-amount">Amount</label>
+          <input type="number" class="form-control" id="income-amount" [(ngModel)]="income.amount" name="incomeAmount">
+        </div>
+        <div class="form-group">
+          <label for="income-description">Description</label>
+          <input type="text" class="form-control" id="income-description" [(ngModel)]="income.category" name="incomeDescription">
+        </div>
+        <div class="form-group">
+          <label for="date" class="form-label">Date</label>
+          <input type="date" class="form-control" id="date" name="date" [(ngModel)]="income.date">
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.close()">Close</button>
+      <button type="button" class="btn btn-primary" (click)="submitIncomes()">Save</button>
+    </div>
+  </ng-template>
+  

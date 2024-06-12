@@ -6,6 +6,7 @@ import { UserService } from 'src/app/Services/user.service';
 import { Client } from 'src/app/core/models/Client';
 import { Credit } from 'src/app/core/models/CreditRequest';
 import { selectCurrentUser } from 'src/app/core/models/user.selectors';
+import { typeLoans } from './LoansType';
 
 @Component({
   selector: 'app-credit-request',
@@ -14,29 +15,22 @@ import { selectCurrentUser } from 'src/app/core/models/user.selectors';
 })
 export class CreditRequestComponent implements OnInit {
   currentUser$: Observable<Client>;
+  currentUser: Client | null = null;
   creditRequest: Credit = {
-    accountNumber: '',
-    clientName: '',
-    clientCIN: 0,
-    clientJobStatus: '',
-    clientNetSalary: 0,
-    clientOtherIncomeSources: '',
-    clientOtherIncomeAmount: 0,
-    creditAmount: 0,
-    creditPurpose: '',
-    repaymentFrequency: '',
-    durationYears: 0,
-    convention: '',
-    conventionName: '',
-    repaymentType: '',
-    propertyOrConstructionAmount: 0,
+    status: '',
     id: 0,
-    agence: '',
-    date: new Date(),
-    clientIdNumber: '',
-    status: ''
+    loanType: '',
+    amount: 0,
+    duration: 0,
+    interestRate: 0,
+    monthlyPayment: 0,
+    requestDate: '',
+    user: null,  // Initialement null, sera mis à jour avec l'utilisateur connecté
+    amortizationSchedule: [],
+    carPrise:0,
+    horsePower:0,
   };
-
+  showForm: boolean = true; 
   constructor(
     private store: Store<any>,
     private userService: UserService,
@@ -45,23 +39,26 @@ export class CreditRequestComponent implements OnInit {
     this.currentUser$ = this.store.pipe(select(selectCurrentUser));
   }
 
-  ngOnInit(): void {
-    this.userService.getCurrentUser().subscribe(user => {
-      this.creditService.user$.next(user);
-      if (user) {
-        this.creditRequest.clientName = user.firstName;  // Assume user.name is the property for the client's name
-        this.creditRequest.accountNumber = user.accountNumber;  // Assume user.accountNumber is the property for the account number
-        this.creditRequest.clientCIN=user.cin;
-      }
-    });
+  ngOnInit(): void {this.userService.getCurrentUser().subscribe(user => {
+    this.creditService.user$.next(user);
+    
+  });
+    
   }
-
+  
+  loanType = typeLoans;
   submitCreditRequest(): void {
     this.currentUser$.subscribe(user => {
       if (user) {
         this.creditService.createCreditRequest(this.creditRequest).subscribe(
           response => {
+            console.log('Response from server:', response); // Vérifiez la réponse complète du serveur
             console.log('Credit request successful', response);
+   
+            console.log('Updated credit request:', this.creditRequest); // Vérifiez la mise à jour de creditRequest
+            this.creditRequest.amortizationSchedule = response.amortizationSchedule;
+            this.showForm = false; // Masquer le formulaire après avoir soumis la demande
+            this.creditRequest.status = response.status; // Assurez-vous que response.status est correct
           },
           error => {
             console.error('Credit request failed', error);

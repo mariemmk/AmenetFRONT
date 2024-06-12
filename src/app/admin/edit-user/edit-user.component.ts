@@ -63,7 +63,7 @@ export class EditUserComponent implements OnInit {
         alternativePhoneNumber: this.updateUserForm.value.alternativePhoneNumber,
         stateOfOrigin: this.updateUserForm.value.address,
         gender: this.updateUserForm.value.gender,
-        accountNumber:this.updateUserForm.value.accountNumber ,
+        accountNumber: this.updateUserForm.value.accountNumber,
         rib: this.updateUserForm.value.rib,
         accountBalance: this.updateUserForm.value.accountBalance,
         accountType: this.updateUserForm.value.accountType,
@@ -76,7 +76,8 @@ export class EditUserComponent implements OnInit {
         lastPassword: this.updateUserForm.value.lastPassword,
         lastDateChangePassword: this.updateUserForm.value.lastDateChangePassword,
         role: this.updateUserForm.value.role,
-        codeVerif: this.updateUserForm.value.codeVerif
+        codeVerif: this.updateUserForm.value.codeVerif,
+        income: this.updateUserForm.value.income
       };
 
       this.userService.updateUser(updatedUser).subscribe((response) => {
