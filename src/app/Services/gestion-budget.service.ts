@@ -33,5 +33,14 @@ export class GestionBudgetService {
     throw new Error('No user found'); 
     
   }
+
+  getIncomesByUser(idUser: number): Observable<Income[]> {
+    return this.http.get<Income[]>(`http://localhost:8089/amanet/api/incomes/listIncomes/${idUser}`);
+  }
+
+  
+  getExpensesByUser(idUser: number): Observable<expenses[]> {
+    return this.http.get<expenses[]>(`http://localhost:8089/amanet/expense/listExpenses/${idUser}`);
+  }
  
 }

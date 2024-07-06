@@ -12,9 +12,6 @@ export class Client {
     stateOfOrigin!:string;
     gender!: string;
 
-    accountNumber!:String;
-    rib!:string;
-    accountBalance!:number;
     
     accountType!:String;
 
@@ -32,6 +29,7 @@ export class Client {
     role: string = "USER";
     type ?: string;
     codeVerif!: string;
+    
 
     income!:number;
     static fromObject(obj : Client){

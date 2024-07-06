@@ -1,0 +1,48 @@
+/* list-account-requests.component.css */
+
+/* Style général du tableau */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  /* Style des en-têtes de colonne */
+  th {
+    background-color: #f2f2f2;
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  /* Style des lignes du tableau */
+  td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  /* Style des boutons d'action */
+  button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Style pour le message de chargement */
+  .loading-message {
+    margin-top: 20px;
+    font-style: italic;
+  }
+  
+  /* Style pour le message d'erreur */
+  .error-message {
+    margin-top: 20px;
+    color: red;
+  }
+  

@@ -35,7 +35,7 @@
       <td>{{ credit.status }}</td>
       <td>
         <button class="btn btn-primary" (click)="approveCredit(credit.id)">Approve</button>
-        <button class="btn btn-danger">Delete</button>
+        <button class="btn btn-danger" (click)="rejectCredit(credit.id)">Reject</button>
       </td>
     </tr>
   </tbody>

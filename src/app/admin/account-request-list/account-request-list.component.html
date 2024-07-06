@@ -1,0 +1,45 @@
+<div *ngIf="loading">Loading...</div>
+
+<div *ngIf="error" class="error-message">{{ error }}</div>
+
+<div *ngIf="!loading && !error">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Account Type</th>
+        <th>Request Date</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let request of accountRequests">
+        <td>{{ request.idRequest }}</td>
+        <td>{{ request.accountType }}</td>
+        <td>{{ request.requestDate | date }}</td> <!-- Apply date pipe here -->
+        <td>{{ request.status }}</td>
+        <td>
+          <button (click)="approveAccountRequest(request.idRequest)">Approve</button>
+          <button (click)="selectUser(request.user.idUser)">Show User</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Display selected user details -->
+  <div *ngIf="selectedUser">
+    <h3>User Details</h3>
+    <p><strong>ID:</strong> {{ selectedUser.idUser }}</p>
+    <p><strong>Name:</strong> {{ selectedUser.firstName }} {{ selectedUser.familyName }}</p>
+    <p><strong>Email:</strong> {{ selectedUser.email }}</p>
+    <p><strong>phoneNumber:</strong> {{ selectedUser.phoneNumber }}</p>
+    <p><strong>gender:</strong> {{ selectedUser.gender }}</p>
+    <p><strong>cin:</strong> {{ selectedUser.cin }}</p>
+    <p><strong>birthDate:</strong> {{ selectedUser.birthDate |date}}</p>
+
+   
+   
+    <button (click)="clearSelectedUser()">Close</button>
+  </div>
+</div>

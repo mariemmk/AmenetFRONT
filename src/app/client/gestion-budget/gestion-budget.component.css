@@ -1,0 +1,18 @@
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  
+  .card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+  
+  .balance-card, .budget-card, .chart-card {
+    grid-column: span 2;
+    text-align: center;
+  }
+  

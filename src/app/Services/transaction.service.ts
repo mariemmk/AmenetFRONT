@@ -29,7 +29,7 @@ export class TransactionService  {
   constructor(private http: HttpClient) { }
 
   virementCompteACompte(transfer:transfer){
-    return this.http.post(this.host+"/amanet/user/transfer" , transfer , this.httpOptions)
+    return this.http.post('http://localhost:8089/amanet/BankAccount/transfer' , transfer , this.httpOptions)
   }
 
 
@@ -42,7 +42,7 @@ export class TransactionService  {
   }
 
   transfer(request: TransferRequest): Observable<BankResponse> {
-    return this.http.post<BankResponse>(`http://localhost:8089/amanet/user/transfer`, request, this.httpOptions);
+    return this.http.post<BankResponse>(``, request, this.httpOptions);
   }
 
   getTransactions(accountNumber: string, startDate: string, endDate: string): Observable<Transaction[]> {

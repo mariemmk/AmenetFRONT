@@ -40,6 +40,11 @@ import { GestionBudgetComponent } from './client/gestion-budget/gestion-budget.c
 import { NgChartsModule } from 'ng2-charts';
 import { ExpenseComponent } from './client/expense/expense.component';
 import { IncomeComponent } from './client/income/income.component';
+import { VerifCodeComponent } from './shared/verif-code/verif-code.component';
+import { ForgetComponent } from './shared/forget/forget.component';
+import { ResetPasswordFormComponent } from './shared/reset-password-form/reset-password-form.component';
+import { VerificationCodeTimerComponent } from './shared/verification-code-timer/verification-code-timer.component';
+import { AccountRequestListComponent } from './admin/account-request-list/account-request-list.component';
 
 
 @NgModule({
@@ -70,9 +75,14 @@ import { IncomeComponent } from './client/income/income.component';
         ListTransactionsComponent,
         GestionBudgetComponent,
         ExpenseComponent,
-        IncomeComponent
+        IncomeComponent,
+        ForgetComponent,
+        VerifCodeComponent,
+        ResetPasswordFormComponent,
+        VerificationCodeTimerComponent,
 
-
+  
+        AccountRequestListComponent
        
        
        

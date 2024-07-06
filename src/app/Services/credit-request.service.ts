@@ -58,4 +58,8 @@ export class CreditRequestService {
     return this.http.post<Credit>(`http://localhost:8089/amanet/credit/request/${id}/approve`, null , this.httpOptions)
   }
 
+  rejectCreditRequest(id:number):Observable<Credit>{
+    return this.http.post<Credit>(`http://localhost:8089/amanet/credit/request/${id}/reject)`,null, this.httpOptions)
+  }
+
 }

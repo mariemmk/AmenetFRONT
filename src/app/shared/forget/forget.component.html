@@ -1,0 +1,47 @@
+<div class="body">
+    <header id="header" class="d-flex align-items-center">
+        <div class="container d-flex align-items-center">
+            <div class="logo me-auto">
+                <h1><a href="">@mennet</a></h1>
+            </div>
+        </div>
+    </header>
+    <div class="parent" *ngIf="!verif && !reset">
+        <div class="d-flex justify-content-center align-items-center p-5">
+            <div class="center-div position-absolute top-50 start-50 translate-middle">
+                <div class="screen">
+                    <div class="screen__content">
+                        <form class="row g-3 forget" #form="ngForm">
+                            <div class="col-12 forget__field">
+                                <i class="forget__icon bi bi-person"></i>
+                                <input name="email" type="text" placeholder="Enter your email address (ie : foulen@gmail.com)" class="form-control forget__input" [ngClass]="{'is-valid' : mail.touched && !mail.invalid  , 'is-invalid': mail.touched && mail.invalid }" id="inputEmail4" [(ngModel)]="email"  #mail="ngModel" required pattern="^[\w-]+(\.[\w-]+)*@[a-zA-Z\d-]+(\.[a-zA-Z\d-]+)*\.[a-zA-Z]{2,}$">
+                                <div *ngIf="mail.invalid && mail.touched" class="alert alert-danger invalid-feedback">
+                                    Please provide a valid email.
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-around">
+                                <a routerLink="/login" class="button forget__submit_right">
+                                    <i class="button__icon_right bi bi-chevron-left"></i>
+                                    <span class="button__text">Go back to login</span>
+                                </a>
+                                <button type="submit" class="button forget__submit" (click)="submitEmail()" [disabled]="form.invalid">
+                                    <span class="button__text">Send me an email</span>
+                                    <i class="button__icon_left bi bi-chevron-right"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="screen__background">
+                        <span class="screen__background__shape screen__background__shape4"></span>
+                        <span class="screen__background__shape screen__background__shape3"></span>		
+                        <span class="screen__background__shape screen__background__shape2"></span>
+                        <span class="screen__background__shape screen__background__shape1"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-verif-code [email]="email" *ngIf="verif" (resetEmitter)="handleReset($event)"></app-verif-code>
+    <app-reset-password-form [email]="email" *ngIf="reset"></app-reset-password-form>
+</div>
+<simple-notifications></simple-notifications>

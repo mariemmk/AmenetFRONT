@@ -4,6 +4,8 @@ import { Client } from '../core/models/Client';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { currentUser } from 'src/app/store/actions/user.action';
+import { BankAccount } from '../core/models/BankAccount';
+import { AccountRequest } from '../core/models/AccountRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +45,18 @@ export class UserService {
     this.isLoggedin$.next(false);
   }
 
+  public sendEmail(email  : string) {
+    return this.http.post<string>('http://localhost:8089/amanet/user/send-verification-code', email)
+  }
+
+
+  public verifyCode(code : string, email : string){
+    return this.http.post<any>('http://localhost:8089/amanet/user/verify-code?verificationCode='+code,email)
+}
+
+public resetPassword(credentials: {email : string, newPass : string}){
+  return this.http.post('http://localhost:8089/amanet/user/changePassword', credentials);
+}
   public getCurrentUser(): Observable<Client> {
     this.accessToken = localStorage.getItem('accessToken') || '';
     return this.http.post<Client>(`${this.host}/amanet/auth/getCurrentUser`, { user: null, accessToken: this.accessToken }).pipe(
@@ -120,5 +134,18 @@ export class UserService {
   public Bourse(): Observable<any[]> {
     const url = `${this.flaskApiUrl}/Bourse`;
     return this.http.get<any[]>(url);
+  }
+
+  getBankAccounts(idUser: number): Observable<BankAccount> {
+    return this.http.get<BankAccount>(`http://localhost:8089/amanet/BankAccount/user/${idUser}`);
+  }
+
+
+  getListAccountRequests():Observable<AccountRequest[]>{
+    return this.http.get<AccountRequest[]>('http://localhost:8089/amanet/user/accountRequests');
+  }
+
+  approveAccountRequest(idRequest:number):Observable<AccountRequest>{
+    return this.http.post<AccountRequest>(`http://localhost:8089/amanet/user/approve-request/${idRequest}` , null , this.httpOptions)
   }
 }

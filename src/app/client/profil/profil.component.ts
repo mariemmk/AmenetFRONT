@@ -1,9 +1,11 @@
+// profil.component.ts
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { Observable } from 'rxjs';
 import { UserService } from 'src/app/Services/user.service';
+import { BankAccount } from 'src/app/core/models/BankAccount';
 import { Client } from 'src/app/core/models/Client';
 import { selectCurrentUser } from 'src/app/core/models/user.selectors';
 import { currentUser } from 'src/app/store/actions/user.action';
@@ -16,7 +18,7 @@ import { currentUser } from 'src/app/store/actions/user.action';
 export class ProfilComponent implements OnInit {
 
   currentUser$: Observable<Client>;
-  bankDetails: string = '';
+  bankAccount!: BankAccount;
 
   constructor(private store: Store<any>, private userService: UserService) {
     this.currentUser$ = this.store.pipe(select(selectCurrentUser));
@@ -33,11 +35,11 @@ export class ProfilComponent implements OnInit {
     this.currentUser$.subscribe(user => {
       if (user) {
         console.log('Current User:', user);
-        this.userService.afficheIdentiteBancaire().subscribe(response => {
-          console.log('Bank Details Response:', response);
-          this.bankDetails = response;
+        this.userService.getBankAccounts(user.idUser).subscribe(response => {
+          console.log('Bank Accounts Response:', response);
+          this.bankAccount = response;
         }, error => {
-          console.error('Error fetching bank details:', error);
+          console.error('Error fetching bank accounts:', error);
         });
       } else {
         console.error('No current user found');

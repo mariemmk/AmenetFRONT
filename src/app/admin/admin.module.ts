@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { DashbordAdminComponent } from './dashbord-admin/dashbord-admin.component';
 import { ListCreditsComponent } from './list-credits/list-credits.component';
 import { ListTransactionsComponent } from './list-transactions/list-transactions.component';
+import { AccountRequestListComponent } from './account-request-list/account-request-list.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { ListTransactionsComponent } from './list-transactions/list-transactions
 
   
   
+
   ],
   imports: [
     CommonModule,

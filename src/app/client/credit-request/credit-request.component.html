@@ -46,9 +46,12 @@
 </article>
 <div class="col-md-6 mx-auto my-5" style="margin-left: 50px;"  style="margin-top: 50px;">
 <div *ngIf="!showForm">
-  <h5 class="text-center">Credit Status: {{ creditRequest.status }}</h5>
+  <div class="status-box mb-4" style="margin-top: 100px;">
+    <h5 class="text-center">Credit Status: {{ creditRequest.status }}</h5>
+  </div>
 
   <!-- Tableau d'amortissement -->
+  <div #bankDetails>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -61,12 +64,19 @@
     <tbody>
       <tr *ngFor="let entry of creditRequest.amortizationSchedule">
         <td>{{ entry.month }}</td>
-        <td>{{ entry.principal | currency }}</td>
-        <td>{{ entry.interest | currency }}</td>
-        <td>{{ entry.remainingBalance | currency }}</td>
+        <td>{{ entry.principal  }}</td>
+        <td>{{ entry.interest }}</td>
+        <td>{{ entry.remainingBalance  }}</td>
       </tr>
     </tbody>
   </table>
+
+  <!-- Bouton de téléchargement du tableau d'amortissement -->
+  <div class="text-center mt-4">
+    <button class="btn btn-success" (click)="downloadPDF()">Download Amortization Schedule</button>
+  </div>
 </div>
+
+
 
 </div>

@@ -23,10 +23,13 @@ import { DashbordAdminComponent } from './admin/dashbord-admin/dashbord-admin.co
 import { ListCreditsComponent } from './admin/list-credits/list-credits.component';
 import { ListTransactionsComponent } from './admin/list-transactions/list-transactions.component';
 import { GestionBudgetComponent } from './client/gestion-budget/gestion-budget.component';
+import { ForgetComponent } from './shared/forget/forget.component';
+import { AccountRequestListComponent } from './admin/account-request-list/account-request-list.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   {path: 'signup', component:SignupComponent},
+  {path:'forget',component:ForgetComponent},
   {path:'Landing', component:LandingComponent},
   {path:'simulator', component:SimulatorComponent},
   {path:'Auto', component:AutoInvestComponent},
@@ -39,7 +42,8 @@ const routes: Routes = [
     {path:'ListUser', component:ListUsersComponent},
     {path:'dashbord',component:DashbordAdminComponent},
     {path:'ListCredits',component:ListCreditsComponent},
-    {path:'ListTrans',component:ListTransactionsComponent}
+    {path:'ListTrans',component:ListTransactionsComponent},
+    {path:'ListAccountRequest', component:AccountRequestListComponent}
    
   ]}, 
 

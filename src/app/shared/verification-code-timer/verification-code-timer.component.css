@@ -1,0 +1,32 @@
+.timer-container {
+    position: relative;
+    text-align: center;
+  }
+  
+  #countdown {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  .circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: #3498db;
+    height: 3rem;
+    width: 3rem;
+    animation: countdown linear infinite;
+  }
+  
+  @keyframes countdown {
+    0% {
+      transform: translate(-50%, -50%) rotate(0deg) scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-50%, -50%) rotate(360deg) scale(0);
+      opacity: 0;
+    }
+  }

@@ -36,4 +36,11 @@ error: string | null = null;
     });
   }
 
+  rejectCredit(creditId:number):void{
+    this.creditRequestService.rejectCreditRequest(creditId).subscribe((rejectedCredit)=>{
+      this.credits=this.credits.map(credit =>
+        credit.id ===creditId ? rejectedCredit:credit);
+  });
+  }
+
 }
