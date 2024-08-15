@@ -20,8 +20,6 @@
       <th>postOccupe</th>
       <th>address employeur</th>
       <th>creditEnCours</th>
-      <th>fiche de paie</th>
-      <th>carte CIN</th>
       <th>user</th>
       <th>status</th>
     </tr>
@@ -36,23 +34,14 @@
       <td>{{ credit.interestRate }}</td>
       <td>{{ credit.requestDate }}</td>
       <td>{{ credit.monthlyPayment }}</td>
-      <td>{{ credit.carPrise }}</td>
+      <td>{{ credit.carPrice }}</td>
       <td>{{ credit.horsePower }}</td>
       <td>{{credit.revenuMensuels}}</td>
       <td>{{credit.postOccupe}}</td>
       <td>{{credit.employeur}}</td>
       <td>{{credit.addressEmplyeur}}</td>
       <td>{{credit.creditEnCours}}</td>
-      <td>
-        <a *ngIf="credit.ficheDePaie" [href]="credit.ficheDePaie" target="_blank">
-          <i class="bi bi-file-pdf-fill"></i>
-        </a>
-      </td>
-      <td>
-        <a *ngIf="credit.cinCard" [href]="credit.cinCard" target="_blank">
-          <i class="bi bi-file-pdf-fill"></i>
-        </a>
-      </td>
+     
       <td>{{ credit.user?.idUser}}</td>
       <td>{{ credit.status }}</td>
       <td>

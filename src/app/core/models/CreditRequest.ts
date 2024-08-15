@@ -11,7 +11,7 @@ export interface Credit {
      requestDate: string;
      user: Client | null;
      amortizationSchedule: any[];
-     carPrise?:number;
+     carPrice?:number;
      horsePower?:number;
      employeur: string;
      addressEmplyeur: string;
@@ -19,7 +19,6 @@ export interface Credit {
      revenuMensuels: number;
      typeContract: string;
      creditEnCours:string;
-     cinCard: File | null;
-     ficheDePaie: File | null;
+  
    }
    

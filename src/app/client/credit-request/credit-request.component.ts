@@ -2,7 +2,6 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { CreditRequestService } from 'src/app/Services/credit-request.service';
-import { UserService } from 'src/app/Services/user.service';
 import { Client } from 'src/app/core/models/Client';
 import { Credit } from 'src/app/core/models/CreditRequest';
 import { typeLoans } from './LoansType';
@@ -31,21 +30,19 @@ export class CreditRequestComponent implements OnInit {
     requestDate: '',
     user: null,
     amortizationSchedule: [],
-    carPrise: 0,
+    carPrice: 0,
     horsePower: 0,
     employeur: '',
     addressEmplyeur: '',
     postOccupe: '',
     revenuMensuels: 0,
     typeContract: '',
-    creditEnCours: '',
-    cinCard: null,  
-    ficheDePaie: null  
+    creditEnCours: '', 
   };
 
-  selectedFiles: { [key: string]: File | null } = {};
   loanType = typeLoans;
   showForm: boolean = true;
+
   constructor(
     private store: Store<any>,
     private creditService: CreditRequestService
@@ -71,55 +68,40 @@ export class CreditRequestComponent implements OnInit {
     });
   }
 
-  onFileChange(event: any, field: string): void {
-    const file = event.target.files[0];
-    if (file) {
-      this.selectedFiles[field] = file;
-    }
-  }
-
   submitCreditRequest(): void {
     if (!this.creditRequest.user) {
       console.error('No user found');
       return;
     }
 
-    if (this.selectedFiles['cinCard'] && this.selectedFiles['ficheDePaie']) {
-      const formData: FormData = new FormData();
-      formData.append('loanType', this.creditRequest.loanType);
-      formData.append('amount', this.creditRequest.amount.toString());
-      formData.append('duration', this.creditRequest.duration.toString());
-      formData.append('employeur', this.creditRequest.employeur);
-      formData.append('addressEmplyeur', this.creditRequest.addressEmplyeur);
-      formData.append('postOccupe', this.creditRequest.postOccupe);
-      formData.append('revenuMensuels', this.creditRequest.revenuMensuels.toString());
-      formData.append('typeContract', this.creditRequest.typeContract);
-      formData.append('creditEnCours', this.creditRequest.creditEnCours);
+    // Extract the user ID to pass as a parameter
+    const userId = this.creditRequest.user.idUser;
 
-      if (this.creditRequest.carPrise != null) {
-        formData.append('carPrise', this.creditRequest.carPrise.toString());
+    console.log('Credit Request:', this.creditRequest); // Debugging line
+  
+    this.creditService.createCreditRequest(
+      this.creditRequest.loanType,
+      this.creditRequest.amount,
+      this.creditRequest.duration,
+      userId,
+      this.creditRequest.carPrice,
+      this.creditRequest.horsePower,
+      this.creditRequest.employeur,
+      this.creditRequest.addressEmplyeur,
+      this.creditRequest.postOccupe,
+      this.creditRequest.revenuMensuels,
+      this.creditRequest.typeContract,
+      this.creditRequest.creditEnCours
+    ).subscribe(
+      response => {
+        console.log('Credit request successful', response);
+        this.creditRequest = response;
+        this.showForm = false;
+      },
+      error => {
+        console.error('Credit request failed', error);
       }
-      if (this.creditRequest.horsePower != null) {
-        formData.append('horsePower', this.creditRequest.horsePower.toString());
-      }
-
-      formData.append('cinCard', this.selectedFiles['cinCard']!);
-      formData.append('ficheDePaie', this.selectedFiles['ficheDePaie']!);
-
-      this.creditService.createCreditRequest(this.creditRequest.user.idUser, formData).subscribe(
-        response => {
-          console.log('Credit request successful', response);
-          this.creditRequest.amortizationSchedule = response.amortizationSchedule;
-          this.creditRequest.status = response.status;
-          this.showForm = false;
-        },
-        error => {
-          console.error('Credit request failed', error);
-        }
-      );
-    } else {
-      console.error('CIN Card and Fiche de Paie are required');
-    }
+    );
   }
 
   downloadPDF(): void {
