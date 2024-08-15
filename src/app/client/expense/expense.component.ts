@@ -2,11 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { GestionBudgetService } from 'src/app/Services/gestion-budget.service';
-import { UserService } from 'src/app/Services/user.service';
 import { Client } from 'src/app/core/models/Client';
 import { expenses } from 'src/app/core/models/Expense';
 import { selectCurrentUser } from 'src/app/core/models/user.selectors';
-import { typeExpence } from '../gestion-budget/typeExpens';
 
 @Component({
   selector: 'app-expense',
@@ -17,16 +15,16 @@ export class ExpenseComponent implements OnInit {
   currentUser$: Observable<Client>;
   expenses: expenses = new expenses();
   showModal = false;
-  categorys = typeExpence;
+  categorys = ['Food', 'Transport', 'Utilities']; // Example categories
 
   constructor(
-    private gestionBudgetService: GestionBudgetService, private store: Store<any>) {
+    private gestionBudgetService: GestionBudgetService,
+    private store: Store<any>
+  ) {
     this.currentUser$ = this.store.pipe(select(selectCurrentUser));
   }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   toggleModal() {
     this.showModal = !this.showModal;

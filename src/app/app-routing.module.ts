@@ -25,6 +25,7 @@ import { ListTransactionsComponent } from './admin/list-transactions/list-transa
 import { GestionBudgetComponent } from './client/gestion-budget/gestion-budget.component';
 import { ForgetComponent } from './shared/forget/forget.component';
 import { AccountRequestListComponent } from './admin/account-request-list/account-request-list.component';
+import { ListReclamationComponent } from './admin/list-reclamation/list-reclamation.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -43,7 +44,9 @@ const routes: Routes = [
     {path:'dashbord',component:DashbordAdminComponent},
     {path:'ListCredits',component:ListCreditsComponent},
     {path:'ListTrans',component:ListTransactionsComponent},
-    {path:'ListAccountRequest', component:AccountRequestListComponent}
+    {path:'ListAccountRequest', component:AccountRequestListComponent},
+    {path:'dashbord',component:DashbordAdminComponent},
+    {path:'ListRec',component:ListReclamationComponent}
    
   ]}, 
 

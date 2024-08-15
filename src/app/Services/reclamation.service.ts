@@ -24,5 +24,16 @@ export class ReclamationService {
     throw new Error('No user found'); 
     
   }
+
+  getAllReclamtions():Observable<Reclamation[]>{
+    return this.http.get<Reclamation[]>('http://localhost:8089/amanet/reclamation/showReclamation')
+    
+}
+
+
+deleteReclamation(reclamationId:number):Observable<Reclamation>{
+  return this.http.delete<Reclamation>(`http://localhost:8089/amanet/reclamation/remove/${reclamationId}`)
+}
+  
  
 }

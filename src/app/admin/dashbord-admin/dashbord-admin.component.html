@@ -1,1 +1,63 @@
-<p>dashbord-admin works!</p>
+<div class="dashboard-container">
+    <div class="stats-row">
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-info">
+                <h3>Total Users</h3>
+                <h2>{{ totalUsers }}</h2>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-credit-card"></i>
+            </div>
+            <div class="stat-info">
+                <h3>Total Transactions</h3>
+                <h2>{{ totalTransactions }}</h2>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <div class="stat-info">
+                <h3>Total Reclamations</h3>
+                <h2>{{ totalReclamations }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="charts-wrapper">
+        <div class="chart-container">
+            <h3>Accounts Status Distribution</h3>
+            <canvas baseChart
+                    [data]="pieChartData"
+                    [labels]="pieChartLabels"
+                    [type]="pieChartType">
+            </canvas>
+        </div>
+
+        <div class="chart-container">
+            <h3>Credit Types Distribution</h3>
+            <canvas baseChart
+                    [data]="barChartData"
+                    [labels]="barChartLabels"
+                    [options]="barChartOptions"
+                    [type]="barChartType">
+            </canvas>
+        </div>
+
+        <div class="chart-container">
+            <h3>Credit Status Breakdown</h3>
+            <canvas baseChart
+                    [data]="donutChartData"
+                    [labels]="donutChartLabels"
+                    [type]="donutChartType">
+            </canvas>
+        </div>
+    </div>
+</div>

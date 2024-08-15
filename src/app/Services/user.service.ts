@@ -148,4 +148,19 @@ public resetPassword(credentials: {email : string, newPass : string}){
   approveAccountRequest(idRequest:number):Observable<AccountRequest>{
     return this.http.post<AccountRequest>(`http://localhost:8089/amanet/user/approve-request/${idRequest}` , null , this.httpOptions)
   }
+
+//stats
+
+  getCountByStatus(): Observable<{ [key: string]: number }> {
+    return this.http.get<{ [key: string]: number }>('http://localhost:8089/amanet/BankAccount/account-requests/count-by-status');
+  }
+
+  getCountByCreditType(): Observable<any> {
+    return this.http.get<any>('http://localhost:8089/amanet/credit/api/credits/count-by-type');
+  }
+
+  getCountCreditByStatus(): Observable<any> {
+    return this.http.get<any>(`http://localhost:8089/amanet/credit/api/credits/count-by-status`);
+  }
 }
+

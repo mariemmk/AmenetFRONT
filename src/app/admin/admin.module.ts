@@ -9,6 +9,8 @@ import { DashbordAdminComponent } from './dashbord-admin/dashbord-admin.componen
 import { ListCreditsComponent } from './list-credits/list-credits.component';
 import { ListTransactionsComponent } from './list-transactions/list-transactions.component';
 import { AccountRequestListComponent } from './account-request-list/account-request-list.component';
+import { ListReclamationComponent } from './list-reclamation/list-reclamation.component';
+
 
 
 @NgModule({
@@ -21,6 +23,10 @@ import { AccountRequestListComponent } from './account-request-list/account-requ
   
   
 
+  
+   
+  
+  
   ],
   imports: [
     CommonModule,

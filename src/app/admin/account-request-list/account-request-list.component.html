@@ -3,7 +3,7 @@
 <div *ngIf="error" class="error-message">{{ error }}</div>
 
 <div *ngIf="!loading && !error">
-  <table>
+  <table class="table table-hover">
     <thead>
       <tr>
         <th>ID</th>
@@ -17,29 +17,78 @@
       <tr *ngFor="let request of accountRequests">
         <td>{{ request.idRequest }}</td>
         <td>{{ request.accountType }}</td>
-        <td>{{ request.requestDate | date }}</td> <!-- Apply date pipe here -->
+        <td>{{ request.requestDate | date }}</td>
         <td>{{ request.status }}</td>
         <td>
-          <button (click)="approveAccountRequest(request.idRequest)">Approve</button>
-          <button (click)="selectUser(request.user.idUser)">Show User</button>
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userDetailsModal" (click)="selectUser(request.user.idUser)"><i class="bi bi-box-arrow-up-left"></i></button>
+          <button class="btn btn-success" (click)="approveAccountRequest(request.idRequest)">Approve</button>
         </td>
       </tr>
     </tbody>
   </table>
 
-  <!-- Display selected user details -->
-  <div *ngIf="selectedUser">
-    <h3>User Details</h3>
-    <p><strong>ID:</strong> {{ selectedUser.idUser }}</p>
-    <p><strong>Name:</strong> {{ selectedUser.firstName }} {{ selectedUser.familyName }}</p>
-    <p><strong>Email:</strong> {{ selectedUser.email }}</p>
-    <p><strong>phoneNumber:</strong> {{ selectedUser.phoneNumber }}</p>
-    <p><strong>gender:</strong> {{ selectedUser.gender }}</p>
-    <p><strong>cin:</strong> {{ selectedUser.cin }}</p>
-    <p><strong>birthDate:</strong> {{ selectedUser.birthDate |date}}</p>
-
-   
-   
-    <button (click)="clearSelectedUser()">Close</button>
+  <!-- Modal pour afficher les détails de l'utilisateur -->
+  <div class="modal fade" id="userDetailsModal" tabindex="-1" role="dialog" aria-labelledby="userDetailsModalLabel" aria-hidden="true" *ngIf="selectedUser">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="userDetailsModalLabel">User Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="user-details">
+            <div class="row">
+              <div class="col-6">
+                <span class="label">
+                  Verified: <i [ngClass]="{'bi bi-check2 green' : selectedUser.isVerified , 'bi bi-x red' : !selectedUser.isVerified}"></i>
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <span class="col-6 label">Creation date:</span>
+              <span class="col-6">{{ getFormattedDate(selectedUser.createdAt) }}</span>
+            </div>
+            <hr>
+            <div class="row">
+              <span class="col-6 label">ID Client:</span>
+              <span class="col-6">{{ selectedUser.idUser || '--' }}</span>
+            </div>
+            <div class="row">
+              <span class="col-6 label">Name:</span>
+              <span class="col-6">{{ selectedUser.firstName || '--' }}</span>
+            </div>
+            <div class="row">
+              <span class="col-6 label">Family Name:</span>
+              <span class="col-6">{{ selectedUser.familyName || '--' }}</span>
+            </div>
+            <div class="row">
+              <span class="col-6 label">Phone Number:</span>
+              <span class="col-6">{{ selectedUser.phoneNumber || '--' }}</span>
+            </div>
+            <div class="row">
+              <span class="col-6 label">CIN:</span>
+              <span class="col-6">{{ selectedUser.cin || '--' }}</span>
+            </div>
+            <div class="row">
+              <span class="col-6 label">Email:</span>
+              <span class="col-6">{{ selectedUser.email || '--' }}</span>
+            </div>
+            <hr>
+            <div class="row">
+              <span class="col-6 label">Address:</span>
+              <span class="col-6">{{ selectedUser.address || '--' }}</span>
+            </div>
+            <div class="row">
+              <span class="col-6 label">Date of birth:</span>
+              <span class="col-6">{{ getFormattedDate(selectedUser.birthDate) || '--' }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer text-end">
+          <button type="button" class="btn btn-danger" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Fermer">Close</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

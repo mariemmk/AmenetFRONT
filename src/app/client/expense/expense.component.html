@@ -1,36 +1,19 @@
-<ng-template #expenseModal let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title">Add Expense</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
+ <!-- Modal for Expense -->
+ <div class="modal fade" id="expenseModal" tabindex="-1" aria-labelledby="expenseModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="expenseModalLabel">Add Expense</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Form content here -->
+        <app-expense></app-expense>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="submitExpense()">Save</button>
+      </div>
     </div>
-    <div class="modal-body">
-      <form>
-        <div class="form-group">
-          <label for="amount">Amount</label>
-          <input type="number" class="form-control" id="amount" name="amount" [(ngModel)]="expenses.amount">
-        </div>
-        <div class="form-group">
-          <label for="description">Description</label>
-          <input type="text" class="form-control" id="description" name="description" [(ngModel)]="expenses.description">
-        </div>
-        <div class="form-group">
-          <label for="Category" class="form-label">Category</label>
-          <select id="Category" name="Category" class="form-select" [(ngModel)]="expenses.category" required>
-            <option value="" disabled selected>Choose...</option>
-            <option *ngFor="let one of categorys" [value]="one">{{ one }}</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="date" class="form-label">Date</label>
-          <input type="date" class="form-control" id="date" name="date" [(ngModel)]="expenses.date">
-        </div>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" (click)="modal.close()">Close</button>
-      <button type="button" class="btn btn-danger" (click)="submitExpense()">Save</button>
-    </div>
-  </ng-template>
-  
+  </div>
+</div>

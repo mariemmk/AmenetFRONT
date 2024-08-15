@@ -1,20 +1,26 @@
 <article class="main table-wrap col-md-6 mx-auto my-5" style="margin-top: 20px;">
   <div *ngIf="showForm">
-    <h4 style="color: #03943F; font-weight: bold" class="mb-4">Demande De Credit</h4>
+    <h4 style="color: #03943F; font-weight: bold" class="mb-4">Demande De Crédit</h4>
     <form class="form-horizontal" #creditRequestForm="ngForm" (ngSubmit)="submitCreditRequest()">
+      
+      <!-- Amount -->
       <div class="form-group">
         <label class="control-label col-sm-12" for="amount">Amount:</label>
         <div class="col-sm-12">
-          <input type="text" class="form-control" id="amount" name="amount" placeholder="amount" [(ngModel)]="creditRequest.amount" required>
+          <input type="number" class="form-control" id="amount" name="amount" placeholder="Amount" [(ngModel)]="creditRequest.amount" required>
         </div>
       </div>
+
+      <!-- Loan Type -->
       <div class="form-group">
-        <label for="loanType" class="form-label">Loans Type</label>
+        <label for="loanType" class="form-label">Loan Type</label>
         <select id="loanType" name="loanType" class="form-select" [(ngModel)]="creditRequest.loanType" required>
           <option value="" disabled selected>Choose...</option>
-          <option *ngFor="let one of loanType " [value]="one">{{ one }}</option>
+          <option *ngFor="let one of loanType" [value]="one">{{ one }}</option>
         </select>
       </div>
+
+      <!-- Additional Fields for Auto_invest -->
       <div *ngIf="creditRequest.loanType === 'Auto_invest'">
         <div class="form-group">
           <label class="control-label col-sm-12" for="carPrice">Car Price:</label>
@@ -29,54 +35,118 @@
           </div>
         </div>
       </div>
+
+      <!-- Duration -->
       <div class="form-group">
         <label class="control-label col-sm-12" for="duration">Duration :</label>
         <div class="col-sm-12">
-          <input type="number" class="form-control" id="duration" name="duration" placeholder="duration" required [(ngModel)]="creditRequest.duration">
+          <input type="number" class="form-control" id="duration" name="duration" placeholder="Duration" required [(ngModel)]="creditRequest.duration">
         </div>
       </div>
-      
+
+      <!-- Professional Information -->
+      <div class="form-group">
+        <label class="control-label col-sm-12" for="employeur">Employer Name:</label>
+        <div class="col-sm-12">
+          <input type="text" class="form-control" id="employeur" name="employeur" placeholder="Employer Name" [(ngModel)]="creditRequest.employeur">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-sm-12" for="addressEmplyeur">Employer Address:</label>
+        <div class="col-sm-12">
+          <input type="text" class="form-control" id="addressEmplyeur" name="addressEmplyeur" placeholder="Employer Address" [(ngModel)]="creditRequest.addressEmplyeur">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-sm-12" for="postOccupe">Position:</label>
+        <div class="col-sm-12">
+          <input type="text" class="form-control" id="postOccupe" name="postOccupe" placeholder="Position" [(ngModel)]="creditRequest.postOccupe">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-sm-12" for="revenuMensuels">Monthly Income:</label>
+        <div class="col-sm-12">
+          <input type="number" class="form-control" id="revenuMensuels" name="revenuMensuels" placeholder="Monthly Income" [(ngModel)]="creditRequest.revenuMensuels">
+        </div>
+      </div>
+
+      <!-- Contract Type -->
+      <div class="form-group">
+        <label class="control-label col-sm-12" for="typeContract">Contract Type:</label>
+        <div class="col-sm-12">
+          <select id="typeContract" name="typeContract" class="form-select" [(ngModel)]="creditRequest.typeContract">
+            <option value="" disabled selected>Choose...</option>
+            <option value="CDI">CDI</option>
+            <option value="CDD">CDD</option>
+            <option value="Freelance">Freelance</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Ongoing Credit -->
+      <div class="form-group">
+        <label class="control-label col-sm-12" for="creditEnCours">Ongoing Credit (Credit En Cours):</label>
+        <div class="col-sm-12">
+          <input type="text" class="form-control" id="creditEnCours" name="creditEnCours" placeholder="Ongoing Credit" [(ngModel)]="creditRequest.creditEnCours">
+        </div>
+      </div>
+
+      <!-- File Inputs -->
+      <div class="form-group">
+        <label class="control-label col-sm-12" for="cinCard">CIN Card:</label>
+        <div class="col-sm-12">
+          <input type="file" class="form-control" id="cinCard" name="cinCard" (change)="onFileChange($event, 'cinCard')">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-sm-12" for="ficheDePaie">Payslip (fiche de paie):</label>
+        <div class="col-sm-12">
+          <input type="file" class="form-control" id="ficheDePaie" name="ficheDePaie" (change)="onFileChange($event, 'ficheDePaie')">
+        </div>
+      </div>
+
+      <!-- Submit Button -->
       <div class="form-group">
         <div class="col-sm-12 text-center">
-          <button type="submit" class="btn btn-primary">Submit Request</button>
+          <button type="submit" class="btn btn-primary" [disabled]="!creditRequestForm.form.valid">Submit Request</button>
         </div>
       </div>
     </form>
   </div>
 </article>
-<div class="col-md-6 mx-auto my-5" style="margin-left: 50px;"  style="margin-top: 50px;">
-<div *ngIf="!showForm">
-  <div class="status-box mb-4" style="margin-top: 100px;">
-    <h5 class="text-center">Credit Status: {{ creditRequest.status }}</h5>
+
+<!-- Credit Status and Amortization Table -->
+<div class="col-md-6 mx-auto my-5" style="margin-left: 50px; margin-top: 50px;">
+  <div *ngIf="!showForm">
+    <div class="status-box mb-4" style="margin-top: 100px;">
+      <h5 class="text-center">Credit Status: {{ creditRequest.status }}</h5>
+    </div>
+
+    <!-- Amortization Table -->
+    <div #bankDetails>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Month</th>
+            <th>Principal</th>
+            <th>Interest</th>
+            <th>Remaining Balance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let entry of creditRequest.amortizationSchedule">
+            <td>{{ entry.month }}</td>
+            <td>{{ entry.principal | number:'1.2-2' }}</td>
+            <td>{{ entry.interest | number:'1.2-2' }}</td>
+            <td>{{ entry.remainingBalance | number:'1.2-2' }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Download Button -->
+      <div class="text-center mt-4">
+        <button class="btn btn-success" (click)="downloadPDF()">Download Amortization Schedule</button>
+      </div>
+    </div>
   </div>
-
-  <!-- Tableau d'amortissement -->
-  <div #bankDetails>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Month</th>
-        <th>Principal</th>
-        <th>Interest</th>
-        <th>Remaining Balance</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let entry of creditRequest.amortizationSchedule">
-        <td>{{ entry.month }}</td>
-        <td>{{ entry.principal  }}</td>
-        <td>{{ entry.interest }}</td>
-        <td>{{ entry.remainingBalance  }}</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <!-- Bouton de téléchargement du tableau d'amortissement -->
-  <div class="text-center mt-4">
-    <button class="btn btn-success" (click)="downloadPDF()">Download Amortization Schedule</button>
-  </div>
-</div>
-
-
-
 </div>

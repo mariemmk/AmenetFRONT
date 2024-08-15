@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { UserService } from 'src/app/Services/user.service';
 
 @Component({
@@ -13,6 +13,8 @@ export class ChangeComponent implements OnInit {
   amount!: number;
   convertedAmount!: number | null; // Déclaration de convertedAmount ici
   baseCurrency: any; // La devise par défaut (par exemple, DT pour Dinars Tunisiens)
+
+  @Output() currencySelected = new EventEmitter<any>();
   constructor(private userService:UserService , private http:HttpClient){}
   ngOnInit(): void {
    this.getCurrency();
@@ -48,6 +50,11 @@ export class ChangeComponent implements OnInit {
     return amount / rate;
   }
 
+
+  selectCurrency(currency: any) {
+    this.selectedCurrency = currency;
+    this.currencySelected.emit(currency);
+  }
 }
 
   

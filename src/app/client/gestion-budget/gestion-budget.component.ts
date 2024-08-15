@@ -1,28 +1,27 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { GestionBudgetService } from 'src/app/Services/gestion-budget.service';
 import { UserService } from 'src/app/Services/user.service';
 import { Client } from 'src/app/core/models/Client';
 import { expenses } from 'src/app/core/models/Expense';
-import { selectCurrentUser } from 'src/app/core/models/user.selectors';
-import { ChartOptions } from 'chart.js';
 import { Income } from 'src/app/core/models/Incomes';
+import { selectCurrentUser } from 'src/app/core/models/user.selectors';
 import { ExpenseComponent } from '../expense/expense.component';
 import { IncomeComponent } from '../income/income.component';
 import { BankAccount } from 'src/app/core/models/BankAccount';
+import { ChartOptions } from 'chart.js';
 
 @Component({
   selector: 'app-gestion-budget',
   templateUrl: './gestion-budget.component.html',
   styleUrls: ['./gestion-budget.component.css']
 })
-export class GestionBudgetComponent implements OnInit, AfterViewInit {
+export class GestionBudgetComponent implements AfterViewInit {
   @ViewChild('expenseModal') expenseModal!: ExpenseComponent;
   @ViewChild('incomeModal') incomeModal!: IncomeComponent;
 
   currentUser$: Observable<Client>;
-  currentUser: Client | undefined;
   bankAccount!: BankAccount;
   expensesList: expenses[] = [];
   incomesList: Income[] = [];
@@ -43,41 +42,30 @@ export class GestionBudgetComponent implements OnInit, AfterViewInit {
     this.currentUser$ = this.store.pipe(select(selectCurrentUser));
   }
 
-  ngOnInit(): void {
-    this.currentUser$.subscribe(user => {
-      this.currentUser = user;
-      if (user) {
-        this.userService.getBankAccounts(user.idUser).subscribe(accounts => {
-          this.bankAccount = accounts;
-          if (this.bankAccount) {
-            this.budget = this.bankAccount.accountBalance; // Utiliser le premier compte bancaire pour le budget
-          }
-        });
-        this.loadExpenses(user.idUser);
-        this.loadIncomes(user.idUser);
-      }
-    });
-  }
 
-  ngAfterViewInit(): void {}
+
 
   openIncomeModal() {
-    this.incomeModal.showModal = true;
+    if (this.incomeModal) {
+      this.incomeModal.showModal = true;
+    }
   }
 
   openExpenseModal() {
-    this.expenseModal.showModal = true;
+    if (this.expenseModal) {
+      this.expenseModal.showModal = true;
+    }
   }
 
-  loadExpenses(userId: number) {
-    this.gestionBudgetService.getExpensesByUser(userId).subscribe(expenses => {
+  loadExpenses(user: Client) {
+    this.gestionBudgetService.getExpensesByUser(user.idUser).subscribe(expenses => {
       this.expensesList = expenses;
       this.updateChart(expenses);
     });
   }
 
-  loadIncomes(userId: number) {
-    this.gestionBudgetService.getIncomesByUser(userId).subscribe(incomes => {
+  loadIncomes(user: Client) {
+    this.gestionBudgetService.getIncomesByUser(user.idUser).subscribe(incomes => {
       this.incomesList = incomes;
     });
   }
@@ -85,5 +73,10 @@ export class GestionBudgetComponent implements OnInit, AfterViewInit {
   updateChart(expenses: expenses[]) {
     this.pieChartLabels = expenses.map(e => e.category);
     this.pieChartData = expenses.map(e => e.amount as number);
+  }
+  ngAfterViewInit(): void {
+    if (!this.expenseModal || !this.incomeModal) {
+      console.error('Modals are not available!');
+    }
   }
 }

@@ -17,16 +17,13 @@ export class IncomeComponent implements OnInit {
   showModal = false;
 
   constructor(
-    private gestionBudgetService: GestionBudgetService, 
-    private store: Store<any>, 
-
+    private gestionBudgetService: GestionBudgetService,
+    private store: Store<any>
   ) {
     this.currentUser$ = this.store.pipe(select(selectCurrentUser));
   }
 
-  ngOnInit(): void {
-    // Initialize any needed data here
-  }
+  ngOnInit(): void {}
 
   toggleModal() {
     this.showModal = !this.showModal;

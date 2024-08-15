@@ -15,9 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LandingComponent } from './shared/landing/landing.component';
 import { AdminComponent } from './admin/admin.component';
-
 import { ClientComponent } from './client/client.component';
-
 import { TransactionComponent } from './client/transaction/transaction.component';
 import { SimulatorComponent } from './shared/simulator/simulator.component';
 import { AutoInvestComponent } from './shared/Simulators/auto-invest/auto-invest.component';
@@ -45,70 +43,61 @@ import { ForgetComponent } from './shared/forget/forget.component';
 import { ResetPasswordFormComponent } from './shared/reset-password-form/reset-password-form.component';
 import { VerificationCodeTimerComponent } from './shared/verification-code-timer/verification-code-timer.component';
 import { AccountRequestListComponent } from './admin/account-request-list/account-request-list.component';
-
+import { ListReclamationComponent } from './admin/list-reclamation/list-reclamation.component';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        LoginComponent,
-        SignupComponent,
-        LoginComponent,
-        LandingComponent,
-        AdminComponent,
-        ClientComponent,
-        TransactionComponent,
-        SimulatorComponent,
-        AutoInvestComponent,
-        PreslaireAmenagementComponent,
-        CredimWataniComponent,
-        PlacementComponent,
-        ProfilComponent,
-        CreditRequestComponent,
-        ReclamationComponent,
-        EditUserComponent,
-        ListUsersComponent,
-        ChangeComponent,
-        BourseComponent,
-        ChatbotComponent,
-        DashbordAdminComponent,
-        ListCreditsComponent,
-        ListTransactionsComponent,
-        GestionBudgetComponent,
-        ExpenseComponent,
-        IncomeComponent,
-        ForgetComponent,
-        VerifCodeComponent,
-        ResetPasswordFormComponent,
-        VerificationCodeTimerComponent,
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    SignupComponent,
+    LoginComponent,
+    LandingComponent,
+    AdminComponent,
+    ClientComponent,
+    TransactionComponent,
+    SimulatorComponent,
+    AutoInvestComponent,
+    PreslaireAmenagementComponent,
+    CredimWataniComponent,
+    PlacementComponent,
+    ProfilComponent,
+    CreditRequestComponent,
+    ReclamationComponent,
+    EditUserComponent,
+    ListUsersComponent,
+    ChangeComponent,
+    BourseComponent,
+    ChatbotComponent,
+    DashbordAdminComponent,
+    ListCreditsComponent,
+    ListTransactionsComponent,
+    GestionBudgetComponent,
 
-  
-        AccountRequestListComponent
-       
-       
-       
-    ],
-    providers: [
-        DatePipe  // Add DatePipe to providers
-    ],
-    bootstrap: [AppComponent],
-    imports: [
-        FormsModule,
-        HttpClientModule,
-        RouterModule,
-        BrowserModule,
-        BrowserAnimationsModule,
-        ReactiveFormsModule,
-        StoreModule.forRoot({ user: userReducer }),
-        EffectsModule.forRoot([UserEffects]),
-        SimpleNotificationsModule.forRoot(),
-        AppRoutingModule,  
-        NgChartsModule
-        
-          
-   
-    
-  
-        
-    ]
+    ForgetComponent,
+    VerifCodeComponent,
+    ResetPasswordFormComponent,
+    VerificationCodeTimerComponent,
+    AccountRequestListComponent,
+    ListReclamationComponent,
+    ExpenseComponent,
+    IncomeComponent
+  ],
+  providers: [
+    DatePipe // Add DatePipe to providers
+  ],
+  bootstrap: [AppComponent],
+  imports: [
+    FormsModule,
+    HttpClientModule,
+    RouterModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    StoreModule.forRoot({ user: userReducer }),
+    EffectsModule.forRoot([UserEffects]),
+    SimpleNotificationsModule.forRoot(),
+    AppRoutingModule,
+    NgChartsModule,
+  ]
 })
-export class AppModule { }
+export class AppModule {}

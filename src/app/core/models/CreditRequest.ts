@@ -13,5 +13,13 @@ export interface Credit {
      amortizationSchedule: any[];
      carPrise?:number;
      horsePower?:number;
+     employeur: string;
+     addressEmplyeur: string;
+     postOccupe: string;
+     revenuMensuels: number;
+     typeContract: string;
+     creditEnCours:string;
+     cinCard: File | null;
+     ficheDePaie: File | null;
    }
    

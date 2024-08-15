@@ -17,7 +17,7 @@ export class SimulateurService {
     .set('amount', amount.toString())
     .set('loanType', loanType)
     .set('duration', duration.toString());
-    return this.http.get<any>(`${this.host}/amanet/bank/preslaire_amenagement`, { params});
+    return this.http.get<any>(`${this.host}/amanet/credit/preslaire_amenagement`, { params});
   }
 
   simulateAutoInvest(amount: number, duration: number ,horsepower:number ): Observable<any> {
@@ -25,7 +25,7 @@ export class SimulateurService {
     .set('amount' , amount.toString())
     .set('duration',duration.toString())
     .set('horsepower',horsepower.toString())
-    return this.http.get<any>(`${this.host}/amanet/bank/Auto_invest`, {params});
+    return this.http.get<any>(`${this.host}/amanet/credit/Auto_invest`, {params});
   }
 
   simulateCredimWatani(amount: number, duration: number, loanType: string): Observable<any> {
@@ -33,14 +33,14 @@ export class SimulateurService {
     .set('amount', amount.toString())
     .set('loanType', loanType)
     .set('duration', duration.toString());
-    return this.http.get<any>(`${this.host}/amanet/bank/Credim_Watani`, { params });
+    return this.http.get<any>(`${this.host}/amanet/credit/Credim_Watani`, { params });
   }
 
   simulateCredimExpress(amount: number, duration: number): Observable<any> {
     const params= new HttpParams()
     .set('amount' , amount.toString())
     .set('duration',duration.toString())
-    return this.http.get<any>(`${this.host}/amanet/bank/Credim_Express`, { params });
+    return this.http.get<any>(`${this.host}/amanet/credit/Credim_Express`, { params });
   }
 
   simulateInvestment(amount:number , issueDate:Date , maturityDate:Date): Observable<any> {
@@ -48,7 +48,7 @@ export class SimulateurService {
     .set('amount' , amount.toString())
     .set('issueDate',issueDate.toString())
     .set('maturityDate',maturityDate.toString())
-    return this.http.get<any>(`${this.host}/amanet/bank/simulate_Placement`,{params} );
+    return this.http.get<any>(`${this.host}/amanet/api/investment/investment`,{params} );
   }
 
 }

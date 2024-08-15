@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="client-info">
+      <h2>Client Information</h2>
+      <p><strong>Name:</strong> {{ (currentUser$ | async)?.firstName }}</p>
+      <p><strong>Email:</strong> {{ (currentUser$ | async)?.email }}</p>
+    </div>
+  
+    <div class="budget-details">
+      <h2>Income and Expenses</h2>
+  
+      <!-- Display Expenses -->
+      <div class="expenses">
+        <h3>Expenses</h3>
+        <ul>
+          <li *ngFor="let expense of expensesList">
+            <span class="category">{{ expense.category }}</span>: 
+            <span class="amount">{{ expense.amount | currency }}</span> 
+            <span class="description">({{ expense.description }})</span>
+          </li>
+        </ul>
+      </div>
+  
+      <!-- Display Income -->
+      <div class="incomes">
+        <h3>Income</h3>
+        <ul>
+          <li *ngFor="let income of incomesList">
+            <span class="category">{{ income.category }}</span>: 
+            <span class="amount">{{ income.amount | currency }}</span> 
+            <span class="date">({{ income.date | date:'shortDate' }})</span>
+          </li>
+        </ul>
+      </div>
+  
+      <!-- Buttons to Open Modals -->
+      <div class="buttons">
+        <button (click)="openIncomeModal()" class="btn btn-primary">Submit Income</button>
+        <button (click)="openExpenseModal()" class="btn btn-secondary">Submit Expense</button>
+      </div>
+    </div>
+  
+   
+</div>
