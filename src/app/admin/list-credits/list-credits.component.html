@@ -1,53 +1,115 @@
+<!-- list-credits.component.html -->
 <div *ngIf="loading">Loading...</div>
 <div *ngIf="error">{{ error }}</div>
 <div *ngIf="!loading && !error && credits.length === 0">No credits found.</div>
 
 <table *ngIf="!loading && !error && credits.length > 0" class="table table-striped">
   <thead>
-  
     <tr>
       <th>ID</th>
-      <th>loan Type</th>
+      <th>Loan Type</th>
       <th>Amount</th>
       <th>Duration</th>
       <th>Interest Rate</th>
       <th>Request Date</th>
       <th>Monthly Payment</th>
-      <th>Car Prise</th>
+      <th>Car Price</th>
       <th>Horse Power</th>
-      <th>Monthly Payment</th>
-      <th>Salaire</th>
-      <th>postOccupe</th>
-      <th>address employeur</th>
-      <th>creditEnCours</th>
-      <th>user</th>
-      <th>status</th>
+      <th>Salary</th>
+      <th>Post Occupation</th>
+      <th>Employer Address</th>
+      <th>Credit in Progress</th>
+      <th>User ID</th>
+      <th>Status</th>
+      <th>Actions</th>
     </tr>
-
   </thead>
   <tbody>
     <tr *ngFor="let credit of credits">
       <td>{{ credit.id }}</td>
       <td>{{ credit.loanType }}</td>
       <td>{{ credit.amount }}</td>
-      <td>{{ credit.duration}}</td>
+      <td>{{ credit.duration }}</td>
       <td>{{ credit.interestRate }}</td>
       <td>{{ credit.requestDate }}</td>
       <td>{{ credit.monthlyPayment }}</td>
       <td>{{ credit.carPrice }}</td>
       <td>{{ credit.horsePower }}</td>
-      <td>{{credit.revenuMensuels}}</td>
-      <td>{{credit.postOccupe}}</td>
-      <td>{{credit.employeur}}</td>
-      <td>{{credit.addressEmplyeur}}</td>
-      <td>{{credit.creditEnCours}}</td>
-     
-      <td>{{ credit.user?.idUser}}</td>
+      <td>{{ credit.revenuMensuels }}</td>
+      <td>{{ credit.postOccupe }}</td>
+      <td>{{ credit.addressEmplyeur }}</td>
+      <td>{{ credit.creditEnCours }}</td>
+      <td>{{ credit.user?.idUser }}</td>
       <td>{{ credit.status }}</td>
       <td>
+        <button class="btn btn-primary" (click)="consulterUtilisateur(credit)"><i class="bi bi-box-arrow-up-left"></i></button>
         <button class="btn btn-primary" (click)="approveCredit(credit.id)">Approve</button>
         <button class="btn btn-danger" (click)="rejectCredit(credit.id)">Reject</button>
       </td>
     </tr>
   </tbody>
 </table>
+
+<!-- Modal for displaying user details -->
+<div class="modal fade" id="userDetailsModal" tabindex="-1" aria-labelledby="userDetailsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="userDetailsModalLabel">User Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="user-details">
+          <div class="row">
+            <div class="col-6">
+              <span class="label">
+                Verified : <i [ngClass]="{'bi bi-check2 green' : selectedUser?.status === 'ACTIVE', 'bi bi-x red' : selectedUser?.status !== 'ACTIVE'}"></i>
+              </span>
+            </div>
+          </div>
+          <div class="row">
+            <span class="col-6 label">Creation date:</span>
+            <span class="col-6">{{ selectedUser?.createdAt | date:'dd-MM-yyyy' }}</span>
+          </div>
+          <hr>
+          <div class="row">
+            <span class="col-6 label">ID Client:</span>
+            <span class="col-6">{{ selectedUser?.idUser || "--"}}</span>
+          </div>
+          <div class="row">
+            <span class="col-6 label">Name:</span>
+            <span class="col-6">{{ selectedUser?.firstName || "--"}}</span>
+          </div>
+          <div class="row">
+            <span class="col-6 label">Family Name:</span>
+            <span class="col-6">{{ selectedUser?.familyName || "--"}}</span>
+          </div>
+          <div class="row">
+            <span class="col-6 label">Phone Number:</span>
+            <span class="col-6">{{ selectedUser?.phoneNumber || "--"}}</span>
+          </div>
+          <div class="row">
+            <span class="col-6 label">CIN:</span>
+            <span class="col-6">{{ selectedUser?.cin || "--"}}</span>
+          </div>
+          <div class="row">
+            <span class="col-6 label">Email:</span>
+            <span class="col-6">{{ selectedUser?.email || "--"}}</span>
+          </div>
+          <hr>
+          <div class="row">
+            <span class="col-6 label">Address:</span>
+            <span class="col-6">{{ selectedUser?.address || "--"}}</span>
+          </div>
+          <div class="row">
+            <span class="col-6 label">Date of birth:</span>
+            <span class="col-6">{{ selectedUser?.birthDate | date:'dd-MM-yyyy' }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer text-end">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
