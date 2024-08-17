@@ -19,6 +19,7 @@ export interface Credit {
      revenuMensuels: number;
      typeContract: string;
      creditEnCours:string;
+     filePath:string;
   
    }
    

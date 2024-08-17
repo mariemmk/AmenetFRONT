@@ -19,6 +19,7 @@
       <th>Post Occupation</th>
       <th>Employer Address</th>
       <th>Credit in Progress</th>
+      <th>fiche de paie</th>
       <th>User ID</th>
       <th>Status</th>
       <th>Actions</th>
@@ -39,6 +40,9 @@
       <td>{{ credit.postOccupe }}</td>
       <td>{{ credit.addressEmplyeur }}</td>
       <td>{{ credit.creditEnCours }}</td>
+      <td>
+        <button *ngIf="credit.filePath" class="btn btn-info" (click)="downloadFile(credit.id)"><i class="bi bi-download"></i></button>
+      </td>
       <td>{{ credit.user?.idUser }}</td>
       <td>{{ credit.status }}</td>
       <td>

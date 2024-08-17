@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Credit } from '../core/models/CreditRequest';
@@ -67,5 +67,10 @@ getAllCreditRequests(): Observable<Credit[]> {
 
   deleteCreditRequest(id: number): Observable<Credit> {
     return this.http.delete<Credit>(`${this.host}/amanet/credit/remove/${id}`, this.httpOptions);
+  }
+
+
+  downloadFile(id: number): Observable<HttpResponse<Blob>> {
+    return this.http.get(`http://localhost:8089/amanet/credit/request/${id}/file`, { responseType: 'blob', observe: 'response' });
   }
 }

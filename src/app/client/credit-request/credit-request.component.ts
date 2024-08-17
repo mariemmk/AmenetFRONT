@@ -37,7 +37,8 @@ export class CreditRequestComponent implements OnInit {
     postOccupe: '',
     revenuMensuels: 0,
     typeContract: '',
-    creditEnCours: '', 
+    creditEnCours: '',
+    filePath: ''
   };
 
   loanType = typeLoans;

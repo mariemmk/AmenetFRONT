@@ -4,6 +4,7 @@ import { Client } from 'src/app/core/models/Client';
 import { Credit } from 'src/app/core/models/CreditRequest';
 import { DatePipe } from '@angular/common';
 import * as bootstrap from 'bootstrap';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-list-credits',
@@ -68,5 +69,33 @@ export class ListCreditsComponent implements OnInit {
       return this.datePipe.transform(new Date(date[0], date[1] - 1, date[2]), 'dd-MM-yyyy') || '--';
     }
     return '--';
+  }
+
+
+  downloadFile(id: number): void {
+    this.creditRequestService.downloadFile(id).subscribe(response => {
+      const blob = new Blob([response.body as Blob], { type: response.body?.type || 'application/octet-stream' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = this.getFileNameFromResponse(response);
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a); // Clean up
+      window.URL.revokeObjectURL(url);
+    }, error => {
+      console.error('Error downloading file', error);
+    });
+  }
+
+  private getFileNameFromResponse(response: HttpResponse<Blob>): string {
+    const contentDisposition = response.headers.get('Content-Disposition');
+    if (contentDisposition) {
+      const fileNameMatch = contentDisposition.match(/filename="(.+)"/);
+      if (fileNameMatch) {
+        return fileNameMatch[1];
+      }
+    }
+    return 'downloaded-file';
   }
 }

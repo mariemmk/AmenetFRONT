@@ -44,6 +44,8 @@ import { ResetPasswordFormComponent } from './shared/reset-password-form/reset-p
 import { VerificationCodeTimerComponent } from './shared/verification-code-timer/verification-code-timer.component';
 import { AccountRequestListComponent } from './admin/account-request-list/account-request-list.component';
 import { ListReclamationComponent } from './admin/list-reclamation/list-reclamation.component';
+import { SideBarAdminComponent } from './admin/side-bar-admin/side-bar-admin.component';
+import { LoginAdminComponent } from './admin/login-admin/login-admin.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +81,9 @@ import { ListReclamationComponent } from './admin/list-reclamation/list-reclamat
     VerificationCodeTimerComponent,
     AccountRequestListComponent,
     ExpenseComponent,
-    IncomeComponent
+    IncomeComponent,
+    SideBarAdminComponent,
+    LoginAdminComponent
   ],
   providers: [
     DatePipe // Add DatePipe to providers

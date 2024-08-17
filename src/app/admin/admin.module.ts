@@ -10,6 +10,8 @@ import { ListCreditsComponent } from './list-credits/list-credits.component';
 import { ListTransactionsComponent } from './list-transactions/list-transactions.component';
 import { AccountRequestListComponent } from './account-request-list/account-request-list.component';
 import { ListReclamationComponent } from './list-reclamation/list-reclamation.component';
+import { SideBarAdminComponent } from './side-bar-admin/side-bar-admin.component';
+import { LoginAdminComponent } from './login-admin/login-admin.component';
 
 
 
@@ -17,6 +19,10 @@ import { ListReclamationComponent } from './list-reclamation/list-reclamation.co
   declarations: [
   
   
+  
+ 
+  
+   
   ],
   imports: [
     CommonModule,

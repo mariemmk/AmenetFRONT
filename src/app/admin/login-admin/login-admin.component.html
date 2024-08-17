@@ -1,0 +1,52 @@
+
+<div *ngIf="!spinner" class="fade-in"> 
+  
+    <div class="d-flex row main">
+     
+      <div class="col-8">
+        <img src="/assets/img/amen.jpg" alt="" style="width: 100%; height: 100%; object-fit: fill;">
+      </div>
+  
+      <div class="col-4">
+        <div class="myContainer">
+          <div class="screen center-div">
+            <div class="screen__content">
+              <!-- Add your form here -->
+              <form class="login" #form="ngForm" (ngSubmit)="login()">
+                <div class="alert alert-danger" *ngIf="error">Password or email are not valid!</div>
+                <!-- Add the login fields here -->
+                <div class="login__field">
+                  <i class="login__icon bi bi-person"></i>
+                  <input type="text" class="login__input" placeholder="Email" name="email" [(ngModel)]="email" #mail="ngModel" autocomplete="off" required pattern="^[\w-]+(\.[\w-]+)*@[a-zA-Z\d-]+(\.[a-zA-Z\d-]+)*\.[a-zA-Z]{2,}$">
+                </div>
+                <div class="login__field">
+                  <i class="login__icon bi bi-lock"></i>
+                  <a (click)="show()" *ngIf="!showPassword" class="login__icon__right bi bi-eye-fill"></a>
+                  <i (click)="show()" *ngIf="showPassword" class="login__icon__right bi bi-eye-slash-fill"></i>
+                  <input type="{{ showPassword ? 'text' : 'password' }}" name="password" class="login__input" placeholder="Password" [(ngModel)]="password" #mdp="ngModel" required autocomplete="off" name="password">
+                </div>
+                <div class="d-flex justify-content-end">
+                  <a class="forget" routerLink="/forget">Forget password ?</a>
+                </div>
+                <!-- Add the login button here -->
+                <button [disabled]="form.invalid" type="submit" class="button login__submit">
+                  <span *ngIf="!loading" class="button__text">Log In Now</span>
+                  <i *ngIf="!loading" class="button__icon bi bi-chevron-right"></i>
+                  <span *ngIf="loading" class="button__text " style="margin-right: 3rem;">Authenticating......</span>
+                  <div class="loading-circle" *ngIf="loading"></div>
+                </button>
+               
+              </form>
+            </div>
+            <div class="screen__background">
+              <span class="screen__background__shape screen__background__shape4"></span>
+              <span class="screen__background__shape screen__background__shape3"></span>		
+              <span class="screen__background__shape screen__background__shape2"></span>
+              <span class="screen__background__shape screen__background__shape1"></span>
+            </div>	
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
