@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { Client } from '../core/models/Client';
 import { expenses } from '../core/models/Expense';
 import { Income } from '../core/models/Incomes';
@@ -9,25 +9,34 @@ import { Income } from '../core/models/Incomes';
   providedIn: 'root'
 })
 export class GestionBudgetService {
+  private userSubject: BehaviorSubject<Client | null> = new BehaviorSubject<Client | null>(null);
+  public user$: Observable<Client | null> = this.userSubject.asObservable();
 
-  constructor(private http: HttpClient) { }
-
-  public user$: BehaviorSubject<Client | null> = new BehaviorSubject<Client | null>(null);
+  constructor(private http: HttpClient) {  
+    const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
+    if (storedUser && storedUser.idUser) {
+      this.userSubject.next(storedUser);
+    }
+  }
 
   public addExpense(expense: expenses): Observable<expenses> {
-    const idUser = this.user$.value?.idUser;
-    if (idUser) {
-      return this.http.post<expenses>(`http://localhost:8089/amanet/expense/addExpense/${idUser}`, expense);
+    const user = this.userSubject.value;
+    if (user && user.idUser) {
+      return this.http.post<expenses>(`http://localhost:8089/amanet/expense/addExpense/${user.idUser}`, expense);
     }
-    throw new Error('No user found');
+    return throwError('No user found');
+  }
+
+  public setUser(user: Client): void {
+    this.userSubject.next(user);
   }
 
   public addIncome(income: Income): Observable<Income> {
-    const idUser = this.user$.value?.idUser;
-    if (idUser) {
-      return this.http.post<Income>(`http://localhost:8089/amanet/api/incomes/addIncome/${idUser}`, income);
+    const user = this.userSubject.value;
+    if (user && user.idUser) {
+      return this.http.post<Income>(`http://localhost:8089/amanet/api/incomes/addIncome/${user.idUser}`, income);
     }
-    throw new Error('No user found');
+    return throwError('No user found');
   }
 
   getIncomesByUser(idUser: number): Observable<Income[]> {
@@ -36,5 +45,20 @@ export class GestionBudgetService {
 
   getExpensesByUser(idUser: number): Observable<expenses[]> {
     return this.http.get<expenses[]>(`http://localhost:8089/amanet/expense/listExpenses/${idUser}`);
+  }
+
+  removeExpense(idExpense: number): Observable<void> {
+    return this.http.delete<void>(`http://localhost:8089/amanet/expense/remove/${idExpense}`);
+  }
+  removeIncome(idIncome: number): Observable<void> {
+    return this.http.delete<void>(`http://localhost:8089/amanet/api/incomes/remove/${idIncome}`);
+  }
+  // Get Monthly Expenses
+  getMonthlyExpenses(): Observable<Map<string, number>> {
+    const user = this.userSubject.value;
+    if (user && user.idUser) {
+    return this.http.get<Map<string, number>>(`http://localhost:8089/amanet/expense/monthly/${user.idUser}`);
+  }
+  return throwError('No user found');
   }
 }

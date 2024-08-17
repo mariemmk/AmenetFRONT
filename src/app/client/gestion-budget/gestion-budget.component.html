@@ -1,43 +1,100 @@
 <div class="container">
-    <div class="client-info">
-      <h2>Client Information</h2>
-      <p><strong>Name:</strong> {{ (currentUser$ | async)?.firstName }}</p>
-      <p><strong>Email:</strong> {{ (currentUser$ | async)?.email }}</p>
+  <!-- Client Information -->
+  <div class="client-info">
+    <h2>Client Information</h2>
+    <p><strong>First Name:</strong> {{ (currentUser$ | async)?.firstName }}</p>
+    <p><strong>Last Name:</strong> {{ (currentUser$ | async)?.familyName }}</p>
+    <p><strong>Email:</strong> {{ (currentUser$ | async)?.email }}</p>
+    <p><strong>Account Balance:</strong> {{ bankAccount.accountBalance }} TND</p>
+  </div>
+
+  <!-- Income and Expenses Table -->
+  <div class="container">
+    <h2>Income and Expenses</h2>
+
+    <!-- Table for Income and Expenses -->
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Category</th>
+          <th>Amount (TND)</th>
+          <th>Description/Date</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Display Incomes -->
+        <tr *ngFor="let income of incomesList">
+          <td>Income</td>
+          <td>{{ income.category }}</td>
+          <td>{{ income.amount | currency:'TND' }}</td>
+          <td>{{ income.date | date:'shortDate' }}</td>
+          <td><button class="btn btn-danger" (click)="deleteIncome(income.idIncome)"><i class="bi bi-trash-fill"></i></button></td>
+        </tr>
+
+        <!-- Display Expenses -->
+        <tr *ngFor="let expense of expensesList">
+          <td>Expense</td>
+          <td>{{ expense.category }}</td>
+          <td>{{ expense.amount | currency:'TND' }}</td>
+          <td>{{ expense.description }}</td>
+          <td><button class="btn btn-danger " (click)="deleteExpense(expense.idExpense)"><i class="bi bi-trash-fill"></i></button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Buttons to Open Modals -->
+  <div class="buttons">
+    <button (click)="openIncomeModal()" class="btn btn-primary">Submit Income</button>
+    <button (click)="openExpenseModal()" class="btn btn-secondary">Submit Expense</button>
+  </div>
+
+  <!-- Chart Containers -->
+  <div class="chart-container">
+    <div style="display: block;">
+      <canvas baseChart 
+              [data]="incomeChartData"
+              [labels]="incomeChartData.labels"
+              [type]="'pie'"
+              [options]="pieChartOptions"
+              [legend]="chartLegend"
+              [plugins]="chartPlugins">
+      </canvas>
     </div>
-  
-    <div class="budget-details">
-      <h2>Income and Expenses</h2>
-  
-      <!-- Display Expenses -->
-      <div class="expenses">
-        <h3>Expenses</h3>
-        <ul>
-          <li *ngFor="let expense of expensesList">
-            <span class="category">{{ expense.category }}</span>: 
-            <span class="amount">{{ expense.amount | currency }}</span> 
-            <span class="description">({{ expense.description }})</span>
-          </li>
-        </ul>
-      </div>
-  
-      <!-- Display Income -->
-      <div class="incomes">
-        <h3>Income</h3>
-        <ul>
-          <li *ngFor="let income of incomesList">
-            <span class="category">{{ income.category }}</span>: 
-            <span class="amount">{{ income.amount | currency }}</span> 
-            <span class="date">({{ income.date | date:'shortDate' }})</span>
-          </li>
-        </ul>
-      </div>
-  
-      <!-- Buttons to Open Modals -->
-      <div class="buttons">
-        <button (click)="openIncomeModal()" class="btn btn-primary">Submit Income</button>
-        <button (click)="openExpenseModal()" class="btn btn-secondary">Submit Expense</button>
-      </div>
+
+    <div style="display: block;">
+      <canvas baseChart 
+              [data]="expenseChartData"
+              [labels]="expenseChartData.labels"
+              [type]="'pie'"
+              [options]="pieChartOptions"
+              [legend]="chartLegend"
+              [plugins]="chartPlugins">
+      </canvas>
     </div>
+  </div>
+
+   <!-- Line Chart for Monthly Expenses -->
+   <div class="row mt-4">
+    <div class="col-md-12">
+      <h4>Monthly Expenses</h4>
+      <canvas baseChart
+        [data]="lineChartData"
+        [labels]="lineChartLabels"
+        [options]="lineChartOptions"
+        [legend]="lineChartLegend"
+        [type]="lineChartType"
+        [plugins]="lineChartPlugins">
+      </canvas>
+    </div>
+  </div>
   
-   
 </div>
+
+
+
+<!-- Include Modal Components -->
+<app-income></app-income>
+<app-expense></app-expense>

@@ -1,29 +1,24 @@
+<!-- list-reclamation.component.html -->
 <div *ngIf="loading">Loading...</div>
 <div *ngIf="error">{{ error }}</div>
-<div *ngIf="!loading && !error && reclamations.length === 0">No credits found.</div>
 
-<table *ngIf="!loading && !error && reclamations.length > 0" class="table table-striped">
+<table *ngIf="!loading && !error" border="1">
   <thead>
-  
     <tr>
       <th>ID</th>
-      <th>lDate</th>
-      <th>Contenu</th>
-      <th>type Reclamation</th>
+      <th>Date</th>
+      <th>Type</th>
+      <th>Content</th>
+      <th>User Email</th>
     </tr>
-
-    reclamationId!:number;
-    date!:Date;
-    contenu!:string;
-    typeReclamation!:string
-
   </thead>
   <tbody>
-    <tr *ngFor="let Reclamation of reclamations">
-      <td>{{ Reclamation.reclamationId }}</td>
-      <td>{{ Reclamation.date }}</td>
-      <td>{{ Reclamation.contenu }}</td>
-      <td>{{ Reclamation.typeReclamation}}</td>
+    <tr *ngFor="let reclamation of reclamations">
+      <td>{{ reclamation.reclamationId }}</td>
+      <td>{{ formatDate(reclamation.date) }}</td>
+      <td>{{ reclamation.typeReclamation }}</td>
+      <td>{{ reclamation.contenu || 'No content' }}</td>
+      <td>{{ reclamation.user?.email || 'No user email' }}</td>
     </tr>
   </tbody>
 </table>

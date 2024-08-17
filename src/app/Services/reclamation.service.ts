@@ -28,7 +28,7 @@ export class ReclamationService {
   getAllReclamtions():Observable<Reclamation[]>{
     return this.http.get<Reclamation[]>('http://localhost:8089/amanet/reclamation/showReclamation')
     
-}
+  }
 
 
 deleteReclamation(reclamationId:number):Observable<Reclamation>{

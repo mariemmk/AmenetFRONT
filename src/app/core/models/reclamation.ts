@@ -1,11 +1,9 @@
-export class Reclamation{
-    reclamationId!:number;
-    date!:Date;
-    contenu!:string;
-    typeReclamation!:string
+import { Client } from "./Client";
 
-    constructor() {
-        this.date = new Date(); // Automatically set the current date
-      }
+export interface Reclamation {
+    reclamationId: number;
+    date: Date ; // Automatically set the current date
+    contenu: string;
+    typeReclamation: string;
+    user: Client | null;
 }
-

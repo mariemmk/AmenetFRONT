@@ -1,22 +1,39 @@
- 
-    <!-- Modal for Income -->
-    <div class="modal fade" id="incomeModal" tabindex="-1" aria-labelledby="incomeModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="incomeModalLabel">Add Income</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div class="modal fade" id="incomeModal" tabindex="-1" aria-labelledby="incomeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="incomeModalLabel">Add Income</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="incomeForm" (ngSubmit)="submitIncomes()">
+          <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <input type="text" id="category" class="form-control" formControlName="category">
+            <div *ngIf="incomeForm.get('category')?.invalid && incomeForm.get('category')?.touched" class="text-danger">
+              Category is required.
+            </div>
           </div>
-          <div class="modal-body">
-            <!-- Form content here -->
-            <app-income></app-income>
+          <div class="mb-3">
+            <label for="amount" class="form-label">Amount</label>
+            <input type="text" id="amount" class="form-control" formControlName="amount">
+            <div *ngIf="incomeForm.get('amount')?.invalid && incomeForm.get('amount')?.touched" class="text-danger">
+              Amount is required and must be a positive number.
+            </div>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" (click)="submitIncomes()">Save</button>
+          <div class="mb-3">
+            <label for="date" class="form-label">Date</label>
+            <input type="date" id="date" class="form-control" formControlName="date">
+            <div *ngIf="incomeForm.get('date')?.invalid && incomeForm.get('date')?.touched" class="text-danger">
+              Date is required.
+            </div>
           </div>
-        </div>
+          <button type="submit" class="btn btn-primary" [disabled]="incomeForm.invalid">Save</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
-
-  
+  </div>
+</div>

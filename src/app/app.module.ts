@@ -72,20 +72,19 @@ import { ListReclamationComponent } from './admin/list-reclamation/list-reclamat
     ListCreditsComponent,
     ListTransactionsComponent,
     GestionBudgetComponent,
-
+    ListReclamationComponent,
     ForgetComponent,
     VerifCodeComponent,
     ResetPasswordFormComponent,
     VerificationCodeTimerComponent,
     AccountRequestListComponent,
-    ListReclamationComponent,
     ExpenseComponent,
     IncomeComponent
   ],
   providers: [
     DatePipe // Add DatePipe to providers
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent , GestionBudgetComponent , IncomeComponent],
   imports: [
     FormsModule,
     HttpClientModule,

@@ -1,14 +1,12 @@
+// src/app/components/reclamation/reclamation.component.ts
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-
 import { ReclamationService } from 'src/app/Services/reclamation.service';
-import { UserService } from 'src/app/Services/user.service';
 import { Client } from 'src/app/core/models/Client';
-
 import { Reclamation } from 'src/app/core/models/reclamation';
 import { selectCurrentUser } from 'src/app/core/models/user.selectors';
-import { User } from 'src/app/store/actions/user.action';
+import { currentUser } from 'src/app/store/actions/user.action';
 
 @Component({
   selector: 'app-reclamation',
@@ -17,22 +15,45 @@ import { User } from 'src/app/store/actions/user.action';
 })
 export class ReclamationComponent implements OnInit {
 
-  reclamation:Reclamation = new Reclamation();
+  reclamation: Reclamation = {
+    reclamationId: 0,
+    date: new Date(), // Initialize date
+    contenu: '',
+    typeReclamation: '',
+    user: null
+  };
+
   currentUser$: Observable<Client>;
 
-  constructor(private reclamationService:ReclamationService, private store: Store<any>,private userService: UserService){
+  constructor(private reclamationService: ReclamationService, private store: Store<any>) {
     this.currentUser$ = this.store.pipe(select(selectCurrentUser));
   }
-  ngOnInit(): void {this.userService.getCurrentUser().subscribe(user => {
-    this.reclamationService.user$.next(user);
-    
-  });
-    
-  }
-  
-  submitReclamation():void{
+
+  ngOnInit(): void {
+    const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
+    const accessToken = localStorage.getItem('accessToken') || '';
+
+    if (storedUser && storedUser.idUser && accessToken) {
+      this.store.dispatch(currentUser({ user: storedUser, accessToken }));
+      this.reclamationService.user$.next(storedUser); // Update user$ with the stored user
+    }
+
     this.currentUser$.subscribe(user => {
       if (user) {
+        this.reclamation.user = user;
+        console.log('Current User:', user);
+      } else {
+        console.error('No current user found');
+      }
+    });
+  }
+
+  submitReclamation(): void {
+    this.reclamationService.user$.subscribe(user => {
+      if (user) {
+        this.reclamation.date = new Date(); // Ensure the date is set
+        this.reclamation.user = user;
+
         this.reclamationService.addreclamation(this.reclamation).subscribe(
           response => {
             console.log('Reclamation successful', response);
@@ -46,6 +67,4 @@ export class ReclamationComponent implements OnInit {
       }
     });
   }
-   
-    
-  }
+}

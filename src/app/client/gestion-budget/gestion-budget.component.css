@@ -79,3 +79,13 @@ li {
 .btn:hover {
   opacity: 0.9;
 }
+.chart-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.chart-container canvas {
+  width: 300px;
+  height: 300px;
+}

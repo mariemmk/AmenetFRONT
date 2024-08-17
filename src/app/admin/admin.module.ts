@@ -17,16 +17,6 @@ import { ListReclamationComponent } from './list-reclamation/list-reclamation.co
   declarations: [
   
   
- 
-  
-
-  
-  
-
-  
-   
-  
-  
   ],
   imports: [
     CommonModule,

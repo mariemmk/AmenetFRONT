@@ -1,6 +1,6 @@
 
 export interface Transaction {
-    id: number;
+  transactionId: number;
     accountNumber: string;
     typeTransaction: string;
     devise: string;

@@ -1,6 +1,6 @@
 export class Income {
-    idIncome!: number;
-    amount!: number; // Use primitive number type
-    category!: string;
-    date!: Date;
-  }
+  idIncome!: number;
+  amount!: string; // Change to string to match BigDecimal
+  category!: string;
+  date!: string; // Change to string to match LocalDate
+}
