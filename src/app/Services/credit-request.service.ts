@@ -19,7 +19,7 @@ export class CreditRequestService {
 
   constructor(private http: HttpClient) { }
 
-  createCreditRequest(
+/*  createCreditRequest(
     loanType: string,
     amount: number,
     duration: number,
@@ -47,12 +47,20 @@ export class CreditRequestService {
     if (revenuMensuels) params = params.set('revenuMensuels', revenuMensuels.toString());
     if (typeContract) params = params.set('typeContract', typeContract);
     if (creditEnCours) params = params.set('creditEnCours', creditEnCours);
+    if (file) params = params.set('creditEnCours', file);
 
     return this.http.post<Credit>(`http://localhost:8089/amanet/credit/request`, null, { params });
   }
+*/
 
-
-
+  createCreditRequest(formData: FormData): Observable<Credit> {
+    return this.http.post<Credit>(`http://localhost:8089/amanet/credit/request`, formData, {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+      })
+    });
+  }
+  
 getAllCreditRequests(): Observable<Credit[]> {
     return this.http.get<Credit[]>(`${this.host}/amanet/credit/requests`);
   }

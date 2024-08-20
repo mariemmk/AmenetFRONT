@@ -63,7 +63,7 @@ export class ChatbotComponent implements OnInit {
   private handlerAskGPT(userMessage: any): void {
     const url = 'https://api.openai.com/v1/chat/completions';
     const httpHeaders = new HttpHeaders()
-      .set('Authorization', 'Bearer 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')
+      .set('Authorization', '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')
       .set('Content-Type', 'application/json');
 
     const payload = {

@@ -17,6 +17,7 @@ import jsPDF from 'jspdf';
 })
 export class CreditRequestComponent implements OnInit {
   @ViewChild('bankDetails', { static: false }) bankDetails!: ElementRef;
+  selectedFile: File | null = null;
 
   currentUser$: Observable<Client>;
   creditRequest: Credit = {
@@ -75,25 +76,24 @@ export class CreditRequestComponent implements OnInit {
       return;
     }
 
-    // Extract the user ID to pass as a parameter
     const userId = this.creditRequest.user.idUser;
+    const formData = new FormData();
+    formData.append('loanType', this.creditRequest.loanType);
+    formData.append('amount', this.creditRequest.amount.toString());
+    formData.append('duration', this.creditRequest.duration.toString());
+    formData.append('idUser', userId.toString());
 
-    console.log('Credit Request:', this.creditRequest); // Debugging line
-  
-    this.creditService.createCreditRequest(
-      this.creditRequest.loanType,
-      this.creditRequest.amount,
-      this.creditRequest.duration,
-      userId,
-      this.creditRequest.carPrice,
-      this.creditRequest.horsePower,
-      this.creditRequest.employeur,
-      this.creditRequest.addressEmplyeur,
-      this.creditRequest.postOccupe,
-      this.creditRequest.revenuMensuels,
-      this.creditRequest.typeContract,
-      this.creditRequest.creditEnCours
-    ).subscribe(
+    if (this.creditRequest.carPrice) formData.append('carPrice', this.creditRequest.carPrice.toString());
+    if (this.creditRequest.horsePower) formData.append('horsepower', this.creditRequest.horsePower.toString());
+    if (this.creditRequest.employeur) formData.append('employeur', this.creditRequest.employeur);
+    if (this.creditRequest.addressEmplyeur) formData.append('addressEmplyeur', this.creditRequest.addressEmplyeur);
+    if (this.creditRequest.postOccupe) formData.append('postOccupe', this.creditRequest.postOccupe);
+    if (this.creditRequest.revenuMensuels) formData.append('revenuMensuels', this.creditRequest.revenuMensuels.toString());
+    if (this.creditRequest.typeContract) formData.append('typeContract', this.creditRequest.typeContract);
+    if (this.creditRequest.creditEnCours) formData.append('creditEnCours', this.creditRequest.creditEnCours);
+    if (this.selectedFile) formData.append('file', this.selectedFile);
+
+    this.creditService.createCreditRequest(formData).subscribe(
       response => {
         console.log('Credit request successful', response);
         this.creditRequest = response;
@@ -104,6 +104,15 @@ export class CreditRequestComponent implements OnInit {
       }
     );
   }
+
+  onFileChange(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+    }
+  }
+
+  
 
   downloadPDF(): void {
     if (this.bankDetails && this.bankDetails.nativeElement) {
