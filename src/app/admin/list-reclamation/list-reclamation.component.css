@@ -1,0 +1,39 @@
+.table {
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+  }
+  
+  .table th, .table td {
+    padding: 12px; /* Increase padding for better spacing */
+    border: 1px solid #ddd;
+    text-align: left; /* Ensure text is aligned to the left */
+  }
+  
+  .table th {
+    background-color: #f4f4f4;
+    font-weight: bold; /* Make header text bold */
+  }
+  
+  .table-striped tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+  }
+  
+  .table-striped tbody tr:hover {
+    background-color: #f1f1f1; /* Add a hover effect for better interactivity */
+  }
+  
+  .table th, .table td {
+    text-align: center; /* Center-align the content */
+  }
+  
+  .table th {
+    background-color: #007bff;
+    color: white; /* Make header background color blue and text white */
+  }
+  
+  .table td {
+    vertical-align: middle; /* Vertically center the text in the table cells */
+  }
+  

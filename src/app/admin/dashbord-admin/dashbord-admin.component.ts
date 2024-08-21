@@ -107,7 +107,7 @@ export class DashbordAdminComponent implements OnInit {
     );
   }
   loadTotalReclamations() {
-    this.reclamationService.getAllReclamtions().subscribe(
+    this.reclamationService.getAllReclamations().subscribe(
       (reclamations: Reclamation[]) => {
         this.totalReclamations = reclamations.length;
       },

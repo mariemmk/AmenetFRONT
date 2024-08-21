@@ -20,7 +20,8 @@ export class ReclamationComponent implements OnInit {
     date: new Date(), // Initialize date
     contenu: '',
     typeReclamation: '',
-    user: null
+    user: null,
+    status: ''
   };
 
   currentUser$: Observable<Client>;
@@ -52,7 +53,7 @@ export class ReclamationComponent implements OnInit {
     this.reclamationService.user$.subscribe(user => {
       if (user) {
         this.reclamation.date = new Date(); // Ensure the date is set
-        this.reclamation.user = user;
+        this.reclamation.user=user;
 
         this.reclamationService.addreclamation(this.reclamation).subscribe(
           response => {

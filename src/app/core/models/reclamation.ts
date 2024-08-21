@@ -6,4 +6,5 @@ export interface Reclamation {
     contenu: string;
     typeReclamation: string;
     user: Client | null;
+    status:string;
 }

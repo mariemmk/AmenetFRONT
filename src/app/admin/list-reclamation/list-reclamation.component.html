@@ -1,15 +1,15 @@
-<!-- list-reclamation.component.html -->
 <div *ngIf="loading">Loading...</div>
 <div *ngIf="error">{{ error }}</div>
 
-<table *ngIf="!loading && !error" border="1">
+<table class="table table-striped" *ngIf="!loading && !error && reclamations.length > 0">
   <thead>
     <tr>
       <th>ID</th>
       <th>Date</th>
       <th>Type</th>
       <th>Content</th>
-      <th>User Email</th>
+      <th>status</th>
+      <th>User Details</th>
     </tr>
   </thead>
   <tbody>
@@ -18,7 +18,78 @@
       <td>{{ formatDate(reclamation.date) }}</td>
       <td>{{ reclamation.typeReclamation }}</td>
       <td>{{ reclamation.contenu || 'No content' }}</td>
-      <td>{{ reclamation.user?.email || 'No user email' }}</td>
+      <td>{{ reclamation.status}}</td>
+      <td>
+        <button class="btn btn-primary" (click)="consulterUtilisateur(reclamation)"><i class="bi bi-box-arrow-up-left"></i></button>
+        <button class="btn btn-danger" (click)="supprimerReclamation(reclamation.reclamationId)">Reject</button>
+      </td>
     </tr>
   </tbody>
 </table>
+
+<div *ngIf="!loading && !error && reclamations.length === 0">
+  No reclamations found.
+</div>
+<!-- Modal for displaying user details -->
+<div class="modal fade" id="userDetailsModal" tabindex="-1" aria-labelledby="userDetailsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="userDetailsModalLabel">User Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="user-details">
+          <div class="row">
+            <div class="col-6">
+              <span class="label">
+                Verified : <i [ngClass]="{'bi bi-check2 green' : selectedUser?.status === 'ACTIVE', 'bi bi-x red' : selectedUser?.status !== 'ACTIVE'}"></i>
+              </span>
+            </div>
+          </div>
+          <div class="row">
+            <span class="col-6 label">Creation date:</span>
+            <span class="col-6">{{ selectedUser?.createdAt | date:'dd-MM-yyyy' }}</span>
+          </div>
+          <hr>
+          <div class="row">
+            <span class="col-6 label">ID Client:</span>
+            <span class="col-6">{{ selectedUser?.idUser || "--"}}</span>
+          </div>
+          <div class="row">
+            <span class="col-6 label">Name:</span>
+            <span class="col-6">{{ selectedUser?.firstName || "--"}}</span>
+          </div>
+          <div class="row">
+            <span class="col-6 label">Family Name:</span>
+            <span class="col-6">{{ selectedUser?.familyName || "--"}}</span>
+          </div>
+          <div class="row">
+            <span class="col-6 label">Phone Number:</span>
+            <span class="col-6">{{ selectedUser?.phoneNumber || "--"}}</span>
+          </div>
+          <div class="row">
+            <span class="col-6 label">CIN:</span>
+            <span class="col-6">{{ selectedUser?.cin || "--"}}</span>
+          </div>
+          <div class="row">
+            <span class="col-6 label">Email:</span>
+            <span class="col-6">{{ selectedUser?.email || "--"}}</span>
+          </div>
+          <hr>
+          <div class="row">
+            <span class="col-6 label">Address:</span>
+            <span class="col-6">{{ selectedUser?.address || "--"}}</span>
+          </div>
+          <div class="row">
+            <span class="col-6 label">Date of birth:</span>
+            <span class="col-6">{{ selectedUser?.birthDate | date:'dd-MM-yyyy' }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer text-end">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
