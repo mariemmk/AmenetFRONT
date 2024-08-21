@@ -1,63 +1,6 @@
-<!-- <div class="p-3">
-  <div class="card">
-    <div class="card-body">
-    <form [formGroup]="queryFormGroup" (ngSubmit)="handlerAskGPT()">
-      <div class="mb-3">
-        <label class="form-label">Query:</label>
-        <textarea formControlName="query" class="form-control"></textarea>
-      </div>
-
-      <button class="btn btn-success">Ask GPT</button>
-    </form>
-    <div class="aler alert-success" *ngIf="result">
-     
-      <ul class="list-group">
-      <li class="list-froup-item"  *ngFor="let choice of  result.choices">
-        {{choice.message.content}}
-      </li>
-    </ul>
-    </div>
-    </div>
-  </div>
-
-</div>
-
--->
-
-
-<div
-  class="chatbot-container"
-  [@expandChatbot]="chatbotState"
-  [class.expanded]="chatbotState === 'expanded'"
->
-<div *ngIf="!showChat" (click)="toggleChatbot()" class="chat-icon">
-    <i class="bi bi-chat-right-dots-fill"></i>
-</div>
-<div *ngIf="showChat">
-  <div class="chatbot-header">Chatbot <span><i class="bi bi-dash-lg" (click)="toggleChatbot()"></i></span></div>  
-  <div class="chatbot-body">
-    <ul class="chatbox" #chatbox>
-        <li class="chat incoming">
-            <span class="material-symbols-outlined"><i class="bi bi-robot"></i></span>
-            <p>Hi there 👋<br>How can I help you today?</p>
-          </li>
-        <li *ngFor="let message of chatMessages" class="chat" [ngClass]="{ 'incoming': message.sender === 'Chatbot', 'outgoing': message.sender === 'You' }">
-          <span class="material-symbols-outlined">
-            <i class="bi bi-robot" *ngIf="message.sender === 'Chatbot'"></i>
-            <i class="bi bi-person-circle" *ngIf="message.sender === 'You'"></i>
-          </span>
-          <p>{{ message.message }}</p>
-        </li>
-      </ul>
-    </div>
-  <div class="input-container">
-    <textarea
-    rows="1"
-    [(ngModel)]="userMessage"
-    placeholder="Type a message..."
-    (keydown.enter)="sendMessage()"
-    (keydown.alt.enter)="$event.preventDefault()"
-  ></textarea>
-    <button type="submit" class="sendButton" (click)="sendMessage()"><i class="bi bi-send-fill"></i></button>
-  </div>
-</div>
+<df-messenger
+  intent="WELCOME"
+  chat-title="AngularBot"
+  agent-id="0cf78296-fe13-45ab-9f3b-97f696e4e75b"
+  language-code="en"
+></df-messenger>
