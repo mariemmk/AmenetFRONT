@@ -74,7 +74,8 @@ export class EditUserComponent implements OnInit {
         lastDateChangePassword: this.updateUserForm.value.lastDateChangePassword,
         role: this.updateUserForm.value.role,
         codeVerif: this.updateUserForm.value.codeVerif,
-        income: this.updateUserForm.value.income
+        income: this.updateUserForm.value.income,
+        totpSecret: ''
       };
 
       this.userService.updateUser(updatedUser).subscribe((response) => {

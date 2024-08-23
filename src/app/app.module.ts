@@ -47,6 +47,7 @@ import { ListReclamationComponent } from './admin/list-reclamation/list-reclamat
 import { SideBarAdminComponent } from './admin/side-bar-admin/side-bar-admin.component';
 import { LoginAdminComponent } from './admin/login-admin/login-admin.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -83,7 +84,8 @@ import { LoginAdminComponent } from './admin/login-admin/login-admin.component';
     ExpenseComponent,
     IncomeComponent,
     SideBarAdminComponent,
-    LoginAdminComponent
+    LoginAdminComponent,
+ 
   ],
   providers: [
     DatePipe // Add DatePipe to providers

@@ -24,19 +24,36 @@ export class UserService {
 
   constructor(private http: HttpClient, private store: Store<any>) {}
 
+ 
+ 
   public login(credentials: { email: string, password: string }): Observable<{ user: Client, accessToken: string }> {
-    return this.http.post<{ user: Client, accessToken: string }>(`${this.host}/amanet/auth/login`, credentials).pipe(
+    return this.http.post<{ user: Client, accessToken: string }>(`${this.host}/amanet/auth/login`, credentials);
+     
+  }
+
+  public validateOtp(email: string, otpCode: string): Observable<{ user: Client, accessToken: string }> {
+    return this.http.post<{ user: Client, accessToken: string }>(
+      `http://localhost:8089/amanet/auth/validate-otp`, 
+      null, {
+        params: {
+          email: email,
+          otpCode: otpCode
+        }
+      }
+    ).pipe(
       tap(response => {
         this.accessToken = response.accessToken;
         localStorage.setItem('accessToken', this.accessToken);
         localStorage.setItem('user', JSON.stringify(response.user));
+        // Update httpOptions with the new accessToken
         this.store.dispatch(currentUser({ accessToken: this.accessToken, user: response.user }));
         this.user$.next(response.user);
-        this.isLoggedin$.next(!!response.user);
+        this.isLoggedin$.next(true);
       })
     );
   }
-
+  
+  
   public logout() {
     this.accessToken = '';
     localStorage.removeItem('accessToken');

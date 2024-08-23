@@ -29,6 +29,7 @@ export class Client {
     role: string = "USER";
     type ?: string;
     codeVerif!: string;
+    totpSecret!:string;
     
 
     income!:number;

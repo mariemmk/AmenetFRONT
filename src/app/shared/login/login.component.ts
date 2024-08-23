@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { UserService } from 'src/app/Services/user.service';
 import { Client } from 'src/app/core/models/Client';
 import { NotificationsService } from 'angular2-notifications';
-import { login } from 'src/app/store/actions/user.action';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -14,14 +14,32 @@ import { login } from 'src/app/store/actions/user.action';
 export class LoginComponent implements OnInit {
 
   showPassword: boolean = false;
-  email!: string;
-  password!: string;
-  badCredentials: boolean = false;
-  spinner = true;
-  loading = false;
-  error = false;
+  showOtpForm: boolean = false;
+  error: boolean = false;
+  loading: boolean = false;
+  spinner: boolean = true;
 
-  constructor(private authService: UserService, private notifications: NotificationsService, private router: Router, private store: Store<{ user: Client, accessToken: string }>) {}
+  loginForm: FormGroup;
+  otpForm: FormGroup;
+  email: string = '';  // Variable to store the email
+
+  constructor(
+    private authService: UserService,
+    private notifications: NotificationsService,
+    private router: Router,
+    private store: Store<{ user: Client, accessToken: string }>,
+    private fb: FormBuilder
+  ) {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
+    });
+
+    this.otpForm = this.fb.group({
+      otpCode: ['', Validators.required],
+      email: ['']  // Add email to OTP form group
+    });
+  }
 
   ngOnInit(): void {
     setTimeout(() => this.spinner = !this.spinner, 500);
@@ -32,13 +50,21 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    if (this.loginForm.invalid) {
+      return;
+    }
+
     this.loading = true;
-    this.authService.login({ email: this.email, password: this.password }).subscribe({
+    const { email, password } = this.loginForm.value;
+    this.email = email;  // Save email
+
+    this.authService.login({ email, password }).subscribe({
       next: response => {
-        this.notifications.success('Success', 'Logged in successfully', {
+        this.showOtpForm = true;
+        this.notifications.success('Success', 'Please enter the OTP sent to your email.', {
           timeOut: 5000
         });
-        this.router.navigate(['/client']);
+        this.loading = false;
       },
       error: err => {
         this.notifications.error('Error', 'Login failed. Please check your credentials.', {
@@ -47,6 +73,34 @@ export class LoginComponent implements OnInit {
         this.error = true;
         this.loading = false;
         console.error('Login error:', err);  // Add detailed logging
+      }
+    });
+  }
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+  verifyOtp() {
+    if (this.otpForm.invalid) {
+      return;
+    }
+
+    this.loading = true;
+    const { otpCode } = this.otpForm.value;
+
+    this.authService.validateOtp(this.email, otpCode).subscribe({
+      next: response => {
+        this.notifications.success('Success', 'Logged in successfully', {
+          timeOut: 5000
+        });
+        this.router.navigate(['/client']);
+      },
+      error: err => {
+        this.notifications.error('Error', 'Invalid OTP. Please check the code and try again.', {
+          timeOut: 5000
+        });
+        this.error = true;
+        this.loading = false;
+        console.error('OTP validation error:', err);  // Add detailed logging
       }
     });
   }

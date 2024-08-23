@@ -29,6 +29,7 @@ import { ListReclamationComponent } from './admin/list-reclamation/list-reclamat
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
+
   {path: 'signup', component:SignupComponent},
   {path:'forget',component:ForgetComponent},
   {path:'Landing', component:LandingComponent},
