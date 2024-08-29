@@ -27,7 +27,7 @@ export class ForgetComponent implements OnInit {
   submitEmail(){
     this.userService.sendEmail(this.email).subscribe();
     this.notifier.info('succes', 'email envoyé',{
-      timeOut: 5000,
+      timeOut: 90000,
       animate: 'fromRight',
       position: ['top']
     });

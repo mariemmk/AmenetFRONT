@@ -59,5 +59,15 @@ export class TransactionService  {
     return this.http.get<Transaction[]>('http://localhost:8089/amanet/bank/transactions')
     
 }
-  
+
+
+getTransactionsByDate(date: string): Observable<Transaction[]> {
+  const params = new HttpParams().set('date', date);
+  return this.http.get<Transaction[]>(`http://localhost:8089/amanet/bank/transactionsByDate`, { params });
+}
+
+
+getTransactionsByAccountNumber(accountNumber: string): Observable<Transaction[]> {
+  return this.http.get<Transaction[]>(`http://localhost:8089/amanet/bank/transactionsByAccountNumber?accountNumber=${accountNumber}`);
+}
 }

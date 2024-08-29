@@ -19,7 +19,10 @@ export class ProfilComponent implements OnInit {
 
   currentUser$: Observable<Client>;
   bankAccount!: BankAccount;
+  phoneNumber: string = '';
+  address: string = '';
 
+  isEditing: boolean = false;
   constructor(private store: Store<any>, private userService: UserService) {
     this.currentUser$ = this.store.pipe(select(selectCurrentUser));
   }
@@ -34,6 +37,9 @@ export class ProfilComponent implements OnInit {
 
     this.currentUser$.subscribe(user => {
       if (user) {
+        this.phoneNumber = user.phoneNumber;
+        this.address = user.address;
+   
         console.log('Current User:', user);
         this.userService.getBankAccounts(user.idUser).subscribe(response => {
           console.log('Bank Accounts Response:', response);
@@ -46,22 +52,53 @@ export class ProfilComponent implements OnInit {
       }
     });
   }
-
-  downloadPDF(): void {
-    const DATA = document.getElementById('bankDetails');
-    if (DATA) {
-      html2canvas(DATA).then((canvas) => {
-        const imgWidth = 208;
-        const pageHeight = 295;
-        const imgHeight = canvas.height * imgWidth / canvas.width;
-        const heightLeft = imgHeight;
-
-        const contentDataURL = canvas.toDataURL('image/png');
-        const pdf = new jsPDF('p', 'mm', 'a4');
-        const position = 0;
-        pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
-        pdf.save('identite_bancaire.pdf');
-      });
+  updateContact(): void {
+    this.currentUser$.subscribe(user => {
+      if (user) {
+      this.userService.updateContactDetails(user.idUser, this.phoneNumber, this.address).subscribe(
+        (updatedUser) => {
+          console.log('Contact details updated successfully', updatedUser);
+          // Optionally update the local state or inform the user of success
+          this.store.dispatch(currentUser({ user: updatedUser, accessToken: localStorage.getItem('accessToken') || '' }));
+        },
+        (error) => {
+          console.error('Error updating contact details', error);
+          // Optionally handle the error
+        }
+      );
+    } else {
+      console.error('No user ID found');
     }
   }
+)}
+
+downloadPDF(): void {
+  const element = document.getElementById('pdfContent'); // Ensure this ID matches the HTML element you want to capture
+
+  if (element) {
+    html2canvas(element).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const doc = new jsPDF();
+      const imgWidth = 190; // Adjust width based on your needs
+      const pageHeight = 295; // A4 page height in mm
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+      let heightLeft = imgHeight;
+
+      doc.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft >= 0) {
+        doc.addPage();
+        doc.addImage(imgData, 'PNG', 10, -heightLeft, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+
+      doc.save('identite-bancaire.pdf');
+    }).catch(error => {
+      console.error('Error generating PDF', error);
+    });
+  } else {
+    console.error('Element with ID pdfContent not found');
+  }
+}
 }

@@ -1,27 +1,63 @@
 <div class="container mt-5" *ngIf="currentUser$ | async as currentUser">
   <div class="card mx-auto" style="max-width: 800px;">
-    <div class="card-header">
-      <h5 class="card-title">Identité Bancaire</h5>
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5 class="card-title mb-0">Identité Bancaire</h5>
+      <div class="button-group">
+        <button (click)="isEditing = true" class="btn btn-primary me-2">Configurer Profil</button>
+        <button (click)="downloadPDF()" class="btn btn-success">Télécharger Identité Bancaire</button>
+      </div>
     </div>
-    <div class="card-body">
-      <div class="row">
-        <div class="col-md-6">
-          <p><strong>Nom:</strong> {{ currentUser.firstName }} {{ currentUser.familyName }}</p>
-          <p><strong>Date de naissance:</strong> {{ currentUser.birthDate | date }}</p>
-          <p><strong>Téléphone:</strong> {{ currentUser.phoneNumber }}</p>
-          <p><strong>Adresse:</strong> {{ currentUser.address }}</p>
-        </div>
-        <div class="col-md-6" *ngIf="bankAccount">
-          <p><strong>Type de compte:</strong> {{ bankAccount.accountType }}</p>
-          <p><strong>Numéro de compte:</strong> {{ bankAccount.accountNumber }}</p>
-          <p><strong>Solde du compte:</strong> {{ bankAccount.accountBalance }}</p>
-          <p><strong>RIB:</strong> {{ bankAccount.rib }}</p>
-          <p><strong>BIC:</strong> CFCTTNTT</p>
-        </div>
-        <div class="col-md-6" *ngIf="!bankAccount">
-          <p>Aucun compte bancaire trouvé.</p>
+    <div class="card-body" id="pdfContent">
+      <!-- Toggle between display and edit mode -->
+      <div *ngIf="!isEditing; else editProfile">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <h6 class="card-subtitle mb-2 text-muted">Informations Personnelles</h6>
+              <p><strong>Nom:</strong> {{ currentUser.firstName }} {{ currentUser.familyName }}</p>
+              <p><strong>Date de naissance:</strong> {{ currentUser.birthDate | date:'dd/MM/yyyy' }}</p>
+              <p><strong>Téléphone:</strong> {{ currentUser.phoneNumber }}</p>
+              <p><strong>Adresse:</strong> {{ currentUser.address }}</p>
+            </div>
+          </div>
+          <div class="col-md-6" *ngIf="bankAccount">
+            <div class="mb-3">
+              <h6 class="card-subtitle mb-2 text-muted">Informations Bancaires</h6>
+              <p><strong>Type de compte:</strong> {{ bankAccount.accountType }}</p>
+              <p><strong>Numéro de compte:</strong> {{ bankAccount.accountNumber }}</p>
+              <p><strong>Solde du compte:</strong> {{ bankAccount.accountBalance | currency:'EUR' }}</p>
+              <p><strong>RIB:</strong> {{ bankAccount.rib }}</p>
+              <p><strong>BIC:</strong> CFCTTNTT</p>
+            </div>
+          </div>
+          <div class="col-md-6" *ngIf="!bankAccount">
+            <p class="text-danger">Aucun compte bancaire trouvé.</p>
+          </div>
         </div>
       </div>
+
+      <!-- Template for editing profile -->
+      <ng-template #editProfile>
+        <div class="row">
+          <div class="col-md-12">
+            <form (ngSubmit)="updateContact()">
+              <h6 class="card-subtitle mb-2 text-muted">Modifier les Informations</h6>
+              <div class="mb-3">
+                <label for="phoneNumber" class="form-label"><strong>Téléphone:</strong></label>
+                <input id="phoneNumber" [(ngModel)]="phoneNumber" name="phoneNumber" class="form-control" />
+              </div>
+              <div class="mb-3">
+                <label for="address" class="form-label"><strong>Adresse:</strong></label>
+                <input id="address" [(ngModel)]="address" name="address" class="form-control" />
+              </div>
+              <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-primary">Sauvegarder</button>
+                <button type="button" (click)="isEditing = false" class="btn btn-secondary">Annuler</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </ng-template>
     </div>
   </div>
 </div>

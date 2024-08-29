@@ -38,13 +38,13 @@
             <!-- OTP Form -->
             <form [formGroup]="otpForm" class="login" *ngIf="showOtpForm" (ngSubmit)="verifyOtp()">
               <input type="hidden" formControlName="email" [value]="email">
-              <div class="alert alert-danger" *ngIf="error && showOtpForm">Invalid OTP code!</div>
+              <div class="alert alert-danger" *ngIf="error && showOtpForm">Invalid code!</div>
               <div class="login__field">
                 <i class="login__icon bi bi-lock"></i>
                 <input type="text" formControlName="otpCode" class="login__input" placeholder="Enter OTP Code" autocomplete="off">
               </div>
               <button [disabled]="otpForm.invalid || loading" type="submit" class="button login__submit">
-                <span *ngIf="!loading" class="button__text">Verify OTP</span>
+                <span *ngIf="!loading" class="button__text">Verify Code</span>
                 <i *ngIf="!loading" class="button__icon bi bi-chevron-right"></i>
                 <span *ngIf="loading" class="button__text" style="margin-right: 3rem;">Verifying...</span>
                 <div class="loading-circle" *ngIf="loading"></div>

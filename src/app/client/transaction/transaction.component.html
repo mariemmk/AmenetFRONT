@@ -1,3 +1,4 @@
+<!-- Form to add a new transaction -->
 <article class="main table-wrap col-md-6 mx-auto my-5">
   <h4 style="color: #03943F; font-weight: bold" class="mb-4">Virement compte à compte</h4>
   <form class="form-horizontal" (ngSubmit)="virementCompteACompte()">
@@ -11,7 +12,7 @@
           name="CompteADebite"
           [(ngModel)]="transfer.sourceAccountNumber"
           placeholder="Compte à débiter"
-         
+          required
         >
       </div>
     </div>
@@ -57,11 +58,51 @@
         >
       </div>
     </div>
-    
     <div class="form-group">
       <div class="col-sm-12 text-center">
         <button type="submit" class="btn btn-primary">Continuer</button>
       </div>
     </div>
   </form>
+
+  <!-- Toggle button to show/hide transactions -->
+  <div class="text-center mt-4">
+    <button class="btn btn-secondary" (click)="toggleView()">
+      {{ showTransactions ? 'Afficher Formulaire' : 'Afficher Transactions' }}
+    </button>
+  </div>
 </article>
+
+<!-- Display existing transactions -->
+<article class="main table-wrap col-md-6 mx-auto my-5" *ngIf="showTransactions">
+  <h4 style="color: #03943F; font-weight: bold" class="mb-4">Historique des transactions</h4>
+  <div *ngIf="transactions.length > 0">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Compte Débité</th>
+          <th>Type</th>
+          <th>Montant</th>
+          <th>Devise</th>
+          <th>Status</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let transaction of transactions">
+          <td>{{ transaction.bankAccount ? transaction.bankAccount.accountNumber : 'N/A' }}</td>
+          <td>{{ transaction.typeTransaction }}</td>
+          <td>{{ transaction.amount }}</td>
+          <td>{{ transaction.devise }}</td>
+          <td>{{ transaction.status }}</td>
+          <td>{{ transaction.createdAt | date:'short' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="transactions.length === 0">
+    <p>Aucune transaction trouvée.</p>
+  </div>
+</article>
+
+<simple-notifications></simple-notifications>

@@ -1,7 +1,8 @@
+import { BankAccount } from "./BankAccount";
 
 export interface Transaction {
   transactionId: number;
-    accountNumber: string;
+    bankAccount: BankAccount;
     typeTransaction: string;
     devise: string;
     amount: number;

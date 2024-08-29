@@ -1,6 +1,6 @@
 export class BankAccount{
     idAccount!:string;
-    accountNumber!:String;
+    accountNumber!:string;
     rib!:String;
     accountBalance!:number;
     accountType!:String;

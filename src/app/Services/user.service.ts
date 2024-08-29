@@ -179,5 +179,18 @@ public resetPassword(credentials: {email : string, newPass : string}){
   getCountCreditByStatus(): Observable<any> {
     return this.http.get<any>(`http://localhost:8089/amanet/credit/api/credits/count-by-status`);
   }
+
+
+  public updateContactDetails(idUser: number, phoneNumber: string, address: string): Observable<Client> {
+    // Prepare the body of the request
+    const updateData = {
+      phoneNumber: phoneNumber,
+      address: address
+    };
+  
+    // Make the PUT request to the backend
+    return this.http.put<Client>(`http://localhost:8089/amanet/user/editContactDetails/${idUser}`, updateData, this.httpOptions);
+  }
+  
 }
 

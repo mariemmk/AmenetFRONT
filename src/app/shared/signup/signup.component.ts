@@ -6,7 +6,7 @@ import { UserService } from 'src/app/Services/user.service';
 import { signup } from 'src/app/store/actions/user.action';
 import { tunisianStates, usaStates } from './states';
 import { NgModel } from '@angular/forms';
-import { Route } from '@angular/router';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -30,7 +30,7 @@ export class SignupComponent implements OnInit {
   selectedgenders = ['Male', 'Female', 'Other'];
   selectedAccountType=['IRA','CHECKING',' SAVING','MONEY_MARKET' ,' CERTIFICATION_OF_DEPOSIT'];
 
-  constructor(private userService: UserService, private notifications: NotificationsService,private store : Store  ){
+  constructor(private userService: UserService, private notifications: NotificationsService,private store : Store  ,   private router: Router){
     this.user = new Client();
     this.user.password ='';
     this.user.gender = ''; // Initialize gender property here
@@ -52,6 +52,7 @@ export class SignupComponent implements OnInit {
     console.log('Birth Date:', this.user.birthDate);
     this.notifications.success('Succès', 'Ajout de compte avec succès',{timeoOut: 5000});
     console.log('Inscription effectuée avec succès:', this.user);
+    this.router.navigate(['/login']);
     
 }
 

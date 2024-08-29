@@ -22,14 +22,30 @@
   background-color: #fff;
 }
 
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem; /* Adjust as needed for spacing */
+}
 /* An optional height of the navbar AFTER scroll */
 .navbar.navbar-scroll.navbar-scrolled {
   padding-top: auto;
   padding-bottom: auto;
 }
 .navbar-brand {
-  font-size: unset;
+
+  align-items: center;
   height: 3.5rem;
+  margin-right: auto;
+
+}
+
+.input-group {
+  flex: 1; /* Allow the search form to take available space */
+  display: flex;
+  justify-content: center; /* Center the form horizontally */
+  margin: 0 1rem; /* Adjust as needed for spacing */
 }
 
 body {

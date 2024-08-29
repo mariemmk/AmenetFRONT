@@ -43,10 +43,10 @@ export class VerifCodeComponent implements OnInit {
         if(result){
           this.resetEmitter.emit(true);
           this.notifier.info('succes', 'code valide',{
-            timeOut: 5000});
+            timeOut: 50000});
         }else{
           this.notifier.error('erreur', 'code invalide',{
-            timeOut: 5000});
+            timeOut: 50000});
           this.notification = !this.notification;
           setTimeout(() => this.notification = !this.notification,2000);
         }

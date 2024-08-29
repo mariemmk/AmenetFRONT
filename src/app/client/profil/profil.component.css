@@ -1,4 +1,66 @@
 .card {
-    margin-top: 100px; /* Ajoute une marge en haut de la carte */
-  }
-  
+  margin-top: 100px; /* Réduit la marge en haut pour un alignement plus équilibré */
+  border-radius: 10px; /* Ajoute des coins arrondis pour une apparence plus douce */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajoute une ombre subtile pour un effet de profondeur */
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px; /* Adjust spacing between buttons */
+}
+
+.card-body {
+  padding: 20px; /* Ajoute du padding pour plus d'espace autour du contenu */
+}
+
+.card-title {
+  font-size: 1.25rem; /* Définit une taille de police légèrement plus grande pour le titre */
+  font-weight: 500; /* Met le titre en gras pour plus de visibilité */
+}
+
+.card-subtitle {
+  font-size: 1rem; /* Définit une taille de police standard pour les sous-titres */
+  color: #6c757d; /* Définit une couleur subtile pour les sous-titres */
+  margin-bottom: 10px; /* Ajoute une marge inférieure pour séparer le sous-titre du contenu */
+}
+
+.form-label {
+  font-weight: 500; /* Met les étiquettes de formulaire en gras pour plus de visibilité */
+}
+
+.btn {
+  border-radius: 5px; /* Ajoute des coins arrondis aux boutons pour une apparence moderne */
+}
+
+.btn-primary {
+  background-color: #007bff; /* Définit une couleur de fond personnalisée pour le bouton primaire */
+  border: none; /* Supprime la bordure par défaut */
+}
+
+.btn-secondary {
+  background-color: #6c757d; /* Définit une couleur de fond personnalisée pour le bouton secondaire */
+  border: none; /* Supprime la bordure par défaut */
+}
+
+.btn-success {
+  background-color: #28a745; /* Définit une couleur de fond personnalisée pour le bouton de succès */
+  border: none; /* Supprime la bordure par défaut */
+}
+
+.mt-3 {
+  margin-top: 1rem; /* Ajoute une marge supérieure pour le bouton Télécharger */
+}
+
+.text-danger {
+  color: #dc3545; /* Définit une couleur rouge pour le texte d'erreur */
+}
+
+.float-end {
+  float: right; /* Aligne le bouton à droite dans l'en-tête */
+}

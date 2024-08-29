@@ -1,34 +1,57 @@
-<div *ngIf="loading">Loading...</div>
-<div *ngIf="error">{{ error }}</div>
-<div *ngIf="!loading && !error && transaction.length === 0">No credits found.</div>
+<div class="container mt-4">
+  <!-- Error and Loading Indicators -->
+  <div *ngIf="loading" class="alert alert-info">Loading...</div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
 
-<table *ngIf="!loading && !error && transaction.length > 0" class="table table-striped">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Account Number</th>
-      <th>Type Transaction</th>
-      <th>Devise</th>
-      <th>Amount</th>
-      <th>Status</th>
-      <th>createdAt</th>
-      <th>modifiedAt</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let credit of transaction">
-      <td>{{ credit.transactionId }}</td>
-      <td>{{ credit.accountNumber }}</td>
-      <td>{{ credit.typeTransaction }}</td>
-      <td>{{ credit.devise }}</td>
-      <td>{{ credit.amount }}</td>
-      <td>{{ credit.status }}</td>
-      <td>{{ credit.createdAt |date }}</td>
-      <td>{{ credit.modifiedAt |date}}</td>
-      <td>
-        
-        <button class="btn btn-danger">Delete</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+  <!-- Search Filters -->
+  <div class="row mb-4">
+    <div class="col-md-5">
+      <input type="date" [(ngModel)]="searchDate" class="form-control" placeholder="Search by Date" />
+    </div>
+    <div class="col-md-5">
+      <input type="text" [(ngModel)]="searchAccountNumber" class="form-control" placeholder="Search by Account Number" />
+    </div>
+    <div class="col-md-2 d-flex justify-content-end">
+      <button (click)="getTransactionsByDate()" class="btn btn-primary mr-2">Date</button>
+      <button (click)="getTransactionsByAccountNumber()" class="btn btn-secondary">Account</button>
+    </div>
+  </div>
+
+  <!-- Transactions Table -->
+  <div class="table-responsive">
+    <table *ngIf="!loading && !error && transaction.length > 0" class="table table-bordered table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th>ID</th>
+          <th>Account Number</th>
+          <th>Type Transaction</th>
+          <th>Devise</th>
+          <th>Amount</th>
+          <th>Status</th>
+          <th>Created At</th>
+          <th>Modified At</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let transaction of transaction">
+          <td>{{ transaction.transactionId }}</td>
+          <td>{{ transaction.bankAccount ? transaction.bankAccount.accountNumber : 'N/A' }}</td>
+          <td>{{ transaction.typeTransaction }}</td>
+          <td>{{ transaction.devise }}</td>
+          <td>{{ transaction.amount }}</td>
+          <td>{{ transaction.status }}</td>
+          <td>{{ transaction.createdAt | date }}</td>
+          <td>{{ transaction.modifiedAt | date }}</td>
+          <td>
+            <button class="btn btn-danger btn-sm">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="!loading && !error && transaction.length === 0" class="alert alert-warning">
+    No transactions found.
+  </div>
+</div>
