@@ -57,7 +57,7 @@ export class LoanComponent implements OnInit {
     this.creditRequestService.deleteCreditRequest(id).pipe(
       switchMap(() => this.currentUser$),
       switchMap(user => {
-        if (user) {
+        if (user && user.idUser) {
           return this.creditRequestService.getCreditsByUserId(user.idUser);
         } else {
           throw new Error('No current user found');
@@ -66,10 +66,11 @@ export class LoanComponent implements OnInit {
       tap(data => this.credits = data),
       catchError(error => {
         console.error('Error deleting credit request', error);
-        return of([]);
+        return of([]); // return an empty array in case of error
       })
     ).subscribe();
   }
+  
 
   showAmortizationSchedule(creditId: number): void {
     this.selectedCreditId = creditId;
