@@ -17,6 +17,7 @@
           </span>
         </p>
         <button (click)="deleteCredit(credit.id)"><i class="bi bi-trash" ></i> Delete Credit</button>
+        <button class="btn btn-info" (click)="showAmortizationSchedule(credit.id)" data-bs-toggle="modal" data-bs-target="#amortizationScheduleModal">View Amortization</button>
       </div>
     </div>
   
@@ -24,4 +25,43 @@
       <p>No credits found for this user.</p>
     </ng-template>
   </div>
+ <!-- Add this HTML code to your loan.component.html -->
+ <div class="modal fade" id="amortizationScheduleModal" tabindex="-1" aria-labelledby="amortizationScheduleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="amortizationScheduleModalLabel">Amortization Schedule</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div *ngIf="amortizationEntries.length === 0">No amortization entries found.</div>
+          <table *ngIf="amortizationEntries.length > 0" class="table table-striped">
+            <thead>
+              <tr>
+                <th>Payment Month</th>
+                <th>Principal</th>
+                <th>Interest</th>
+                <th>Remaining Balance</th>
+                <th>monthly Payment</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let entry of amortizationEntries">
+                <td>{{ entry.month }}</td>
+                <td>{{ entry.principal | currency: 'TND' }}</td>
+                <td>{{ entry.interest | currency: 'TND' }}</td>
+                <td>{{ entry.remainingBalance | currency: 'TND' }}</td>
+                <td>{{ entry.monthlyPayment | currency: 'TND' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
   

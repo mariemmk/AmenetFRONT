@@ -16,10 +16,13 @@ import { DebitComponent } from './debit/debit.component';
 import { GestionBudgetComponent } from './gestion-budget/gestion-budget.component';
 import { IncomeComponent } from './income/income.component';
 import { ExpenseComponent } from './expense/expense.component';
+import { AmortizationDialogComponent } from './amortization-dialog/amortization-dialog.component';
 
 
 @NgModule({
   declarations: [
+  
+    AmortizationDialogComponent
   ],   
   providers: [],
   bootstrap: [AppComponent],

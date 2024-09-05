@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, Observable, throwError } from 'rxjs';
 import { Credit } from '../core/models/CreditRequest';
 import { Client } from '../core/models/Client';
+import { AmortizationEntry } from '../core/models/AmortizationEntry';
 
 @Injectable({
   providedIn: 'root'
@@ -94,4 +95,8 @@ getAllCreditRequests(): Observable<Credit[]> {
    
   }
 
+
+  getAmortizationEntriesByCreditId(id: number): Observable<AmortizationEntry[]> {
+    return this.http.get<AmortizationEntry[]>(`http://localhost:8089/amanet/credit/credit/${id}`);
+  }
 }

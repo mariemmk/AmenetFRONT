@@ -127,6 +127,7 @@
             <th>Principal</th>
             <th>Interest</th>
             <th>Remaining Balance</th>
+            <th>Monthly Payment</th>
           </tr>
         </thead>
         <tbody>
@@ -135,6 +136,7 @@
             <td>{{ entry.principal | number:'1.2-2' }}</td>
             <td>{{ entry.interest | number:'1.2-2' }}</td>
             <td>{{ entry.remainingBalance | number:'1.2-2' }}</td>
+            <td>{{ entry.monthlyPayment | currency: 'TND' }}</td>
           </tr>
         </tbody>
       </table>

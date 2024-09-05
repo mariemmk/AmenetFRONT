@@ -3,4 +3,5 @@ export interface AmortizationEntry {
     principal: number;
     interest: number;
     remainingBalance: number;
+    monthlyPayment :number;
   }
