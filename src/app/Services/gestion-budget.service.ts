@@ -61,4 +61,21 @@ export class GestionBudgetService {
   }
   return throwError('No user found');
   }
+
+  updateIncome(idIncome: number, updatedIncome: Income): Observable<Income> {
+    return this.http.put<Income>(`http://localhost:8089/amanet/api/incomes/update/${idIncome}`, updatedIncome);
+  }
+  
+  updateexpense(idIncome: number, updatedIncome: Income): Observable<Income> {
+    return this.http.put<Income>(`http://localhost:8089/amanet/api/incomes/update/${idIncome}`, updatedIncome);
+  }
+  getMonthlyData(): Observable<Map<string, { income: number, expense: number }>> {
+    const user = this.userSubject.value;
+    if (user && user.idUser) {
+
+    return this.http.get<Map<string, { income: number, expense: number }>>(`http://localhost:8089/amanet/api/incomes/monthly/${user.idUser}`);
+  }
+  return throwError('No user found');
+  }
+  
 }

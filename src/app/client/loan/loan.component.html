@@ -1,1 +1,27 @@
-<p>loan works!</p>
+<div class="container">
+    <div *ngIf="credits.length > 0; else noCredits">
+      <div class="title">Your Credits</div>
+      <div *ngFor="let credit of credits" class="credit-card">
+        <h3>{{ credit.loanType }}</h3>
+        <p><strong>Amount:</strong> {{ credit.amount| currency:'TND'  }}</p>
+        <p><strong>Request Date:</strong> {{ credit.requestDate | date }}</p>
+        <p><strong>Status:</strong> 
+          <span 
+            class="status" 
+            [ngClass]="{
+              'approved': credit.status === 'Approved',
+              'pending': credit.status === 'Pending',
+              'rejected': credit.status === 'Rejected'
+            }">
+            {{ credit.status }}
+          </span>
+        </p>
+        <button (click)="deleteCredit(credit.id)"><i class="bi bi-trash" ></i> Delete Credit</button>
+      </div>
+    </div>
+  
+    <ng-template #noCredits>
+      <p>No credits found for this user.</p>
+    </ng-template>
+  </div>
+  

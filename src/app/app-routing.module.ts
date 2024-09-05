@@ -26,55 +26,47 @@ import { GestionBudgetComponent } from './client/gestion-budget/gestion-budget.c
 import { ForgetComponent } from './shared/forget/forget.component';
 import { AccountRequestListComponent } from './admin/account-request-list/account-request-list.component';
 import { ListReclamationComponent } from './admin/list-reclamation/list-reclamation.component';
+import { LoanComponent } from './client/loan/loan.component';
+import { LoginAdminComponent } from './admin/login-admin/login-admin.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignupComponent },
+  { path: 'forget', component: ForgetComponent },
+  { path: 'Landing', component: LandingComponent },
+  { path: 'simulator', component: SimulatorComponent },
+  { path: 'Auto', component: AutoInvestComponent },
+  { path: 'Placement', component: PlacementComponent },
+  { path: 'Credim', component: CredimWataniComponent },
+  { path: 'Preslaire', component: PreslaireAmenagementComponent },
 
-  {path: 'signup', component:SignupComponent},
-  {path:'forget',component:ForgetComponent},
-  {path:'Landing', component:LandingComponent},
-  {path:'simulator', component:SimulatorComponent},
-  {path:'Auto', component:AutoInvestComponent},
-  {path:'Placement', component:PlacementComponent},
-  {path:'Credim', component:CredimWataniComponent},
-  {path:'Preslaire', component:PreslaireAmenagementComponent},
+  { path: 'admin', component: AdminComponent, children: [
+      { path: 'ListUser', component: ListUsersComponent },
+      { path: 'dashbord', component: DashbordAdminComponent },
+      { path: 'ListCredits', component: ListCreditsComponent },
+      { path: 'ListTrans', component: ListTransactionsComponent },
+      { path: 'ListAccountRequest', component: AccountRequestListComponent },
+      { path: 'ListRec', component: ListReclamationComponent },
+      { path: 'loginadmin', component: LoginAdminComponent }
+    ]
+  },
 
-  {path:'admin', component:AdminComponent ,  children:[
-  
-    {path:'ListUser', component:ListUsersComponent},
-    {path:'dashbord',component:DashbordAdminComponent},
-    {path:'ListCredits',component:ListCreditsComponent},
-    {path:'ListTrans',component:ListTransactionsComponent},
-    {path:'ListAccountRequest', component:AccountRequestListComponent},
-    {path:'dashbord',component:DashbordAdminComponent},
-    {path:'ListRec',component:ListReclamationComponent}
-   
-  ]}, 
+  { path: 'client', component: ClientComponent, children: [
+      { path: 'transaction', component: TransactionComponent },
+      { path: 'profile', component: ProfilComponent },
+      { path: 'credit', component: CreditRequestComponent },
+      { path: 'reclamation', component: ReclamationComponent },
+      { path: 'currency', component: ChangeComponent },
+      { path: 'Bourse', component: BourseComponent },
+      { path: 'gestionBudget', component: GestionBudgetComponent },
+      { path: 'loan', component: LoanComponent }
+    ]
+  },
 
+  { path: 'amennet', component: ClientComponent },
 
-
-
- 
-  {path:'client', component:ClientComponent,
-children:[
-          {path:'transaction',component:TransactionComponent},
-          {path:'profile', component:ProfilComponent},
-          {path:'credit',component:CreditRequestComponent},
-          {path:'reclamation',component:ReclamationComponent},
-          {path:'currency',component:ChangeComponent},
-          {path:'Bourse',component:BourseComponent},
-          {path:'gestionBudget',component:GestionBudgetComponent},
-
-         ]
-        },
-
-
-
-
-  {path: 'amennet',component:ClientComponent},
-  
+  { path: '**', redirectTo: 'Landing' } // Redirect unknown paths to LandingComponent
 ];
-
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

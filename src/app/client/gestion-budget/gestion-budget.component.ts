@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit,ChangeDetectorRef  } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { GestionBudgetService } from 'src/app/Services/gestion-budget.service';
@@ -9,7 +9,6 @@ import { Income } from 'src/app/core/models/Incomes';
 import { selectCurrentUser } from 'src/app/core/models/user.selectors';
 import { BankAccount } from 'src/app/core/models/BankAccount';
 import { ChartData, ChartOptions } from 'chart.js';
-
 import { currentUser } from 'src/app/store/actions/user.action';
 declare var bootstrap: any;
 
@@ -25,25 +24,37 @@ export class GestionBudgetComponent implements OnInit {
   incomesList: Income[] = [];
   monthlyExpenses: Map<string, number> = new Map();
 
-  public lineChartData: ChartData<'line'> = {
-    datasets: [{
-      data: [], 
-      label: 'Monthly Expenses',
-      borderColor: 'rgba(0,123,255,1)',
-      backgroundColor: 'rgba(0,123,255,0.3)',
-      fill: true // if you want the area under the line to be filled
-    }]
-  };
+  // Données du graphique en ligne
   
   public lineChartLabels: string[] = [];
-  public lineChartOptions: ChartOptions<'line'> = {
-    responsive: true,
+  public lineChartData: ChartData<'line'> = {
+    datasets: [
+      {
+        data: [], 
+        label: 'Income',
+        borderColor: 'rgba(0,123,255,1)',
+        backgroundColor: 'rgba(0,123,255,0.3)',
+        fill: false,
+      },
+      {
+        data: [], 
+        label: 'Expenses',
+        borderColor: 'rgba(255,0,0,1)',
+        backgroundColor: 'rgba(255,0,0,0.3)',
+        fill: false,
+      }
+    ]
   };
+  
+ 
+ 
   public lineChartLegend = true;
-  public lineChartType: 'line' = 'line'; // Explicitly typing as 'line'
-  public lineChartPlugins = [];
+  public lineChartType: 'line' = 'line';
+  
+  
   
 
+  // Données des graphiques circulaires
   public pieChartOptions: ChartOptions<'pie'> = {
     responsive: true,
   };
@@ -55,7 +66,7 @@ export class GestionBudgetComponent implements OnInit {
     labels: [],
     datasets: [{ data: [] }]
   };
-  
+
   public expenseChartData: ChartData<'pie', number[]> = {
     labels: [],
     datasets: [{ data: [] }]
@@ -64,7 +75,7 @@ export class GestionBudgetComponent implements OnInit {
   constructor(
     private gestionBudgetService: GestionBudgetService,
     private store: Store<any>,
-    private userService: UserService
+    private userService: UserService, private cdRef: ChangeDetectorRef
   ) {
     this.currentUser$ = this.store.pipe(select(selectCurrentUser));
   }
@@ -72,37 +83,41 @@ export class GestionBudgetComponent implements OnInit {
   ngOnInit(): void {
     const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
     const accessToken = localStorage.getItem('accessToken') || '';
-
+  
     if (storedUser && storedUser.idUser && accessToken) {
       this.store.dispatch(currentUser({ user: storedUser, accessToken }));
     }
-
+  
     this.currentUser$.subscribe(user => {
       if (user) {
         this.userService.getBankAccounts(user.idUser).subscribe(response => {
+          console.log('Bank Accounts Response:', response);
           this.bankAccount = response;
         }, error => {
           console.error('Error fetching bank accounts:', error);
         });
-
+  
         this.loadIncomes(user);
         this.loadExpenses(user);
-        this.gestionBudgetService.getMonthlyExpenses().subscribe(
-          (data: any) => {
-            console.log('Received data:', data); // Debugging line
-            // Convert data to a Map if needed
-            // Existing conversion code
-          },
-          error => {
-            console.error('Failed to load monthly expenses', error);
-          }
-        );
+        this.loadMonthlyData(user.idUser); // Important: load monthly expenses to update the line chart
       } else {
         console.error('No current user found');
+        this.cdRef.detectChanges();
       }
     });
   }
-
+  
+  ngAfterViewInit(): void {
+    this.currentUser$.subscribe(user => {
+      if (user) {
+        this.userService.getBankAccounts(user.idUser).subscribe(response => {
+          this.bankAccount = response;
+          this.cdRef.detectChanges(); // Ensure change detection is run after the view is initialized
+        });
+      }
+    });
+  }
+  
   loadExpenses(user: Client) {
     this.gestionBudgetService.getExpensesByUser(user.idUser).subscribe(expenses => {
       this.expensesList = expenses;
@@ -173,36 +188,53 @@ export class GestionBudgetComponent implements OnInit {
     });
   }
 
-  loadMonthlyExpenses(): void {
-    this.currentUser$.subscribe(user => {
-      if (user) {
-        this.gestionBudgetService.getMonthlyExpenses().subscribe(
-          (data: any) => {
-            // Convert object to Map
-            this.monthlyExpenses = new Map(Object.entries(data));
-            this.updateChartData();
-          },
-          error => {
-            console.error('Failed to load monthly expenses', error);
-          }
-        );
+  loadMonthlyData(idUser: number): void {
+    this.gestionBudgetService.getMonthlyData().subscribe(
+      (data: any) => {
+        console.log('Monthly Data:', data);
+        this.updateLineChart(data);
+      },
+      error => {
+        console.error('Failed to load monthly data', error);
       }
-    });
+    );
   }
   
-
-  updateChartData(): void {
+  updateLineChart(data: any): void {
     const labels: string[] = [];
-    const data: number[] = [];
+    const incomeData: number[] = [];
+    const expenseData: number[] = [];
   
-    this.monthlyExpenses.forEach((value, key) => {
-      labels.push(key);
-      data.push(value);
+    Object.keys(data).forEach(month => {
+      labels.push(month);
+      incomeData.push(data[month].income);
+      expenseData.push(data[month].expense);
     });
   
     this.lineChartLabels = labels;
-    this.lineChartData.datasets[0].data = data;
+    this.lineChartData = {
+      labels: labels,
+      datasets: [
+        {
+          data: incomeData,
+          label: 'Income',
+          borderColor: 'rgba(0,123,255,1)',
+          backgroundColor: 'rgba(0,123,255,0.3)',
+          fill: false,
+        },
+        {
+          data: expenseData,
+          label: 'Expenses',
+          borderColor: 'rgba(255,0,0,1)',
+          backgroundColor: 'rgba(255,0,0,0.3)',
+          fill: false,
+        }
+      ]
+    };
+  
+    this.cdRef.detectChanges();
   }
+  
   
   
 }

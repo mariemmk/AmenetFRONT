@@ -3,6 +3,7 @@ import { ChartData, ChartType } from 'chart.js';
 import { Client } from 'src/app/core/models/Client';
 import { Reclamation } from 'src/app/core/models/reclamation';
 import { Transaction } from 'src/app/core/models/Transactions';
+import { CreditRequestService } from 'src/app/Services/credit-request.service';
 import { ReclamationService } from 'src/app/Services/reclamation.service';
 import { TransactionService } from 'src/app/Services/transaction.service';
 
@@ -48,19 +49,19 @@ export class DashbordAdminComponent implements OnInit {
   public donutChartType: ChartType = 'doughnut';
 
 
-  constructor(private creditService: UserService , private transactionService:TransactionService , private reclamationService:ReclamationService) { }
+  constructor(private userService:UserService,private creditRequestService:CreditRequestService  , private transactionService:TransactionService , private reclamationService:ReclamationService) { }
 
   ngOnInit(): void {
     this.loadPieChartData();
     this.loadBarChartData();
-    this.loadDonutChartData();
+
     this.loadTotalUsers();
     this.loadTotalTransactions();
     this.loadTotalReclamations();
   }
 
   loadPieChartData() {
-    this.creditService.getCountByStatus().subscribe(data => {
+    this.creditRequestService.getCountByStatus().subscribe(data => {
       this.pieChartLabels = Object.keys(data);
       this.pieChartData.labels = this.pieChartLabels;
       this.pieChartData.datasets[0].data = Object.values(data);
@@ -68,7 +69,7 @@ export class DashbordAdminComponent implements OnInit {
   }
 
   loadBarChartData() {
-    this.creditService.getCountByCreditType().subscribe(data => {
+    this.creditRequestService.getCountByCreditType().subscribe(data => {
       this.barChartLabels = Object.keys(data);
       this.barChartData.labels = this.barChartLabels;
       this.barChartData.datasets[0].data = Object.values(data);
@@ -76,13 +77,7 @@ export class DashbordAdminComponent implements OnInit {
     });
   }
 
-  loadDonutChartData() {
-    this.creditService.getCountByCreditType().subscribe(data => {
-      this.donutChartLabels = Object.keys(data);
-      this.donutChartData.labels = this.donutChartLabels;
-      this.donutChartData.datasets[0].data = Object.values(data);
-    });
-  }
+  
 
   generateColors(length: number) {
     const colors = [];
@@ -93,7 +88,7 @@ export class DashbordAdminComponent implements OnInit {
   }
 
   loadTotalUsers() {
-    this.creditService.getAllUsers().subscribe(
+    this.userService.getAllUsers().subscribe(
       (users: Client[]) => this.totalUsers = users.length,
       error => console.error('Error fetching user count:', error)
     );

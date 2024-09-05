@@ -1,0 +1,57 @@
+/* Container styles for centering the content */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Styles for each credit card */
+  .credit-card {
+    background-color: #fff; /* White background for the card */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for 3D effect */
+    padding: 20px; /* Padding inside the card */
+    margin: 10px 0; /* Margin between cards */
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+    text-align: center; /* Center text inside the card */
+  }
+  
+  /* Styles for the delete button */
+  .credit-card button {
+    background-color: #dc3545; /* Red color for delete */
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px; /* Space above the button */
+  }
+  
+  .credit-card button:hover {
+    background-color: #c82333; /* Darker red on hover */
+  }
+  
+  /* Styles for the status label */
+  .status {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+  
+  /* Styles for each status type */
+  .approved {
+    color: #28a745; /* Green for approved */
+  }
+  
+  .pending {
+    color: #ffc107; /* Yellow for pending */
+  }
+  
+  .rejected {
+    color: #dc3545; /* Red for rejected */
+  }
+  

@@ -38,3 +38,8 @@ export class Client {
         return myUser;
     }
 }
+export class Admin extends Client {
+    constructor() {
+        super();
+        this.role = "ADMIN";
+    }}

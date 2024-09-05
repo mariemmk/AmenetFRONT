@@ -36,18 +36,24 @@ export class ListCreditsComponent implements OnInit {
       }
     );
   }
-  approveCredit(creditId: number): void {
-    this.creditRequestService.approveCreditRequest(creditId).subscribe((approvedCredit) => {
-      this.credits = this.credits.map(credit =>
-        credit.id === creditId ? approvedCredit : credit
-      );
-    });
+  approveCredit(id: number): void {
+    this.creditRequestService.approveCreditRequest(id).subscribe(
+      (approvedCredit) => {
+        this.credits = this.credits.map(credit =>
+          credit.id === id ? approvedCredit : credit
+        );
+      },
+      (error) => {
+        console.error('Error approving credit', error);
+      }
+    );
   }
+  
 
-  rejectCredit(creditId: number): void {
-    this.creditRequestService.rejectCreditRequest(creditId).subscribe((rejectedCredit) => {
+  rejectCredit(id: number): void {
+    this.creditRequestService.rejectCreditRequest(id).subscribe((rejectedCredit) => {
       this.credits = this.credits.map(credit =>
-        credit.id === creditId ? rejectedCredit : credit
+        credit.id === id ? rejectedCredit : credit
       );
     });
   }

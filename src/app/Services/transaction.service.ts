@@ -70,4 +70,8 @@ getTransactionsByDate(date: string): Observable<Transaction[]> {
 getTransactionsByAccountNumber(accountNumber: string): Observable<Transaction[]> {
   return this.http.get<Transaction[]>(`http://localhost:8089/amanet/bank/transactionsByAccountNumber?accountNumber=${accountNumber}`);
 }
+
+deleteTransaction(transactionId: number): Observable<Transaction> {
+  return this.http.delete<Transaction>(`http://localhost:8089/amanet/bank/deletTransaction/${transactionId}`, this.httpOptions);
+}
 }

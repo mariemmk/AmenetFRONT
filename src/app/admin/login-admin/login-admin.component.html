@@ -1,52 +1,58 @@
+<div *ngIf="!spinner" class="fade-in">
+  <div class="d-flex row main">
+    <div class="col-8">
+      <img src="/assets/img/amen.jpg" alt="Amen Bank" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
 
-<div *ngIf="!spinner" class="fade-in"> 
-  
-    <div class="d-flex row main">
-     
-      <div class="col-8">
-        <img src="/assets/img/amen.jpg" alt="" style="width: 100%; height: 100%; object-fit: fill;">
-      </div>
-  
-      <div class="col-4">
-        <div class="myContainer">
-          <div class="screen center-div">
-            <div class="screen__content">
-              <!-- Add your form here -->
-              <form class="login" #form="ngForm" (ngSubmit)="login()">
-                <div class="alert alert-danger" *ngIf="error">Password or email are not valid!</div>
-                <!-- Add the login fields here -->
-                <div class="login__field">
-                  <i class="login__icon bi bi-person"></i>
-                  <input type="text" class="login__input" placeholder="Email" name="email" [(ngModel)]="email" #mail="ngModel" autocomplete="off" required pattern="^[\w-]+(\.[\w-]+)*@[a-zA-Z\d-]+(\.[a-zA-Z\d-]+)*\.[a-zA-Z]{2,}$">
-                </div>
-                <div class="login__field">
-                  <i class="login__icon bi bi-lock"></i>
-                  <a (click)="show()" *ngIf="!showPassword" class="login__icon__right bi bi-eye-fill"></a>
-                  <i (click)="show()" *ngIf="showPassword" class="login__icon__right bi bi-eye-slash-fill"></i>
-                  <input type="{{ showPassword ? 'text' : 'password' }}" name="password" class="login__input" placeholder="Password" [(ngModel)]="password" #mdp="ngModel" required autocomplete="off" name="password">
-                </div>
-                <div class="d-flex justify-content-end">
-                  <a class="forget" routerLink="/forget">Forget password ?</a>
-                </div>
-                <!-- Add the login button here -->
-                <button [disabled]="form.invalid" type="submit" class="button login__submit">
-                  <span *ngIf="!loading" class="button__text">Log In Now</span>
-                  <i *ngIf="!loading" class="button__icon bi bi-chevron-right"></i>
-                  <span *ngIf="loading" class="button__text " style="margin-right: 3rem;">Authenticating......</span>
-                  <div class="loading-circle" *ngIf="loading"></div>
-                </button>
-               
-              </form>
-            </div>
-            <div class="screen__background">
-              <span class="screen__background__shape screen__background__shape4"></span>
-              <span class="screen__background__shape screen__background__shape3"></span>		
-              <span class="screen__background__shape screen__background__shape2"></span>
-              <span class="screen__background__shape screen__background__shape1"></span>
-            </div>	
+    <div class="col-4">
+      <div class="myContainer">
+        <div class="screen center-div">
+          <div class="screen__content">
+            <!-- Login Form -->
+            <form [formGroup]="loginForm" class="login" *ngIf="!showOtpForm" (ngSubmit)="login()">
+              <div class="alert alert-danger" *ngIf="error && !showOtpForm">Email or password is incorrect!</div>
+              <div class="login__field">
+                <i class="login__icon bi bi-person"></i>
+                <input type="text" formControlName="email" class="login__input" placeholder="Email" autocomplete="off" required>
+              </div>
+              <div class="login__field">
+                <i class="login__icon bi bi-lock"></i>
+                <i (click)="togglePasswordVisibility()" class="login__icon__right bi" [ngClass]="{'bi-eye-fill': !showPassword, 'bi-eye-slash-fill': showPassword}"></i>
+                <input [type]="showPassword ? 'text' : 'password'" formControlName="password" class="login__input" placeholder="Password" autocomplete="off">
+              </div>
+              <div class="d-flex justify-content-end">
+                <a class="forget" routerLink="/forget">Forgot password?</a>
+              </div>
+              <button [disabled]="loginForm.invalid || loading" type="submit" class="button login__submit">
+                <span *ngIf="!loading" class="button__text">Log In</span>
+                <i *ngIf="!loading" class="button__icon bi bi-chevron-right"></i>
+                <span *ngIf="loading" class="button__text" style="margin-right: 3rem;">Authenticating...</span>
+                <div class="loading-circle" *ngIf="loading"></div>
+              </button>
+              <button type="button" class="button login__submit" routerLink="/signup">
+                <span class="button__text">Sign Up</span>
+                <i class="button__icon bi bi-chevron-right"></i>
+              </button>
+            </form>
+
+            <!-- OTP Form -->
+            <form [formGroup]="otpForm" class="login" *ngIf="showOtpForm" (ngSubmit)="verifyOtp()">
+              <input type="hidden" formControlName="email" [value]="email">
+              <div class="alert alert-danger" *ngIf="error && showOtpForm">Invalid code!</div>
+              <div class="login__field">
+                <i class="login__icon bi bi-lock"></i>
+                <input type="text" formControlName="otpCode" class="login__input" placeholder="Enter OTP Code" autocomplete="off">
+              </div>
+              <button [disabled]="otpForm.invalid || loading" type="submit" class="button login__submit">
+                <span *ngIf="!loading" class="button__text">Verify Code</span>
+                <i *ngIf="!loading" class="button__icon bi bi-chevron-right"></i>
+                <span *ngIf="loading" class="button__text" style="margin-right: 3rem;">Verifying...</span>
+                <div class="loading-circle" *ngIf="loading"></div>
+              </button>
+            </form>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
+</div>

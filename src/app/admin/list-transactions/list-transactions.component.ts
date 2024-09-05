@@ -68,4 +68,20 @@ searchAccountNumber: string = '';
       this.transactionService.getAllTransactions(); // If no date is provided, fetch all transactions again
     }
   }
+
+
+  
+  deleteTransaction(transactionId: number): void {
+    this.transactionService.deleteTransaction(transactionId).subscribe(
+      () => {
+        // Remove the deleted transaction from the list
+        this.transaction = this.transaction.filter(transaction => transaction.transactionId !== transactionId);
+      },
+      (error) => {
+        this.error = 'Error deleting transaction';
+        this.loading = false;
+      }
+    );
+  }
+
 }

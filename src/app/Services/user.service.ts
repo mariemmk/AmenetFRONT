@@ -172,13 +172,7 @@ public resetPassword(credentials: {email : string, newPass : string}){
     return this.http.get<{ [key: string]: number }>('http://localhost:8089/amanet/BankAccount/account-requests/count-by-status');
   }
 
-  getCountByCreditType(): Observable<any> {
-    return this.http.get<any>('http://localhost:8089/amanet/credit/api/credits/count-by-type');
-  }
 
-  getCountCreditByStatus(): Observable<any> {
-    return this.http.get<any>(`http://localhost:8089/amanet/credit/api/credits/count-by-status`);
-  }
 
 
   public updateContactDetails(idUser: number, phoneNumber: string, address: string): Observable<Client> {
@@ -190,6 +184,9 @@ public resetPassword(credentials: {email : string, newPass : string}){
   
     // Make the PUT request to the backend
     return this.http.put<Client>(`http://localhost:8089/amanet/user/editContactDetails/${idUser}`, updateData, this.httpOptions);
+  }
+  public getUserByEmail(email: string): Observable<Client> {
+    return this.http.get<Client>(`http://localhost:8089/amanet/user/getuserbyemail?email=${email}`);
   }
   
 }

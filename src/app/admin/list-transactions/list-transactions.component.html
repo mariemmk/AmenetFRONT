@@ -44,7 +44,7 @@
           <td>{{ transaction.createdAt | date }}</td>
           <td>{{ transaction.modifiedAt | date }}</td>
           <td>
-            <button class="btn btn-danger btn-sm">Delete</button>
+            <button class="btn btn-danger btn-sm" (click)="deleteTransaction(transaction.transactionId)">Delete</button>
           </td>
         </tr>
       </tbody>
@@ -55,3 +55,4 @@
     No transactions found.
   </div>
 </div>
+<app-side-bar-admin></app-side-bar-admin>

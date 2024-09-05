@@ -22,6 +22,7 @@
         <td>
           <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userDetailsModal" (click)="selectUser(request.user.idUser)"><i class="bi bi-box-arrow-up-left"></i></button>
           <button class="btn btn-success" (click)="approveAccountRequest(request.idRequest)">Approve</button>
+          <button class="btn btn-danger">Decline</button>
         </td>
       </tr>
     </tbody>
@@ -92,3 +93,4 @@
     </div>
   </div>
 </div>
+<app-side-bar-admin></app-side-bar-admin>

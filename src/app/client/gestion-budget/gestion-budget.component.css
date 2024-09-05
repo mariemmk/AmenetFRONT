@@ -89,3 +89,9 @@ li {
   width: 300px;
   height: 300px;
 }
+/* Add this in your component's CSS file to ensure the canvas is visible */
+canvas {
+  display: block;
+  width: 100% !important;
+  height: auto !important;
+}

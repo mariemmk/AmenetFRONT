@@ -46,6 +46,7 @@ import { AccountRequestListComponent } from './admin/account-request-list/accoun
 import { ListReclamationComponent } from './admin/list-reclamation/list-reclamation.component';
 import { SideBarAdminComponent } from './admin/side-bar-admin/side-bar-admin.component';
 import { LoginAdminComponent } from './admin/login-admin/login-admin.component';
+import { LoanComponent } from './client/loan/loan.component';
 
 
 @NgModule({
@@ -85,6 +86,7 @@ import { LoginAdminComponent } from './admin/login-admin/login-admin.component';
     IncomeComponent,
     SideBarAdminComponent,
     LoginAdminComponent,
+    LoanComponent
  
   ],
   providers: [

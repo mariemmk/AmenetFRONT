@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, throwError } from 'rxjs';
 import { Credit } from '../core/models/CreditRequest';
 import { Client } from '../core/models/Client';
 
@@ -12,9 +12,7 @@ export class CreditRequestService {
   host: string = 'http://localhost:8089';
   public user$: BehaviorSubject<Client | null> = new BehaviorSubject<Client | null>(null);
   private httpOptions = {
-    headers: new HttpHeaders({
-      'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-    })
+   
   };
 
   constructor(private http: HttpClient) { }
@@ -53,12 +51,16 @@ export class CreditRequestService {
   }
 */
 
+getCountByStatus(): Observable<any> {
+  return this.http.get<any>(`http://localhost:8089/amanet/credit/count-by-status`);
+}
+
+getCountByCreditType(): Observable<any> {
+  return this.http.get<any>(`http://localhost:8089/amanet/credit/count-by-credit-type`);
+}
+
   createCreditRequest(formData: FormData): Observable<Credit> {
-    return this.http.post<Credit>(`http://localhost:8089/amanet/credit/request`, formData, {
-      headers: new HttpHeaders({
-        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-      })
-    });
+    return this.http.post<Credit>(`http://localhost:8089/amanet/credit/request`, formData)
   }
   
 getAllCreditRequests(): Observable<Credit[]> {
@@ -66,19 +68,30 @@ getAllCreditRequests(): Observable<Credit[]> {
   }
 
   approveCreditRequest(id: number): Observable<Credit> {
-    return this.http.post<Credit>(`${this.host}/amanet/credit/request/${id}/approve`, null, this.httpOptions);
+    return this.http.put<Credit>(`http://localhost:8089/amanet/credit/approve/${id}`, null, this.httpOptions);
   }
 
   rejectCreditRequest(id: number): Observable<Credit> {
-    return this.http.post<Credit>(`${this.host}/amanet/credit/request/${id}/reject`, null, this.httpOptions);
+    return this.http.put<Credit>(`http://localhost:8089/amanet/credit/reject/${id}`, null, this.httpOptions);
   }
 
-  deleteCreditRequest(id: number): Observable<Credit> {
-    return this.http.delete<Credit>(`${this.host}/amanet/credit/remove/${id}`, this.httpOptions);
+  deleteCreditRequest(id: number): Observable<void> {
+    return this.http.delete<void>(`http://localhost:8089/amanet/credit/deletcredit/${id}`).pipe(
+      catchError(error => {
+        console.error('Error occurred while deleting credit request:', error);
+        return throwError(error); // Rethrow the error
+      })
+    );
   }
-
-
+  
   downloadFile(id: number): Observable<HttpResponse<Blob>> {
     return this.http.get(`http://localhost:8089/amanet/credit/request/${id}/file`, { responseType: 'blob', observe: 'response' });
   }
+
+  getCreditsByUserId(idUser:number): Observable<Credit[]> {
+
+      return this.http.get<Credit[]>(`http://localhost:8089/amanet/credit/user/${idUser}`);
+   
+  }
+
 }

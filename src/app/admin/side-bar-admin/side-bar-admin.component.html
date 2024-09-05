@@ -1,39 +1,38 @@
 <div class="container-fluid">
-    <div class="row">
-      <!-- Sidebar -->
-      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-        <div class="position-sticky">
-          <div class="list-group list-group-flush mx-3 mt-4">
+  <div class="row">
+    <!-- Sidebar -->
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="position-sticky">
+        <div class="list-group list-group-flush mx-3 mt-4">
 
-            <a href="/admin/dashbord" class="list-group-item list-group-item-action py-2 ">
-              <i class="fas fa fa-id-card fa-fw me-3"></i><span>Dashbord</span>
+          <a href="/admin/dashbord" class="list-group-item list-group-item-action py-2 ">
+            <i class="fas fa fa-id-card fa-fw me-3"></i><span>Dashbord</span>
+          </a>
+          <a href="/admin/ListUser" class="list-group-item list-group-item-action py-2 ">
+            <i class="fas fa fa-id-card fa-fw me-3"></i><span>List Users</span>
+          </a>
+          <a href="/admin/ListCredits" class="list-group-item list-group-item-action py-2 ">
+              <i class="fas fa fa-id-card fa-fw me-3"></i><span>List Credits</span>
             </a>
-            <a href="/admin/ListUser" class="list-group-item list-group-item-action py-2 ">
-              <i class="fas fa fa-id-card fa-fw me-3"></i><span>List Users</span>
+            
+            <a href="/admin/ListTrans" class="list-group-item list-group-item-action py-2 ">
+              <i class="fas fa fa-id-card fa-fw me-3"></i><span>List Transaction</span>
             </a>
-            <a href="/admin/ListCredits" class="list-group-item list-group-item-action py-2 ">
-                <i class="fas fa fa-id-card fa-fw me-3"></i><span>List Credits</span>
-              </a>
-              
-              <a href="/admin/ListTrans" class="list-group-item list-group-item-action py-2 ">
-                <i class="fas fa fa-id-card fa-fw me-3"></i><span>List Transaction</span>
-              </a>
 
-              <a href="/admin/ListRec" class="list-group-item list-group-item-action py-2 ">
-                <i class="fas fa fa-id-card fa-fw me-3"></i><span>List Reclamations</span>
-              </a>
+            <a href="/admin/ListRec" class="list-group-item list-group-item-action py-2 ">
+              <i class="fas fa fa-id-card fa-fw me-3"></i><span>List Reclamations</span>
+            </a>
 
-              <a href="/admin/ListAccountRequest" class="list-group-item list-group-item-action py-2 ">
-                <i class="fas fa fa-id-card fa-fw me-3"></i><span>List Account Requests </span>
-              </a>
-              
-          </div>
+            <a href="/admin/ListAccountRequest" class="list-group-item list-group-item-action py-2 ">
+              <i class="fas fa fa-id-card fa-fw me-3"></i><span>List Account Requests </span>
+            </a>
+            
         </div>
-      </nav>
-      <!-- Main content -->
-      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        <router-outlet class="router-content"></router-outlet>
-      </main>
-    </div>
+      </div>
+    </nav>
+    <!-- Main content -->
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <router-outlet class="router-content"></router-outlet>
+    </main>
   </div>
-  
+</div>
