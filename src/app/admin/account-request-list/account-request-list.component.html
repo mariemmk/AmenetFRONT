@@ -1,3 +1,4 @@
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 <div *ngIf="loading">Loading...</div>
 
 <div *ngIf="error" class="error-message">{{ error }}</div>
@@ -22,7 +23,7 @@
         <td>
           <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userDetailsModal" (click)="selectUser(request.user.idUser)"><i class="bi bi-box-arrow-up-left"></i></button>
           <button class="btn btn-success" (click)="approveAccountRequest(request.idRequest)">Approve</button>
-          <button class="btn btn-danger">Decline</button>
+          <button class="btn btn-danger"  (click)="declineAccountRequest(request.idRequest)">Decline</button>
         </td>
       </tr>
     </tbody>
@@ -87,10 +88,12 @@
           </div>
         </div>
         <div class="modal-footer text-end">
-          <button type="button" class="btn btn-danger" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Fermer">Close</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Fermer">Close</button>
+
         </div>
       </div>
     </div>
   </div>
 </div>
+</main>
 <app-side-bar-admin></app-side-bar-admin>

@@ -1,4 +1,5 @@
-<!-- list-credits.component.html -->
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+  <!-- list-credits.component.html -->
 <div *ngIf="loading">Loading...</div>
 <div *ngIf="error">{{ error }}</div>
 <div *ngIf="!loading && !error && credits.length === 0">No credits found.</div>
@@ -117,4 +118,5 @@
     </div>
   </div>
 </div>
+</main>
 <app-side-bar-admin></app-side-bar-admin>

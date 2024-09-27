@@ -165,7 +165,9 @@ public resetPassword(credentials: {email : string, newPass : string}){
   approveAccountRequest(idRequest:number):Observable<AccountRequest>{
     return this.http.post<AccountRequest>(`http://localhost:8089/amanet/user/approve-request/${idRequest}` , null , this.httpOptions)
   }
-
+  declineAccountRequest(idRequest:number):Observable<AccountRequest>{
+    return this.http.post<AccountRequest>(`http://localhost:8089/amanet/user/REFUSE-request/${idRequest}` , null , this.httpOptions)
+  }
 //stats
 
   getCountByStatus(): Observable<{ [key: string]: number }> {
