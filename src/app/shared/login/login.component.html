@@ -34,7 +34,9 @@
                 <i class="button__icon bi bi-chevron-right"></i>
               </button>
             </form>
-
+            <div class="d-flex justify-content-end">
+              <a class="forget" routerLink="/admin/loginadmin">Login Admin</a>
+            </div>
             <!-- OTP Form -->
             <form [formGroup]="otpForm" class="login" *ngIf="showOtpForm" (ngSubmit)="verifyOtp()">
               <input type="hidden" formControlName="email" [value]="email">

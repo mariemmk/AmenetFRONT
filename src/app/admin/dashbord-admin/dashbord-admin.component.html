@@ -33,14 +33,16 @@
     </div>
 
     <div class="charts-wrapper">
-        <div class="chart-container">
-            <h3>Accounts Status Distribution</h3>
-            <canvas baseChart
-                    [data]="pieChartData"
-                    [labels]="pieChartLabels"
-                    [type]="pieChartType">
-            </canvas>
-        </div>
+     <!-- Section Pie Chart -->
+<div class="chart-container">
+    <h3>Account Status Distribution</h3>
+    <canvas baseChart
+            [data]="pieChartData"
+            [labels]="pieChartLabels"
+            [type]="pieChartType">
+    </canvas>
+  </div>
+  
 
         <div class="chart-container">
             <h3>Credit Types Distribution</h3>
@@ -55,10 +57,11 @@
         <div class="chart-container">
             <h3>Credit Status Breakdown</h3>
             <canvas baseChart
-                    [data]="donutChartData"
-                    [labels]="donutChartLabels"
-                    [type]="donutChartType">
-            </canvas>
+            [data]="donutChartData"
+            [labels]="donutChartLabels"
+            [type]="donutChartType">
+    </canvas>
+    
         </div>
     </div>
 </div>

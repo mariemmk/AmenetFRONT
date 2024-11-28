@@ -6,7 +6,6 @@ import { Transaction } from 'src/app/core/models/Transactions';
 import { CreditRequestService } from 'src/app/Services/credit-request.service';
 import { ReclamationService } from 'src/app/Services/reclamation.service';
 import { TransactionService } from 'src/app/Services/transaction.service';
-
 import { UserService } from 'src/app/Services/user.service';
 
 @Component({
@@ -19,12 +18,23 @@ export class DashbordAdminComponent implements OnInit {
   public pieChartLabels: string[] = [];
   public pieChartData: ChartData<'pie', number[], string> = {
     labels: [],
-    datasets: [{ data: [], backgroundColor: ['rgba(255, 99, 132, 0.6)', 'rgba(54, 162, 235, 0.6)', 'rgba(255, 206, 86, 0.6)'] }]
+    datasets: [
+      {
+        data: [],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.6)',
+          'rgba(54, 162, 235, 0.6)',
+          'rgba(255, 206, 86, 0.6)'
+        ]
+      }
+    ]
   };
   public pieChartType: ChartType = 'pie';
+
   totalUsers: number = 0;
-  totalTransactions:number=0;
+  totalTransactions: number = 0;
   totalReclamations: number = 0;
+
   // Bar chart for credit types distribution
   public barChartLabels: string[] = [];
   public barChartData: ChartData<'bar', number[], string> = {
@@ -48,24 +58,56 @@ export class DashbordAdminComponent implements OnInit {
   };
   public donutChartType: ChartType = 'doughnut';
 
-
-  constructor(private userService:UserService,private creditRequestService:CreditRequestService  , private transactionService:TransactionService , private reclamationService:ReclamationService) { }
+  constructor(
+    private userService: UserService,
+    private creditRequestService: CreditRequestService,
+    private transactionService: TransactionService,
+    private reclamationService: ReclamationService
+  ) {}
 
   ngOnInit(): void {
-    this.loadPieChartData();
+    this.loadDonutChartData();
     this.loadBarChartData();
-
+    this.loadPieChartData(); // Call to load pie chart data
     this.loadTotalUsers();
     this.loadTotalTransactions();
     this.loadTotalReclamations();
   }
 
+  loadDonutChartData() {
+    this.creditRequestService.getCountByStatus().subscribe(
+      (data) => {
+        if (data) {
+          console.log('Data received for Donut Chart:', data);
+          this.donutChartLabels = Object.keys(data); // Set the labels
+          this.donutChartData.labels = this.donutChartLabels; // Update the labels in the data
+          this.donutChartData.datasets[0].data = Object.values(data); // Set the values
+        } else {
+          console.warn('No data received for Donut Chart');
+        }
+      },
+      (error) => {
+        console.error('Error fetching Donut Chart data:', error);
+      }
+    );
+  }
+
   loadPieChartData() {
-    this.creditRequestService.getCountByStatus().subscribe(data => {
-      this.pieChartLabels = Object.keys(data);
-      this.pieChartData.labels = this.pieChartLabels;
-      this.pieChartData.datasets[0].data = Object.values(data);
-    });
+    this.userService.getCountByStatus().subscribe(
+      (data) => {
+        if (data) {
+          console.log('Data received for Pie Chart:', data);
+          this.pieChartLabels = Object.keys(data); // Set the labels
+          this.pieChartData.labels = this.pieChartLabels; // Update the labels
+          this.pieChartData.datasets[0].data = Object.values(data); // Set the values
+        } else {
+          console.warn('No data received for Pie Chart');
+        }
+      },
+      (error) => {
+        console.error('Error fetching Pie Chart data:', error);
+      }
+    );
   }
 
   loadBarChartData() {
@@ -76,8 +118,6 @@ export class DashbordAdminComponent implements OnInit {
       this.barChartData.datasets[0].backgroundColor = this.generateColors(this.barChartLabels.length);
     });
   }
-
-  
 
   generateColors(length: number) {
     const colors = [];
@@ -94,13 +134,13 @@ export class DashbordAdminComponent implements OnInit {
     );
   }
 
-
   loadTotalTransactions() {
     this.transactionService.getAllTransactions().subscribe(
       (transactions: Transaction[]) => this.totalTransactions = transactions.length,
       error => console.error('Error fetching transaction count:', error)
     );
   }
+
   loadTotalReclamations() {
     this.reclamationService.getAllReclamations().subscribe(
       (reclamations: Reclamation[]) => {
@@ -108,9 +148,7 @@ export class DashbordAdminComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching reclamation count:', error);
-        // Ajoutez du code pour gérer l'erreur, par exemple afficher un message d'erreur à l'utilisateur
       }
     );
   }
-  
 }
